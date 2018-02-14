@@ -1,0 +1,69 @@
+.goban li.sign_-1 .stone img {
+background-image: url('white.png');
+-webkit-filter: drop-shadow(.045em .065em 1.7px rgba(0,0,0,.5));
+filter: drop-shadow(.045em .065em 1.7px rgba(0,0,0,.5));
+}
+.goban li.sign_1 .stone img {
+background-image: url('black.png');
+-webkit-filter: drop-shadow(.045em .065em 1.7px rgba(0,0,0,.5));
+filter: drop-shadow(.045em .065em 1.7px rgba(0,0,0,.5));
+}
+.goban,
+.goban .row li .stone span::before,
+.goban .row li .stone span::after,
+.goban .row li.cross .stone span {
+background-image: url('walnut.jpg');
+}
+.goban .row li {
+position: relative;
+background: url('inner.svg') center;
+}
+.goban .row li.hoshi::after {
+background: #000000;
+}
+.goban .row:nth-child(3) li {
+background-image: url('side-n.svg');
+}
+.goban .row:nth-last-child(3) li {
+background-image: url('side-s.svg');
+}
+.goban .row li:first-child {
+background-image: url('side-w.svg');
+}
+.goban .row li:last-child {
+background-image: url('side-e.svg');
+}
+.goban .row:nth-child(3) li:first-child {
+background-image: url('corner-nw.svg');
+}
+.goban .row:nth-child(3) li:last-child {
+background-image: url('corner-ne.svg');
+}
+.goban .row:nth-last-child(3) li:first-child {
+background-image: url('corner-sw.svg');
+}
+.goban .row:nth-last-child(3) li:last-child {
+background-image: url('corner-se.svg');
+}
+.goban {
+border: 0px solid #000000;
+}
+main {
+background-color: #006400;
+}
+.goban .row li.sign_1.point .stone::before {
+background: none;
+box-shadow: none;
+}
+.goban .row li.sign_-1.point .stone::before {
+background: none;
+box-shadow: none;
+}
+.goban li.sign_1 .stone::before {
+background: none;
+box-shadow: none;
+}
+.goban li.sign_-1 .stone::before {
+background: none;
+box-shadow: none;
+}

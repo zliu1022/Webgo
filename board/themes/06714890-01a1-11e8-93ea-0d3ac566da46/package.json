@@ -1,0 +1,9 @@
+{
+  "name": "photorealistic-theme",
+  "version": "0.3.1",
+  "description": "A theme with photorealistic stones for Sabaki",
+  "author": "Yichuan Shen",
+  "license": "CC0-1.0",
+  "homepage": "https://github.com/yishn/sabaki-photorealistic-theme",
+  "main": "styles.css"
+}

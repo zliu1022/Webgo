@@ -1,0 +1,1034 @@
+(;GM[1]FF[4]CA[UTF-8]AP[Sabaki:0.33.1]KM[7.5]SZ[19]DT[2018-01-27]PB[Zen7-s1.5k]PW[Zen6-s1.5w]
+(;B[pd]C[test]
+(;W[dp]
+(;B[qp]
+(;W[dd]
+(;B[fq]
+(;W[cn]
+(;B[lq]
+(;W[qj]
+(;B[qf]
+(;W[qm]
+(;B[pn]
+(;W[ro]
+(;B[pm]
+(;W[qo]
+(;B[po]
+(;W[ql]
+(;B[rp]
+(;W[mp]
+(;B[oq]
+(;W[ip]
+(;B[lp]
+(;W[eq]
+(;B[fp]
+(;W[in]
+(;B[fm]
+(;W[il]
+(;B[do]
+(;W[co]
+(;B[cq]
+(;W[cp]
+(;B[er]
+(;W[dq]
+(;B[hm]
+(;W[im]
+(;B[gk]
+(;W[ij]
+(;B[gi]
+(;W[mn]
+(;B[lo]
+(;W[ln]
+(;B[fc]
+(;W[cf]
+(;B[db]
+(;W[cc]
+(;B[ic]
+(;W[ob]
+(;B[pb]
+(;W[oc]
+(;B[pc]
+(;W[kc]
+(;B[md]
+(;W[mc]
+(;B[ld]
+(;W[lc]
+(;B[od]
+(;W[kd]
+(;B[jb]
+(;W[kf]
+(;B[ih]
+(;W[id]
+(;B[hd]
+(;W[he]
+(;B[ie]
+(;W[if]
+(;B[jd]
+(;W[je]
+(;B[id]
+(;W[hh]
+(;B[hi]
+(;W[ii]
+(;B[hg]
+(;W[jh]
+(;B[ig]
+(;W[jg]
+(;B[hf]
+(;W[rg]
+(;B[qg]
+(;W[rh]
+(;B[ch]
+(;W[ck]
+(;B[cb]
+(;W[bg]
+(;B[bh]
+(;W[bb]
+(;B[ba]
+(;W[bc]
+(;B[df]
+(;W[de]
+(;B[be]
+(;W[bf]
+(;B[dg]
+(;W[ec]
+(;B[eb]
+(;W[fd]
+(;B[gd]
+(;W[fe]
+(;B[ce]
+(;W[bd]
+(;B[ae]
+(;W[ad]
+(;B[ff]
+(;W[ab]
+(;B[pk]
+(;W[pj]
+(;B[pl]
+(;W[rf]
+(;B[re]
+(;W[se]
+(;B[rd]
+(;W[mo]
+(;B[mq]
+(;W[op]
+(;B[np]
+(;W[no]
+(;B[nq]
+(;W[oo]
+(;B[pp]
+(;W[nk]
+(;B[qk]
+(;W[rk]
+(;B[rj]
+(;W[rl]
+(;B[oj]
+(;W[qi]
+(;B[nj]
+(;W[mk]
+(;B[mj]
+(;W[lj]
+(;B[li]
+(;W[ki]
+(;B[lk]
+(;W[kj]
+(;B[ml]
+(;W[nl]
+(;B[nm]
+(;W[ll]
+(;B[mm]
+(;W[kk]
+(;B[lm]
+(;W[km]
+(;B[on]
+(;W[ko]
+(;B[dr]
+(;W[cr]
+(;B[cs]
+(;W[bq]
+(;B[dm]
+(;W[cm]
+(;B[ir]
+(;W[sp]
+(;B[sq]
+(;W[so]
+(;B[rq]
+(;W[gr]
+(;B[fr]
+(;W[hq]
+(;B[hr]
+(;W[gq]
+(;B[gs]
+(;W[jq]
+(;B[jr]
+(;W[kq]
+(;B[kr]
+(;W[dl]
+(;B[br]
+(;W[og]
+(;B[mg]
+(;W[oi]
+(;B[qn]
+(;W[rn]
+(;B[sm]
+(;W[rm]
+(;B[bj]
+(;W[ok]
+(;B[nh]
+(;W[oh]
+(;B[nf]
+(;W[lh]
+(;B[mh]
+(;W[of]
+(;B[nd]
+(;W[di]
+(;B[ge]
+(;W[ar]
+(;B[cq]
+(;W[sd]
+(;B[sc]
+(;W[sf]
+(;B[rb]
+(;W[bk]
+(;B[cr]
+(;W[bp]
+(;B[kp]
+(;W[fg]
+(;B[ef]
+(;W[fi]
+(;B[fj]
+(;W[ei]
+(;B[fh]
+(;W[eh]
+(;B[gh]
+(;W[jp]
+(;B[ho]
+(;W[io]
+(;B[lg]
+(;W[mi]
+(;B[ni]
+(;W[jf]
+(;B[le]
+(;W[ke]
+(;B[ol]
+(;W[lk]
+(;B[nn]
+(;W[kn]
+(;B[kb]
+(;W[eo]
+(;B[nc]
+(;W[nb]
+(;B[lb]
+(;W[mb]
+(;B[em]
+(;W[ek]
+(;B[eg]
+(;W[hn]
+(;B[gn]
+(;W[hl]
+(;B[dn]
+(;W[fo]
+(;B[go]
+(;W[ep]
+(;B[gp]
+(;W[gm]
+(;B[gl]
+(;W[hm]
+(;B[ak]
+(;W[al]
+(;B[aj]
+(;W[bl]
+(;B[ah]
+(;W[cd]
+(;B[li]
+(;W[kh]
+(;B[hk]
+(;W[ci]
+(;B[ik]
+(;W[jk]
+(;B[qh]
+(;W[ri]
+(;B[oe]
+(;W[lf]
+(;B[mf]
+(;W[bi]
+(;B[ai]
+(;W[pf]
+(;B[pe]
+(;W[aa]
+(;B[fb]
+(;W[ca]
+(;B[da]
+(;W[la]
+(;B[ka]
+(;W[ma]
+(;B[oa]
+(;W[jc]
+(;B[ib]
+(;W[na]
+(;B[pa]
+(;W[ej]
+(;B[cj]
+(;W[fk]
+(;B[gj]
+(;W[dj]
+(;B[el]
+(;W[dk]
+(;B[mi]
+(;W[ph]
+(;B[ba]
+(;W[qe]
+(;B[qd]
+(;W[ca]
+(;B[aq]
+(;W[ap]
+(;B[ba]
+(;W[hs]
+(;B[is]
+(;W[fl]
+(;B[fn]
+(;W[ee]
+(;B[dc]
+(;W[ca]
+(;B[ed]
+(;W[rc]
+(;B[sb]
+(;W[ec]
+(;B[ba]
+(;W[pg]
+(;B[qe]
+(;W[ca]
+(;B[ng]
+(;W[pi]
+(;B[ba]
+(;W[fs]
+(;B[es]
+(;W[ca]
+(;B[ed]
+(;W[af]
+(;B[ec]
+(;W[en]
+(;B[ba]
+(;W[cg]
+(;B[dh]
+(;W[ca]
+(;B[sj]
+(;W[sk]
+(;B[ba]
+(;W[ag]
+(;B[gg]
+(;W[ca]
+(;B[bm]
+(;W[bn]
+(;B[ba]
+(;W[iq]
+(;B[ca]
+(;W[aq]
+(;B[bs]
+(;W[as]
+(;B[hj]
+(;W[hp]
+(;B[kg]
+(;W[si]
+;B[]
+;W[]
+)(C[- `19536` visits
+  - **winrate** `2.5%`]N[2.5%]AW[si][be][am][jl][jj]LB[si:1][ne:2][be:3][hs:4][am:5][fs:6][jl:7][ji:8][jj:9][qc:10]AB[ne][hs][fs][ji][qc]
+))(C[- `1684` visits
+  - **winrate** `99.8%`]N[99.8%]AB[kg][jj][jl][jm][jl]LB[kg:1][si:2][jj:3][ji:4][jl:5][kl:6][jm:7][jn:8][jl:9][jm:10]AW[si][ji][kl][jn][jm]
+))(C[- `16622` visits
+  - **winrate** `3.1%`]N[3.1%]AW[hp][si][be][am][jl]LB[hp:1][kg:2][si:3][ne:4][be:5][hs:6][am:7][fs:8][jl:9][ji:10]AB[kg][ne][hs][fs][ji]
+))(C[- `1580` visits
+  - **winrate** `99.8%`]N[99.8%]AB[hj][kg][jj][jl][jm]LB[hj:1][hp:2][kg:3][si:4][jj:5][ji:6][jl:7][kl:8][jm:9][jn:10]AW[hp][si][ji][kl][jn]
+))(C[- `16744` visits
+  - **winrate** `3.0%`]N[3.0%]AW[as][hj][si][be][am]LB[as:1][kg:2][hj:3][hp:4][si:5][ne:6][be:7][hs:8][am:9][fs:10]AB[kg][hp][ne][hs][fs]
+))(C[- `1515` visits
+  - **winrate** `99.8%`]N[99.8%]AB[bs][hj][kg][jj][jl]LB[bs:1][as:2][hj:3][hp:4][kg:5][si:6][jj:7][ji:8][jl:9]AW[as][hp][si][ji]
+))(C[- `15501` visits
+  - **winrate** `2.8%`]N[2.8%]AW[aq][as][hj][si][cl]LB[aq:1][bs:2][as:3][kg:4][hj:5][hp:6][si:7][ne:8][cl:9][fs:10]AB[bs][kg][hp][ne][fs]
+))(C[- `1660` visits
+  - **winrate** `99.8%`]N[99.8%]AB[ca][bs][hj][kg]LB[ca:1][aq:2][bs:3][as:4][hj:5][hp:6][kg:7][si:8]AW[aq][as][hp][si]
+))(C[- `15043` visits
+  - **winrate** `2.2%`]N[2.2%]AW[iq][aq][hp][hj][si]LB[iq:1][ca:2][aq:3][bs:4][hp:5][as:6][hj:7][kg:8][si:9][ji:10]AB[ca][bs][as][kg][ji]
+))(C[- `1696` visits
+  - **winrate** `99.7%`]N[99.7%]AB[ba][gb][am][ba][ca]LB[ba:1][gc:2][gb:3][ca:4][am:5][an:6][ba:7][aq:8][ca:9][as:10]AW[gc][ca][an][aq][as]
+))(C[- `15600` visits
+  - **winrate** `3.1%`]N[3.1%]AW[bn][ra][ca][hp][gc]LB[bn:1][ba:2][ra:3][qb:4][ca:5][iq:6][hp:7][ba:8][gc:9][gb:10]AB[ba][qb][iq][ba][gb]
+))(C[- `1563` visits
+  - **winrate** `99.7%`]N[99.7%]AB[bm][ba][gb][am][ba]LB[bm:1][bn:2][ba:3][gc:4][gb:5][ca:6][am:7][an:8][ba:9][aq:10]AW[bn][gc][ca][an][aq]
+))(C[- `16859` visits
+  - **winrate** `2.9%`]N[2.9%]AW[ca][hp][gc][ca][ba]LB[ca:1][iq:2][hp:3][ba:4][gc:5][gb:6][ca:7][bs:8][ba:9][kg:10]AB[iq][ba][gb][bs][kg]
+))(C[- `1547` visits
+  - **winrate** `99.6%`]N[99.6%]AB[gg][bm][ba][gb][am]LB[gg:1][ca:2][bm:3][bn:4][ba:5][gc:6][gb:7][ca:8][am:9]AW[ca][bn][gc][ca]
+))(C[- `16092` visits
+  - **winrate** `3.2%`]N[3.2%]AW[ag][ca][hp][gc][ca]LB[ag:1][gg:2][ca:3][iq:4][hp:5][ba:6][gc:7][gb:8][ca:9][bs:10]AB[gg][iq][ba][gb][bs]
+))(C[- `1695` visits
+  - **winrate** `99.6%`]N[99.6%]AB[ba][gg][bm][ba]LB[ba:1][ag:2][gg:3][ca:4][bm:5][bn:6][ba:7][gc:8]AW[ag][ca][bn][gc]
+))(C[- `15640` visits
+  - **winrate** `3.9%`]N[3.9%]AW[sk][ag][ca][hp][gc]LB[sk:1][ba:2][ag:3][gg:4][ca:5][iq:6][hp:7][ba:8][gc:9][gb:10]AB[ba][gg][iq][ba][gb]
+))(C[- `1528` visits
+  - **winrate** `99.5%`]N[99.5%]AB[sj][ba][gg][sg][ba]LB[sj:1][si:2][ba:3][ag:4][gg:5][ca:6][sg:7][sk:8][ba:9][gc:10]AW[si][ag][ca][sk][gc]
+))(C[- `17549` visits
+  - **winrate** `2.4%`]N[2.4%]AW[ca][hp][ba][ag][aq]LB[ca:1][iq:2][hp:3][bs:4][ba:5][kg:6][ag:7][gg:8][aq:9][as:10]AB[iq][bs][kg][gg][as]
+))(C[- `1749` visits
+  - **winrate** `99.2%`]N[99.2%]AB[dh][sj][ba][gg][sg]LB[dh:1][ca:2][sj:3][si:4][ba:5][ag:6][gg:7][ca:8][sg:9][sk:10]AW[ca][si][ag][ca][sk]
+))(C[- `15123` visits
+  - **winrate** `2.2%`]N[2.2%]AW[cg][ca][hp][ba][ag]LB[cg:1][dh:2][ca:3][iq:4][hp:5][bs:6][ba:7][kg:8][ag:9][gg:10]AB[dh][iq][bs][kg][gg]
+))(C[- `1581` visits
+  - **winrate** `98.6%`]N[98.6%]AB[ba][dh][sj][ba]LB[ba:1][cg:2][dh:3][ca:4][sj:5][si:6][ba:7][gf:8]AW[cg][ca][si][gf]
+))(C[- `15500` visits
+  - **winrate** `5.1%`]N[5.1%]AW[en][iq][aq][cg][ag]LB[en:1][hp:2][iq:3][bs:4][aq:5][as:6][cg:7][dh:8][ag:9][gg:10]AB[hp][bs][as][dh][gg]
+))(C[- `1563` visits
+  - **winrate** `99.4%`]N[99.4%]AB[ec][dh][bs][hj]LB[ec:1][ba:2][dh:3][aq:4][bs:5][as:6][hj:7]AW[ba][aq][as]
+))(C[- `16538` visits
+  - **winrate** `3.1%`]N[3.1%]AW[af][ec][ed][bs][aq]LB[af:1][ba:2][ec:3][ca:4][ed:5][kg:6][bs:7][as:8][aq:9][bs:10]AB[ba][ca][kg][as][bs]
+))(C[- `1594` visits
+  - **winrate** `99.3%`]N[99.3%]AB[ed][ec][dh][bs]LB[ed:1][af:2][ec:3][ba:4][dh:5][aq:6][bs:7][as:8]AW[af][ba][aq][as]
+))(C[- `19202` visits
+  - **winrate** `4.4%`]N[4.4%]AW[ca][af][ba][ed][hp]LB[ca:1][ag:2][af:3][cg:4][ba:5][kg:6][ed:7][iq:8][hp:9][en:10]AB[ag][cg][kg][iq][en]
+))(C[- `1710` visits
+  - **winrate** `99.2%`]N[99.2%]AB[es][ed][ec][dh][bs]LB[es:1][ca:2][ed:3][af:4][ec:5][ba:6][dh:7][aq:8][bs:9]AW[ca][af][ba][aq]
+))(C[- `15981` visits
+  - **winrate** `4.8%`]N[4.8%]AW[fs][ca][af][ed][gf]LB[fs:1][es:2][ca:3][ag:4][af:5][cg:6][ed:7][ba:8][gf:9][gg:10]AB[es][ag][cg][ba][gg]
+))(C[- `1728` visits
+  - **winrate** `99.1%`]N[99.1%]AB[ba][es][ed][ec][dh]LB[ba:1][fs:2][es:3][ca:4][ed:5][af:6][ec:7][ba:8][dh:9][aq:10]AW[fs][ca][af][ba][aq]
+))(C[- `17770` visits
+  - **winrate** `4.8%`]N[4.8%]AW[pi][fs][ca][af][ed]LB[pi:1][ba:2][fs:3][es:4][ca:5][ag:6][af:7][cg:8][ed:9][ba:10]AB[ba][es][ag][cg][ba]
+))(C[- `1643` visits
+  - **winrate** `99.1%`]N[99.1%]AB[ng][ba][es][ed][ec]LB[ng:1][pi:2][ba:3][fs:4][es:5][ca:6][ed:7][af:8][ec:9][ba:10]AW[pi][fs][ca][af][ba]
+))(C[- `17998` visits
+  - **winrate** `3.2%`]N[3.2%]AW[ca][af][ed][ba][pi]LB[ca:1][ag:2][af:3][cg:4][ed:5][hj:6][ba:7][ng:8][pi:9][iq:10]AB[ag][cg][hj][ng][iq]
+))(C[- `1662` visits
+  - **winrate** `99.0%`]N[99.0%]AB[qe][ng][ba][es][ed]LB[qe:1][ca:2][ng:3][pi:4][ba:5][fs:6][es:7][ca:8][ed:9][af:10]AW[ca][pi][fs][ca][af]
+))(C[- `15607` visits
+  - **winrate** `3.8%`]N[3.8%]AW[pg][ca][af][ba][fs]LB[pg:1][qe:2][ca:3][ag:4][af:5][dh:6][ba:7][ed:8][fs:9][es:10]AB[qe][ag][dh][ed][es]
+))(C[- `1589` visits
+  - **winrate** `98.7%`]N[98.7%]AB[ba][es][ed][ec][qe]LB[ba:1][fs:2][es:3][ca:4][ed:5][af:6][ec:7][ba:8][qe:9][pi:10]AW[fs][ca][af][ba][pi]
+))(C[- `16919` visits
+  - **winrate** `6.7%`]N[6.7%]AW[ec][af][ed][fs][ca]LB[ec:1][ag:2][af:3][dh:4][ed:5][ba:6][fs:7][es:8][ca:9][iq:10]AB[ag][dh][ba][es][iq]
+))(C[- `1617` visits
+  - **winrate** `98.6%`]N[98.6%]AB[sb][ba][es][ed][ec]LB[sb:1][ec:2][ba:3][fs:4][es:5][ca:6][ed:7][af:8][ec:9]AW[ec][fs][ca][af]
+))(C[- `15229` visits
+  - **winrate** `8.0%`]N[8.0%]AW[rc][ec][af][ed][fs]LB[rc:1][sb:2][ec:3][ag:4][af:5][dh:6][ed:7][ba:8][fs:9][es:10]AB[sb][ag][dh][ba][es]
+))(C[- `1671` visits
+  - **winrate** `98.9%`]N[98.9%]AB[ed][sb][ba][es]LB[ed:1][rc:2][sb:3][ec:4][ba:5][fs:6][es:7]AW[rc][ec][fs]
+))(C[- `15493` visits
+  - **winrate** `4.4%`]N[4.4%]AW[ca][af][ed][fs][ca]LB[ca:1][cg:2][af:3][qe:4][ed:5][ba:6][fs:7][es:8][ca:9][iq:10]AB[cg][qe][ba][es][iq]
+))(C[- `1684` visits
+  - **winrate** `98.8%`]N[98.8%]AB[dc][ed][sb][ba]LB[dc:1][ca:2][ed:3][rc:4][sb:5][ec:6][ba:7][fs:8]AW[ca][rc][ec][fs]
+))(C[- `16983` visits
+  - **winrate** `6.5%`]N[6.5%]AW[ee][af][dc][dh][hp]LB[ee:1][ag:2][af:3][cg:4][dc:5][ca:6][dh:7][gg:8][hp:9][hs:10]AB[ag][cg][ca][gg][hs]
+))(C[- `1603` visits
+  - **winrate** `99.0%`]N[99.0%]AB[fn][ee][ba][sb][qe]LB[fn:1][ca:2][ee:3][ed:4][ba:5][rc:6][sb:7][ca:8][qe:9]AW[ca][ed][rc][ca]
+))(C[- `15798` visits
+  - **winrate** `8.1%`]N[8.1%]AW[fl][ee][ca][af][dh]LB[fl:1][fn:2][ee:3][dc:4][ca:5][ag:6][af:7][cg:8][dh:9][gg:10]AB[fn][dc][ag][cg][gg]
+))(C[- `1632` visits
+  - **winrate** `98.8%`]N[98.8%]AB[is][ee][ba][sb][cg]LB[is:1][ca:2][ee:3][ed:4][ba:5][rc:6][sb:7][ca:8][cg:9][ba:10]AW[ca][ed][rc][ca][ba]
+))(C[- `15851` visits
+  - **winrate** `9.7%`]N[9.7%]AW[hs][ee][ca][af][fl]LB[hs:1][fs:2][ee:3][dc:4][ca:5][ag:6][af:7][cg:8][fl:9][fn:10]AB[fs][dc][ag][cg][fn]
+))(C[- `1604` visits
+  - **winrate** `98.6%`]N[98.6%]AB[ba][sb][ee][ba]LB[ba:1][rc:2][sb:3][ca:4][ee:5][ed:6][ba:7][fl:8]AW[rc][ca][ed][fl]
+))(C[- `15813` visits
+  - **winrate** `4.1%`]N[4.1%]AW[ap][fl][hp][ed][fs]LB[ap:1][kg:2][fl:3][fn:4][hp:5][ee:6][ed:7][ba:8][fs:9][es:10]AB[kg][fn][ee][ba][es]
+))(C[- `1515` visits
+  - **winrate** `98.5%`]N[98.5%]AB[aq][ba][sb][ee][ba]LB[aq:1][ap:2][ba:3][rc:4][sb:5][ca:6][ee:7][ed:8][ba:9][fl:10]AW[ap][rc][ca][ed][fl]
+))(C[- `15040` visits
+  - **winrate** `3.8%`]N[3.8%]AW[ca][ed][af][hp][fn]LB[ca:1][ee:2][ed:3][qe:4][af:5][iq:6][hp:7][fl:8][fn:9][en:10]AB[ee][qe][iq][fl][en]
+))(C[- `1578` visits
+  - **winrate** `98.4%`]N[98.4%]AB[qd][aq][ba][sb][ee]LB[qd:1][ca:2][aq:3][ap:4][ba:5][rc:6][sb:7][ca:8][ee:9]AW[ca][ap][rc][ca]
+))(C[- `15554` visits
+  - **winrate** `8.7%`]N[8.7%]AW[qe][ca][ed][ba][af]LB[qe:1][qd:2][ca:3][ee:4][ed:5][qe:6][ba:7][dc:8][af:9][iq:10]AB[qd][ee][qe][dc][iq]
+))(C[- `1503` visits
+  - **winrate** `98.5%`]N[98.5%]AB[ba][qd][ee][ba]LB[ba:1][qe:2][qd:3][ca:4][ee:5][ed:6][ba:7][rc:8]AW[qe][ca][ed][rc]
+))(C[- `15024` visits
+  - **winrate** `4.2%`]N[4.2%]AW[ph][fl][hp][ag][af]LB[ph:1][qe:2][fl:3][fn:4][hp:5][en:6][ag:7][cg:8][af:9][ee:10]AB[qe][fn][en][cg][ee]
+))(C[- `1556` visits
+  - **winrate** `98.8%`]N[98.8%]AB[mi][qe][dc]LB[mi:1][ba:2][qe:3][pi:4][dc:5]AW[ba][pi]
+))(C[- `16664` visits
+  - **winrate** `6.0%`]N[6.0%]AW[dk][fn][hp][ag][af]LB[dk:1][fl:2][fn:3][iq:4][hp:5][en:6][ag:7][cg:8][af:9][ee:10]AB[fl][iq][en][cg][ee]
+))(C[- `1506` visits
+  - **winrate** `98.4%`]N[98.4%]AB[el][fn][mi]LB[el:1][fl:2][fn:3][ba:4][mi:5][af:6]AW[fl][ba][af]
+))(C[- `16108` visits
+  - **winrate** `5.6%`]N[5.6%]AW[dj][fl][dk][af][ed]LB[dj:1][el:2][fl:3][fn:4][dk:5][ag:6][af:7][ee:8][ed:9][gf:10]AB[el][fn][ag][ee][gf]
+))(C[- `1568` visits
+  - **winrate** `97.7%`]N[97.7%]AB[gj][mi][fl]LB[gj:1][ba:2][mi:3][fn:4][fl:5][aq:6]AW[ba][fn][aq]
+))(C[- `16366` visits
+  - **winrate** `7.8%`]N[7.8%]AW[fk][dj][fl][dk][ed]LB[fk:1][gj:2][dj:3][el:4][fl:5][fn:6][dk:7][ee:8][ed:9][mi:10]AB[gj][el][fn][ee][mi]
+))(C[- `1568` visits
+  - **winrate** `97.9%`]N[97.9%]AB[cj][gj][fn][mi]LB[cj:1][fk:2][gj:3][fl:4][fn:5][ba:6][mi:7]AW[fk][fl][ba]
+))(C[- `18068` visits
+  - **winrate** `8.4%`]N[8.4%]AW[ej][fk][dj][el][hp]LB[ej:1][cj:2][fk:3][gj:4][dj:5][fl:6][el:7][fn:8][hp:9][ee:10]AB[cj][gj][fl][fn][ee]
+))(C[- `1664` visits
+  - **winrate** `97.9%`]N[97.9%]AB[pa][ej][dj][mi]LB[pa:1][cj:2][ej:3][el:4][dj:5][dk:6][mi:7][ba:8]AW[cj][el][dk][ba]
+))(C[- `15299` visits
+  - **winrate** `9.0%`]N[9.0%]AW[na][ej][fk][gj][dj]LB[na:1][pa:2][ej:3][cj:4][fk:5][fl:6][gj:7][hj:8][dj:9][fj:10]AB[pa][cj][fl][hj][fj]
+))(C[- `1617` visits
+  - **winrate** `97.8%`]N[97.8%]AB[ib][ej][dj][mi]LB[ib:1][cj:2][ej:3][el:4][dj:5][dk:6][mi:7]AW[cj][el][dk]
+))(C[- `16925` visits
+  - **winrate** `9.8%`]N[9.8%]AW[jc][hj][ej][dj][fk]LB[jc:1][ib:2][hj:3][gj:4][ej:5][cj:6][dj:7][el:8][fk:9][fl:10]AB[ib][gj][cj][el][fl]
+))(C[- `1674` visits
+  - **winrate** `97.7%`]N[97.7%]AB[oa][ib][ej][dj][mi]LB[oa:1][jc:2][ib:3][cj:4][ej:5][el:6][dj:7][dk:8][mi:9]AW[jc][cj][el][dk]
+))(C[- `15892` visits
+  - **winrate** `11.2%`]N[11.2%]AW[ma][jc][hj][ej][dj]LB[ma:1][oa:2][jc:3][ib:4][hj:5][gj:6][ej:7][cj:8][dj:9][el:10]AB[oa][ib][gj][cj][el]
+))(C[- `1505` visits
+  - **winrate** `97.8%`]N[97.8%]AB[ka][oa][ib][ej][dj]LB[ka:1][ma:2][oa:3][jc:4][ib:5][cj:6][ej:7][el:8][dj:9][dk:10]AW[ma][jc][cj][el][dk]
+))(C[- `16946` visits
+  - **winrate** `14.5%`]N[14.5%]AW[la][ma][jc][hj][ej]LB[la:1][ka:2][ma:3][oa:4][jc:5][ib:6][hj:7][gj:8][ej:9][cj:10]AB[ka][oa][ib][gj][cj]
+))(C[- `1529` visits
+  - **winrate** `97.6%`]N[97.6%]AB[da][ka][oa][ib][ej]LB[da:1][la:2][ka:3][ma:4][oa:5][jc:6][ib:7][cj:8][ej:9][el:10]AW[la][ma][jc][cj][el]
+))(C[- `16326` visits
+  - **winrate** `15.7%`]N[15.7%]AW[ca][la][ma][jc][hj]LB[ca:1][da:2][la:3][ka:4][ma:5][oa:6][jc:7][ib:8][hj:9][gj:10]AB[da][ka][oa][ib][gj]
+))(C[- `1538` visits
+  - **winrate** `97.3%`]N[97.3%]AB[fb][da][ka][oa][ib]LB[fb:1][ca:2][da:3][la:4][ka:5][ma:6][oa:7][jc:8][ib:9][cj:10]AW[ca][la][ma][jc][cj]
+))(C[- `16943` visits
+  - **winrate** `20.2%`]N[20.2%]AW[aa][la][ma][fb][ea]LB[aa:1][ca:2][la:3][ka:4][ma:5][oa:6][fb:7][gc:8][ea:9][gb:10]AB[ca][ka][oa][gc][gb]
+))(C[- `1530` visits
+  - **winrate** `97.6%`]N[97.6%]AB[pe][ka][oa][ib][gc]LB[pe:1][la:2][ka:3][ma:4][oa:5][jc:6][ib:7][fb:8][gc:9]AW[la][ma][jc][fb]
+))(C[- `16701` visits
+  - **winrate** `13.9%`]N[13.9%]AW[pf][la][ma][jc][fb]LB[pf:1][qe:2][la:3][ka:4][ma:5][oa:6][jc:7][ib:8][fb:9][gc:10]AB[qe][ka][oa][ib][gc]
+))(C[- `1507` visits
+  - **winrate** `98.2%`]N[98.2%]AB[ai][pe][da][gc]LB[ai:1][pf:2][pe:3][ca:4][da:5][fb:6][gc:7]AW[pf][ca][fb]
+))(C[- `15819` visits
+  - **winrate** `13.7%`]N[13.7%]AW[bi][pf][la][ma][jc]LB[bi:1][ai:2][pf:3][qe:4][la:5][ka:6][ma:7][oa:8][jc:9][ib:10]AB[ai][qe][ka][oa][ib]
+))(C[- `1592` visits
+  - **winrate** `97.7%`]N[97.7%]AB[mf][pe][ai][da]LB[mf:1][pf:2][pe:3][bi:4][ai:5][ca:6][da:7][fb:8]AW[pf][bi][ca][fb]
+))(C[- `15598` visits
+  - **winrate** `13.0%`]N[13.0%]AW[lf][pf][bi][la][ma]LB[lf:1][mf:2][pf:3][qe:4][bi:5][ai:6][la:7][ka:8][ma:9][oa:10]AB[mf][qe][ai][ka][oa]
+))(C[- `1660` visits
+  - **winrate** `97.9%`]N[97.9%]AB[oe][pe][mf][ai]LB[oe:1][pf:2][pe:3][lf:4][mf:5][bi:6][ai:7][fb:8]AW[pf][lf][bi][fb]
+))(C[- `16010` visits
+  - **winrate** `10.5%`]N[10.5%]AW[ri][pf][lf][bi][cj]LB[ri:1][oe:2][pf:3][qe:4][lf:5][mf:6][bi:7][ai:8][cj:9][ej:10]AB[oe][qe][mf][ai][ej]
+))(C[- `1562` visits
+  - **winrate** `97.8%`]N[97.8%]AB[qh][oe][pe][mf][ai]LB[qh:1][ri:2][oe:3][pf:4][pe:5][lf:6][mf:7][bi:8][ai:9][fb:10]AW[ri][pf][lf][bi][fb]
+))(C[- `15484` visits
+  - **winrate** `10.1%`]N[10.1%]AW[jk][oe][pe][qh][ph]LB[jk:1][bi:2][oe:3][ne:4][pe:5][qe:6][qh:7][pg:8][ph:9][fn:10]AB[bi][ne][qe][pg][fn]
+))(C[- `1619` visits
+  - **winrate** `97.6%`]N[97.6%]AB[ik][qh][oe][pe][mf]LB[ik:1][jk:2][qh:3][ri:4][oe:5][pf:6][pe:7][lf:8][mf:9][bi:10]AW[jk][ri][pf][lf][bi]
+))(C[- `15016` visits
+  - **winrate** `12.7%`]N[12.7%]AW[ci][lf][oe][pe][fb]LB[ci:1][bi:2][lf:3][mf:4][oe:5][ne:6][pe:7][qe:8][fb:9][gc:10]AB[bi][mf][ne][qe][gc]
+))(C[- `1583` visits
+  - **winrate** `97.5%`]N[97.5%]AB[hk][qh][oe][pe][mf]LB[hk:1][ik:2][qh:3][ri:4][oe:5][pf:6][pe:7][lf:8][mf:9]AW[ik][ri][pf][lf]
+))(C[- `16267` visits
+  - **winrate** `10.7%`]N[10.7%]AW[kh][ri][ik][dj][el]LB[kh:1][qh:2][ri:3][hk:4][ik:5][ej:6][dj:7][fk:8][el:9][fl:10]AB[qh][hk][ej][fk][fl]
+))(C[- `1554` visits
+  - **winrate** `97.8%`]N[97.8%]AB[li][hk][oe]LB[li:1][kh:2][hk:3][ik:4][oe:5][pf:6]AW[kh][ik][pf]
+))(C[- `15934` visits
+  - **winrate** `10.1%`]N[10.1%]AW[cd][dj][ri][pf][lf]LB[cd:1][ej:2][dj:3][qh:4][ri:5][oe:6][pf:7][pe:8][lf:9][mf:10]AB[ej][qh][oe][pe][mf]
+))(C[- `1571` visits
+  - **winrate** `97.9%`]N[97.9%]AB[ah][li][hk][qh]LB[ah:1][cd:2][li:3][kh:4][hk:5][ik:6][qh:7]AW[cd][kh][ik]
+))(C[- `15349` visits
+  - **winrate** `12.7%`]N[12.7%]AW[bl][cd][af][ik][ri]LB[bl:1][ag:2][cd:3][ah:4][af:5][hk:6][ik:7][qh:8][ri:9][li:10]AB[ag][ah][hk][qh][li]
+))(C[- `1683` visits
+  - **winrate** `96.4%`]N[96.4%]AB[aj][ah][ci][li][hk]LB[aj:1][cj:2][ah:3][cd:4][ci:5][ej:6][li:7][kh:8][hk:9]AW[cj][cd][ej][kh]
+))(C[- `15957` visits
+  - **winrate** `16.9%`]N[16.9%]AW[al][cj][af][dj][fk]LB[al:1][aj:2][cj:3][ah:4][af:5][ej:6][dj:7][el:8][fk:9][gj:10]AB[aj][ah][ej][el][gj]
+))(C[- `1634` visits
+  - **winrate** `96.1%`]N[96.1%]AB[ak][aj][ah][ci][li]LB[ak:1][al:2][aj:3][cj:4][ah:5][cd:6][ci:7][ej:8][li:9][kh:10]AW[al][cj][cd][ej][kh]
+))(C[- `16115` visits
+  - **winrate** `23.1%`]N[23.1%]AW[hm][al][bl][af][ed]LB[hm:1][ak:2][al:3][aj:4][bl:5][ah:6][af:7][dc:8][ed:9][ee:10]AB[ak][aj][ah][dc][ee]
+))(C[- `1752` visits
+  - **winrate** `95.1%`]N[95.1%]AB[gl][aj][ah][ej]LB[gl:1][cj:2][aj:3][ak:4][ah:5][cd:6][ej:7]AW[cj][ak][cd]
+))(C[- `17196` visits
+  - **winrate** `22.5%`]N[22.5%]AW[gm][hm][oe][li][lf]LB[gm:1][gl:2][hm:3][fn:4][oe:5][ne:6][li:7][kg:8][lf:9][mf:10]AB[gl][fn][ne][kg][mf]
+))(C[- `1512` visits
+  - **winrate** `94.2%`]N[94.2%]AB[gp][gl][aj][ah]LB[gp:1][gm:2][gl:3][cj:4][aj:5][ak:6][ah:7][cd:8]AW[gm][cj][ak][cd]
+))(C[- `16229` visits
+  - **winrate** `20.5%`]N[20.5%]AW[ep][gm][ri][fb][gm]LB[ep:1][gl:2][gm:3][qh:4][ri:5][hm:6][fb:7][gc:8][gm:9][fn:10]AB[gl][qh][hm][gc][fn]
+))(C[- `1725` visits
+  - **winrate** `94.0%`]N[94.0%]AB[go][gp][gl][aj]LB[go:1][ep:2][gp:3][gm:4][gl:5][cj:6][aj:7]AW[ep][gm][cj]
+))(C[- `15145` visits
+  - **winrate** `23.0%`]N[23.0%]AW[fo][ep][gm][al][ci]LB[fo:1][go:2][ep:3][gl:4][gm:5][ak:6][al:7][aj:8][ci:9][bi:10]AB[go][gl][ak][aj][bi]
+))(C[- `1564` visits
+  - **winrate** `94.7%`]N[94.7%]AB[dn][fo][aj]LB[dn:1][ep:2][fo:3][cj:4][aj:5][ak:6]AW[ep][cj][ak]
+))(C[- `15698` visits
+  - **winrate** `22.4%`]N[22.4%]AW[hl][oe][ri][pi][hs]LB[hl:1][gm:2][oe:3][qh:4][ri:5][ph:6][pi:7][li:8][hs:9][is:10]AB[gm][qh][ph][li][is]
+))(C[- `1559` visits
+  - **winrate** `93.6%`]N[93.6%]AB[gn][fo][aj]LB[gn:1][hl:2][fo:3][cj:4][aj:5][ak:6]AW[hl][cj][ak]
+))(C[- `15385` visits
+  - **winrate** `24.4%`]N[24.4%]AW[hn][hl][gl][en][ep]LB[hn:1][gn:2][hl:3][gm:4][gl:5][fo:6][en:7][dn:8][ep:9][fl:10]AB[gn][gm][fo][dn][fl]
+))(C[- `1598` visits
+  - **winrate** `94.8%`]N[94.8%]AB[eg][dn][li]LB[eg:1][cj:2][dn:3][ep:4][li:5]AW[cj][ep]
+))(C[- `16687` visits
+  - **winrate** `21.6%`]N[21.6%]AW[ek][al][cj][af][bi]LB[ek:1][ak:2][al:3][aj:4][cj:5][ah:6][af:7][dn:8][bi:9][ai:10]AB[ak][aj][ah][dn][ai]
+))(C[- `1611` visits
+  - **winrate** `95.3%`]N[95.3%]AB[em][dn][eg]LB[em:1][ek:2][dn:3][ep:4][eg:5][cj:6]AW[ek][ep][cj]
+))(C[- `17510` visits
+  - **winrate** `20.8%`]N[20.8%]AW[mb][cj][dj][aj][bi]LB[mb:1][ek:2][cj:3][ci:4][dj:5][eg:6][aj:7][ai:8][bi:9][ah:10]AB[ek][ci][eg][ai][ah]
+))(C[- `1535` visits
+  - **winrate** `94.7%`]N[94.7%]AB[lb][ek][ci][ak]LB[lb:1][mb:2][ek:3][cj:4][ci:5][dj:6][ak:7][al:8]AW[mb][cj][dj][al]
+))(C[- `17250` visits
+  - **winrate** `21.8%`]N[21.8%]AW[nb][mb][cj][dj][aj]LB[nb:1][lb:2][mb:3][ek:4][cj:5][ci:6][dj:7][eg:8][aj:9][ai:10]AB[lb][ek][ci][eg][ai]
+))(C[- `1538` visits
+  - **winrate** `94.8%`]N[94.8%]AB[nc][lb][ek][ci][ak]LB[nc:1][nb:2][lb:3][mb:4][ek:5][cj:6][ci:7][dj:8][ak:9][al:10]AW[nb][mb][cj][dj][al]
+))(C[- `15172` visits
+  - **winrate** `24.7%`]N[24.7%]AW[eo][cj][dj][aj][ah]LB[eo:1][ek:2][cj:3][ci:4][dj:5][eg:6][aj:7][bi:8][ah:9][ai:10]AB[ek][ci][eg][bi][ai]
+))(C[- `1554` visits
+  - **winrate** `94.8%`]N[94.8%]AB[kb][ek][ci]LB[kb:1][lb:2][ek:3][cj:4][ci:5]AW[lb][cj]
+))(C[- `18194` visits
+  - **winrate** `21.7%`]N[21.7%]AW[kn][nb][ma][lb][la]LB[kn:1][nc:2][nb:3][oa:4][ma:5][kb:6][lb:7][ka:8][la:9][qh:10]AB[nc][oa][kb][ka][qh]
+))(C[- `1518` visits
+  - **winrate** `94.7%`]N[94.7%]AB[nn][ek][ci][ak][aj]LB[nn:1][kn:2][ek:3][cj:4][ci:5][dj:6][ak:7][al:8][aj:9][ah:10]AW[kn][cj][dj][al][ah]
+))(C[- `15198` visits
+  - **winrate** `29.3%`]N[29.3%]AW[lk][nb][mb][oe][pe]LB[lk:1][nc:2][nb:3][oa:4][mb:5][kb:6][oe:7][ne:8][pe:9][qe:10]AB[nc][oa][kb][ne][qe]
+))(C[- `1530` visits
+  - **winrate** `94.9%`]N[94.9%]AB[ol][nn][dn][el]LB[ol:1][lk:2][nn:3][kn:4][dn:5][cj:6][el:7]AW[lk][kn][cj]
+))(C[- `16800` visits
+  - **winrate** `27.9%`]N[27.9%]AW[ke][ri][nb][mb][eo]LB[ke:1][qh:2][ri:3][nc:4][nb:5][oa:6][mb:7][kb:8][eo:9][fo:10]AB[qh][nc][oa][kb][fo]
+))(C[- `1704` visits
+  - **winrate** `94.3%`]N[94.3%]AB[le][dn][el]LB[le:1][ke:2][dn:3][cj:4][el:5][ek:6]AW[ke][cj][ek]
+))(C[- `15843` visits
+  - **winrate** `34.5%`]N[34.5%]AW[jf][ke][nb][mb][fb]LB[jf:1][le:2][ke:3][nc:4][nb:5][oa:6][mb:7][kb:8][fb:9][gc:10]AB[le][nc][oa][kb][gc]
+))(C[- `1639` visits
+  - **winrate** `91.8%`]N[91.8%]AB[ni][jf][ke]LB[ni:1][le:2][jf:3][kg:4][ke:5][fb:6]AW[le][kg][fb]
+))(C[- `17151` visits
+  - **winrate** `34.4%`]N[34.4%]AW[mi][eo][ke][if][jf]LB[mi:1][ni:2][eo:3][jf:4][ke:5][kg:6][if:7][kh:8][jf:9][li:10]AB[ni][jf][kg][kh][li]
+))(C[- `1500` visits
+  - **winrate** `92.8%`]N[92.8%]AB[lg][ni][jf][ke]LB[lg:1][mi:2][ni:3][le:4][jf:5][kg:6][ke:7]AW[mi][le][kg]
+))(C[- `16235` visits
+  - **winrate** `29.9%`]N[29.9%]AW[io][nb][mb][eo][em]LB[io:1][nc:2][nb:3][oa:4][mb:5][kb:6][eo:7][fo:8][em:9][el:10]AB[nc][oa][kb][fo][el]
+))(C[- `1613` visits
+  - **winrate** `92.0%`]N[92.0%]AB[ho][ek][ci][ak][aj]LB[ho:1][io:2][ek:3][cj:4][ci:5][dj:6][ak:7][al:8][aj:9]AW[io][cj][dj][al]
+))(C[- `15650` visits
+  - **winrate** `30.9%`]N[30.9%]AW[jp][io][nb][mb][eo]LB[jp:1][ho:2][io:3][nc:4][nb:5][oa:6][mb:7][kb:8][eo:9][fo:10]AB[ho][nc][oa][kb][fo]
+))(C[- `1701` visits
+  - **winrate** `91.3%`]N[91.3%]AB[gh][jo][io][jp]LB[gh:1][eg:2][jo:3][kn:4][io:5][ho:6][jp:7][hn:8]AW[eg][kn][ho][hn]
+))(C[- `16991` visits
+  - **winrate** `31.9%`]N[31.9%]AW[eh][jp][io][lb][nb]LB[eh:1][gh:2][jp:3][ho:4][io:5][kb:6][lb:7][nc:8][nb:9][le:10]AB[gh][ho][kb][nc][le]
+))(C[- `1601` visits
+  - **winrate** `91.3%`]N[91.3%]AB[fh][gh][jo][io][jp]LB[fh:1][eh:2][gh:3][eg:4][jo:5][kn:6][io:7][ho:8][jp:9][hn:10]AW[eh][eg][kn][ho][hn]
+))(C[- `16135` visits
+  - **winrate** `39.0%`]N[39.0%]AW[ei][eh][jp][io][hl]LB[ei:1][fh:2][eh:3][gh:4][jp:5][ho:6][io:7][hn:8][hl:9][gl:10]AB[fh][gh][ho][hn][gl]
+))(C[- `1629` visits
+  - **winrate** `90.9%`]N[90.9%]AB[fj][fh][gh][ek][ci]LB[fj:1][ei:2][fh:3][eh:4][gh:5][eg:6][ek:7][cj:8][ci:9][dj:10]AW[ei][eh][eg][cj][dj]
+))(C[- `15273` visits
+  - **winrate** `41.9%`]N[41.9%]AW[fi][ei][kn][hn][gh]LB[fi:1][fj:2][ei:3][jo:4][kn:5][jp:6][hn:7][iq:8][gh:9][gg:10]AB[fj][jo][jp][iq][gg]
+))(C[- `1537` visits
+  - **winrate** `89.4%`]N[89.4%]AB[ef][jo][io][jp][iq]LB[ef:1][eh:2][jo:3][kn:4][io:5][ho:6][jp:7][hn:8][iq:9][go:10]AW[eh][kn][ho][hn][go]
+))(C[- `15221` visits
+  - **winrate** `44.0%`]N[44.0%]AW[fg][ed][eh][fi][eg]LB[fg:1][ee:2][ed:3][ef:4][eh:5][fh:6][fi:7][gh:8][eg:9][gg:10]AB[ee][ef][fh][gh][gg]
+))(C[- `1536` visits
+  - **winrate** `90.3%`]N[90.3%]AB[kp][jo][hp][gp][ni]LB[kp:1][jp:2][jo:3][kn:4][hp:5][ho:6][gp:7][mi:8][ni:9]AW[jp][kn][ho][mi]
+))(C[- `17786` visits
+  - **winrate** `38.8%`]N[38.8%]AW[bp][jo][go][hp][fo]LB[bp:1][kp:2][jo:3][iq:4][go:5][gp:6][hp:7][jp:8][fo:9][eo:10]AB[kp][iq][gp][jp][eo]
+))(C[- `1631` visits
+  - **winrate** `88.8%`]N[88.8%]AB[cr][kp][ho][cj][ek]LB[cr:1][bp:2][kp:3][jp:4][ho:5][io:6][cj:7][dj:8][ek:9]AW[bp][jp][io][dj]
+))(C[- `15462` visits
+  - **winrate** `43.9%`]N[43.9%]AW[bk][bp][nb][mb][jf]LB[bk:1][cr:2][bp:3][nc:4][nb:5][oa:6][mb:7][kb:8][jf:9][lg:10]AB[cr][nc][oa][kb][lg]
+))(C[- `1746` visits
+  - **winrate** `85.4%`]N[85.4%]AB[rb][bs][kp][ho]LB[rb:1][cr:2][bs:3][bk:4][kp:5][jp:6][ho:7]AW[cr][bk][jp]
+))(C[- `15933` visits
+  - **winrate** `44.1%`]N[44.1%]AW[sf][cr][cd][fb][cr]LB[sf:1][rb:2][cr:3][ag:4][cd:5][cq:6][fb:7][gc:8][cr:9][bs:10]AB[rb][ag][cq][gc][bs]
+))(C[- `1725` visits
+  - **winrate** `85.5%`]N[85.5%]AB[sc][rb][bs][kp][ho]LB[sc:1][sf:2][rb:3][cr:4][bs:5][bk:6][kp:7][jp:8][ho:9]AW[sf][cr][bk][jp]
+))(C[- `15009` visits
+  - **winrate** `45.2%`]N[45.2%]AW[sd][sf][cr][cd][fb]LB[sd:1][sc:2][sf:3][rb:4][cr:5][ag:6][cd:7][cq:8][fb:9][gc:10]AB[sc][rb][ag][cq][gc]
+))(C[- `1668` visits
+  - **winrate** `83.3%`]N[83.3%]AB[cq][gc][ag][cq][sc]LB[cq:1][fb:2][gc:3][cr:4][ag:5][cd:6][cq:7][sd:8][sc:9][sf:10]AW[fb][cr][cd][sd][sf]
+))(C[- `16088` visits
+  - **winrate** `48.2%`]N[48.2%]AW[ar][em][fb][cr][bk]LB[ar:1][bl:2][em:3][cq:4][fb:5][gc:6][cr:7][bs:8][bk:9][cq:10]AB[bl][cq][gc][bs][cq]
+))(C[- `1533` visits
+  - **winrate** `83.8%`]N[83.8%]AB[ge][cq][gc][ag][cq]LB[ge:1][bk:2][cq:3][fb:4][gc:5][cr:6][ag:7][cd:8][cq:9]AW[bk][fb][cr][cd]
+))(C[- `16597` visits
+  - **winrate** `44.7%`]N[44.7%]AW[di][nb][mb][bk][gc]LB[di:1][nc:2][nb:3][oa:4][mb:5][kb:6][bk:7][ge:8][gc:9]AB[nc][oa][kb][ge]
+))(C[- `1630` visits
+  - **winrate** `83.1%`]N[83.1%]AB[nd][ni][pe][sc]LB[nd:1][mi:2][ni:3][qe:4][pe:5][sd:6][sc:7]AW[mi][qe][sd]
+))(C[- `15077` visits
+  - **winrate** `41.5%`]N[41.5%]AW[of][pf][sd][sf][ni]LB[of:1][oe:2][pf:3][qe:4][sd:5][sc:6][sf:7][rc:8][ni:9][mi:10]AB[oe][qe][sc][rc][mi]
+))(C[- `1548` visits
+  - **winrate** `82.9%`]N[82.9%]AB[mh][ni][cq]LB[mh:1][mi:2][ni:3][bk:4][cq:5][sd:6]AW[mi][bk][sd]
+))(C[- `15325` visits
+  - **winrate** `42.0%`]N[42.0%]AW[lh][of][pf][kb][ef]LB[lh:1][mh:2][of:3][oe:4][pf:5][qe:6][kb:7][ge:8][ef:9][eg:10]AB[mh][oe][qe][ge][eg]
+))(C[- `1529` visits
+  - **winrate** `82.8%`]N[82.8%]AB[nf][jf][lh]LB[nf:1][bk:2][jf:3][ke:4][lh:5][if:6]AW[bk][ke][if]
+))(C[- `15665` visits
+  - **winrate** `41.4%`]N[41.4%]AW[oh][of][le][ke][ef]LB[oh:1][nf:2][of:3][lf:4][le:5][me:6][ke:7][ge:8][ef:9][eg:10]AB[nf][lf][me][ge][eg]
+))(C[- `1656` visits
+  - **winrate** `80.4%`]N[80.4%]AB[nh][mf][mh][cq]LB[nh:1][oh:2][mf:3][lh:4][mh:5][bk:6][cq:7]AW[oh][lh][bk]
+))(C[- `15667` visits
+  - **winrate** `45.6%`]N[45.6%]AW[ok][lk][bk][bm][fb]LB[ok:1][ol:2][lk:3][bl:4][bk:5][ak:6][bm:7][cq:8][fb:9][gc:10]AB[ol][bl][ak][cq][gc]
+))(C[- `1524` visits
+  - **winrate** `83.9%`]N[83.9%]AB[bj][ge][cq]LB[bj:1][bk:2][ge:3][cj:4][cq:5][fb:6]AW[bk][cj][fb]
+))(C[- `16727` visits
+  - **winrate** `44.2%`]N[44.2%]AW[rm][ok][bk][bm][ng]LB[rm:1][bj:2][ok:3][bl:4][bk:5][ak:6][bm:7][of:8][ng:9][nf:10]AB[bj][bl][ak][of][nf]
+))(C[- `1624` visits
+  - **winrate** `84.2%`]N[84.2%]AB[sm][bj][ge][cq]LB[sm:1][rm:2][bj:3][bk:4][ge:5][cj:6][cq:7]AW[rm][bk][cj]
+))(C[- `17167` visits
+  - **winrate** `46.6%`]N[46.6%]AW[rn][oh][ke][bk][ek]LB[rn:1][nh:2][oh:3][le:4][ke:5][bj:6][bk:7][el:8][ek:9][ej:10]AB[nh][le][bj][el][ej]
+))(C[- `1540` visits
+  - **winrate** `83.8%`]N[83.8%]AB[qn][sm][bj][ge][cq]LB[qn:1][rn:2][sm:3][rm:4][bj:5][bk:6][ge:7][cj:8][cq:9]AW[rn][rm][bk][cj]
+))(C[- `15751` visits
+  - **winrate** `45.9%`]N[45.9%]AW[oi][oh][ke][bk][cj]LB[oi:1][nh:2][oh:3][le:4][ke:5][bj:6][bk:7][dj:8][cj:9][ci:10]AB[nh][le][bj][dj][ci]
+))(C[- `1581` visits
+  - **winrate** `82.1%`]N[82.1%]AB[mg][jf][lg][bj]LB[mg:1][ph:2][jf:3][ke:4][lg:5][kg:6][bj:7]AW[ph][ke][kg]
+))(C[- `15377` visits
+  - **winrate** `50.8%`]N[50.8%]AW[og][mg][bk][mi][mh]LB[og:1][ph:2][mg:3][bj:4][bk:5][jf:6][mi:7][lh:8][mh:9]AB[ph][bj][jf][lh]
+))(C[- `1501` visits
+  - **winrate** `81.9%`]N[81.9%]AB[br][cq][gc][qn][cq]LB[br:1][ar:2][cq:3][fb:4][gc:5][cr:6][qn:7][rn:8][cq:9][gb:10]AW[ar][fb][cr][rn][gb]
+))(C[- `16217` visits
+  - **winrate** `46.1%`]N[46.1%]AW[dl][bs][bk][cl][sd]LB[dl:1][bj:2][bs:3][bl:4][bk:5][ak:6][cl:7][jf:8][sd:9][sc:10]AB[bj][bl][ak][jf][sc]
+))(C[- `1729` visits
+  - **winrate** `81.1%`]N[81.1%]AB[kr][jf][br][dj]LB[kr:1][ge:2][jf:3][ke:4][br:5][bj:6][dj:7]AW[ge][ke][bj]
+))(C[- `16550` visits
+  - **winrate** `43.9%`]N[43.9%]AW[kq][dj][bk][cq][dn]LB[kq:1][kr:2][dj:3][bj:4][bk:5][br:6][cq:7][eo:8][dn:9][en:10]AB[kr][bj][br][eo][en]
+))(C[- `1590` visits
+  - **winrate** `80.4%`]N[80.4%]AB[jr][kr][jf][br]LB[jr:1][kq:2][kr:3][ge:4][jf:5][ke:6][br:7]AW[kq][ge][ke]
+))(C[- `15775` visits
+  - **winrate** `43.6%`]N[43.6%]AW[jq][kq][dj][bk][cq]LB[jq:1][jr:2][kq:3][kr:4][dj:5][bj:6][bk:7][br:8][cq:9][eo:10]AB[jr][kr][bj][br][eo]
+))(C[- `1642` visits
+  - **winrate** `79.8%`]N[79.8%]AB[gs][jr][kr][jf][br]LB[gs:1][jq:2][jr:3][kq:4][kr:5][ge:6][jf:7][ke:8][br:9]AW[jq][kq][ge][ke]
+))(C[- `16653` visits
+  - **winrate** `43.0%`]N[43.0%]AW[gq][jq][kq][bs][rn]LB[gq:1][gs:2][jq:3][jr:4][kq:5][kr:6][bs:7][qn:8][rn:9][ok:10]AB[gs][jr][kr][qn][ok]
+))(C[- `1514` visits
+  - **winrate** `79.2%`]N[79.2%]AB[hr][gs][jr][kr][jf]LB[hr:1][gq:2][gs:3][jq:4][jr:5][kq:6][kr:7][ge:8][jf:9][ke:10]AW[gq][jq][kq][ge][ke]
+))(C[- `15617` visits
+  - **winrate** `42.7%`]N[42.7%]AW[hq][gq][jq][kq][bs]LB[hq:1][hr:2][gq:3][gs:4][jq:5][jr:6][kq:7][kr:8][bs:9][ds:10]AB[hr][gs][jr][kr][ds]
+))(C[- `1560` visits
+  - **winrate** `77.4%`]N[77.4%]AB[fr][hr][kr][jf]LB[fr:1][jr:2][hr:3][jq:4][kr:5][ge:6][jf:7]AW[jr][jq][ge]
+))(C[- `15787` visits
+  - **winrate** `42.4%`]N[42.4%]AW[gr][hq][gq][jq][kq]LB[gr:1][fr:2][hq:3][hr:4][gq:5][gs:6][jq:7][jr:8][kq:9][kr:10]AB[fr][hr][gs][jr][kr]
+))(C[- `1514` visits
+  - **winrate** `78.5%`]N[78.5%]AB[rq][jq][hr][kr][js]LB[rq:1][jr:2][jq:3][iq:4][hr:5][kq:6][kr:7][jp:8][js:9]AW[jr][iq][kq][jp]
+))(C[- `17559` visits
+  - **winrate** `36.3%`]N[36.3%]AW[so][ge][ke][gf][ef]LB[so:1][rq:2][ge:3][jf:4][ke:5][if:6][gf:7][gg:8][ef:9][fg:10]AB[rq][jf][if][gg][fg]
+))(C[- `1522` visits
+  - **winrate** `78.8%`]N[78.8%]AB[sq][rq][jq][hr][kr]LB[sq:1][so:2][rq:3][jr:4][jq:5][iq:6][hr:7][kq:8][kr:9]AW[so][jr][iq][kq]
+))(C[- `15332` visits
+  - **winrate** `36.5%`]N[36.5%]AW[sp][so][ge][ke][gf]LB[sp:1][sq:2][so:3][rq:4][ge:5][jf:6][ke:7][if:8][gf:9][gg:10]AB[sq][rq][jf][if][gg]
+))(C[- `1641` visits
+  - **winrate** `79.6%`]N[79.6%]AB[ir][jq][hr][kr][js]LB[ir:1][jr:2][jq:3][iq:4][hr:5][kq:6][kr:7][jp:8][js:9][sp:10]AW[jr][iq][kq][jp][sp]
+))(C[- `16304` visits
+  - **winrate** `39.3%`]N[39.3%]AW[cm][sp][so][ge][ke]LB[cm:1][ir:2][sp:3][sq:4][so:5][rq:6][ge:7][jf:8][ke:9][if:10]AB[ir][sq][rq][jf][if]
+))(C[- `1507` visits
+  - **winrate** `80.5%`]N[80.5%]AB[dm][ir][fr][iq]LB[dm:1][cm:2][ir:3][gr:4][fr:5][hq:6][iq:7]AW[cm][gr][hq]
+))(C[- `15692` visits
+  - **winrate** `42.2%`]N[42.2%]AW[bq][sp][so][ge][ke]LB[bq:1][ir:2][sp:3][sq:4][so:5][rq:6][ge:7][jf:8][ke:9][if:10]AB[ir][sq][rq][jf][if]
+))(C[- `1652` visits
+  - **winrate** `79.8%`]N[79.8%]AB[cs][ir][fr][dm]LB[cs:1][bq:2][ir:3][gr:4][fr:5][hq:6][dm:7]AW[bq][gr][hq]
+))(C[- `15797` visits
+  - **winrate** `43.6%`]N[43.6%]AW[cr][sp][so][ds][bj]LB[cr:1][ir:2][sp:3][sq:4][so:5][rq:6][ds:7][fr:8][bj:9][ge:10]AB[ir][sq][rq][fr][ge]
+))(C[- `1655` visits
+  - **winrate** `80.3%`]N[80.3%]AB[dr][cs][ir][fr]LB[dr:1][cr:2][cs:3][bq:4][ir:5][gr:6][fr:7]AW[cr][bq][gr]
+))(C[- `16048` visits
+  - **winrate** `44.4%`]N[44.4%]AW[ko][cr][sp][so][ds]LB[ko:1][dr:2][cr:3][ir:4][sp:5][sq:6][so:7][rq:8][ds:9][fr:10]AB[dr][ir][sq][rq][fr]
+))(C[- `1652` visits
+  - **winrate** `80.4%`]N[80.4%]AB[on][dr][cs][bs][ir]LB[on:1][ko:2][dr:3][cr:4][cs:5][br:6][bs:7][bq:8][ir:9][gr:10]AW[ko][cr][br][bq][gr]
+))(C[- `15743` visits
+  - **winrate** `45.3%`]N[45.3%]AW[km][ko][cr][sp][so]LB[km:1][on:2][ko:3][dr:4][cr:5][ir:6][sp:7][sq:8][so:9][rq:10]AB[on][dr][ir][sq][rq]
+))(C[- `1584` visits
+  - **winrate** `82.4%`]N[82.4%]AB[lm][dr][cs][bs][ir]LB[lm:1][kn:2][dr:3][cr:4][cs:5][br:6][bs:7][bq:8][ir:9][gr:10]AW[kn][cr][br][bq][gr]
+))(C[- `16134` visits
+  - **winrate** `42.7%`]N[42.7%]AW[kk][cr][sp][so][ge]LB[kk:1][dr:2][cr:3][ir:4][sp:5][sq:6][so:7][rq:8][ge:9][jf:10]AB[dr][ir][sq][rq][jf]
+))(C[- `1715` visits
+  - **winrate** `82.2%`]N[82.2%]AB[mm][ol][kk][kl][ok]LB[mm:1][lm:2][ol:3][dr:4][kk:5][jk:6][kl:7][km:8][ok:9][sp:10]AW[lm][dr][jk][km][sp]
+))(C[- `17915` visits
+  - **winrate** `42.8%`]N[42.8%]AW[ll][kk][cr][sp][so]LB[ll:1][mm:2][kk:3][dr:4][cr:5][ir:6][sp:7][sq:8][so:9][rq:10]AB[mm][dr][ir][sq][rq]
+))(C[- `1695` visits
+  - **winrate** `82.9%`]N[82.9%]AB[nm][mm][ol][kk][kl]LB[nm:1][ll:2][mm:3][lm:4][ol:5][dr:6][kk:7][jk:8][kl:9][km:10]AW[ll][lm][dr][jk][km]
+))(C[- `16356` visits
+  - **winrate** `42.7%`]N[42.7%]AW[nl][ll][kk][cr][sp]LB[nl:1][nm:2][ll:3][mm:4][kk:5][dr:6][cr:7][ir:8][sp:9][sq:10]AB[nm][mm][dr][ir][sq]
+))(C[- `1592` visits
+  - **winrate** `83.2%`]N[83.2%]AB[ml][nl][dr][cs][bs]LB[ml:1][ll:2][nl:3][kk:4][dr:5][cr:6][cs:7][br:8][bs:9][bq:10]AW[ll][kk][cr][br][bq]
+))(C[- `17358` visits
+  - **winrate** `42.6%`]N[42.6%]AW[kj][ll][kk][cr][ds]LB[kj:1][ml:2][ll:3][nl:4][kk:5][dr:6][cr:7][ir:8][ds:9][fr:10]AB[ml][nl][dr][ir][fr]
+))(C[- `1669` visits
+  - **winrate** `82.7%`]N[82.7%]AB[lk][ml][nm][mm][lm]LB[lk:1][kj:2][ml:3][nl:4][nm:5][ll:6][mm:7][dr:8][lm:9][kn:10]AW[kj][nl][ll][dr][kn]
+))(C[- `15299` visits
+  - **winrate** `46.2%`]N[46.2%]AW[ki][cr][sp][so][ok]LB[ki:1][dr:2][cr:3][ir:4][sp:5][sq:6][so:7][rq:8][ok:9][qn:10]AB[dr][ir][sq][rq][qn]
+))(C[- `1666` visits
+  - **winrate** `81.8%`]N[81.8%]AB[li][lk][ml][nm][mm]LB[li:1][ki:2][lk:3][kj:4][ml:5][nl:6][nm:7][ll:8][mm:9]AW[ki][kj][nl][ll]
+))(C[- `16673` visits
+  - **winrate** `46.2%`]N[46.2%]AW[lj][ki][cr][sp][so]LB[lj:1][li:2][ki:3][dr:4][cr:5][ir:6][sp:7][sq:8][so:9][rq:10]AB[li][dr][ir][sq][rq]
+))(C[- `1591` visits
+  - **winrate** `81.5%`]N[81.5%]AB[mj][li][lk][dr][cs]LB[mj:1][lj:2][li:3][ki:4][lk:5][kj:6][dr:7][cr:8][cs:9][br:10]AW[lj][ki][kj][cr][br]
+))(C[- `16620` visits
+  - **winrate** `48.0%`]N[48.0%]AW[mk][lj][ki][kj][ll]LB[mk:1][mj:2][lj:3][li:4][ki:5][lk:6][kj:7][ml:8][ll:9][nl:10]AB[mj][li][lk][ml][nl]
+))(C[- `1568` visits
+  - **winrate** `81.3%`]N[81.3%]AB[nj][mi][nl][ok]LB[nj:1][mj:2][mi:3][lj:4][nl:5][ml:6][ok:7][mk:8]AW[mj][lj][ml][mk]
+))(C[- `15153` visits
+  - **winrate** `47.5%`]N[47.5%]AW[qi][mk][lj][mh][lk]LB[qi:1][nj:2][mk:3][mj:4][lj:5][li:6][mh:7][kj:8][lk:9][mi:10]AB[nj][mj][li][kj][mi]
+))(C[- `1565` visits
+  - **winrate** `81.4%`]N[81.4%]AB[oj][nj][mi][nl][ok]LB[oj:1][qi:2][nj:3][mj:4][mi:5][lj:6][nl:7][ml:8][ok:9]AW[qi][mj][lj][ml]
+))(C[- `16192` visits
+  - **winrate** `47.8%`]N[47.8%]AW[rl][qi][mj][mk][kj]LB[rl:1][oj:2][qi:3][nj:4][mj:5][mi:6][mk:7][li:8][kj:9][ki:10]AB[oj][nj][mi][li][ki]
+))(C[- `1621` visits
+  - **winrate** `81.2%`]N[81.2%]AB[rj][oj][nj][mi][nl]LB[rj:1][rl:2][oj:3][qi:4][nj:5][mj:6][mi:7][lj:8][nl:9][ml:10]AW[rl][qi][mj][lj][ml]
+))(C[- `16483` visits
+  - **winrate** `48.1%`]N[48.1%]AW[rk][rl][qi][ok][nl]LB[rk:1][rj:2][rl:3][oj:4][qi:5][nj:6][ok:7][mk:8][nl:9][oh:10]AB[rj][oj][nj][mk][oh]
+))(C[- `1581` visits
+  - **winrate** `81.1%`]N[81.1%]AB[qk][oj][oi][mh]LB[qk:1][rk:2][oj:3][nj:4][oi:5][rm:6][mh:7]AW[rk][nj][rm]
+))(C[- `16684` visits
+  - **winrate** `50.5%`]N[50.5%]AW[nk][cr][bq][ar][ge]LB[nk:1][dr:2][cr:3][br:4][bq:5][cs:6][ar:7][cq:8][ge:9][jf:10]AB[dr][br][cs][cq][jf]
+))(C[- `1567` visits
+  - **winrate** `79.3%`]N[79.3%]AB[pp][qk][rj][oj][ki]LB[pp:1][dr:2][qk:3][rk:4][rj:5][rl:6][oj:7][qi:8][ki:9][ji:10]AW[dr][rk][rl][qi][ji]
+))(C[- `16913` visits
+  - **winrate** `51.2%`]N[51.2%]AW[oo][dr][rk][rl][ri]LB[oo:1][pp:2][dr:3][qk:4][rk:5][rj:6][rl:7][oj:8][ri:9][pi:10]AB[pp][qk][rj][oj][pi]
+))(C[- `1653` visits
+  - **winrate** `79.3%`]N[79.3%]AB[nq][qk][rj][oj][ki]LB[nq:1][dr:2][qk:3][rk:4][rj:5][rl:6][oj:7][qi:8][ki:9][ji:10]AW[dr][rk][rl][qi][ji]
+))(C[- `16131` visits
+  - **winrate** `51.4%`]N[51.4%]AW[no][oo][dr][rk][rl]LB[no:1][nq:2][oo:3][pp:4][dr:5][qk:6][rk:7][rj:8][rl:9][oj:10]AB[nq][pp][qk][rj][oj]
+))(C[- `1514` visits
+  - **winrate** `79.3%`]N[79.3%]AB[np][nq][qk][rj][oj]LB[np:1][no:2][nq:3][dr:4][qk:5][rk:6][rj:7][rl:8][oj:9][qi:10]AW[no][dr][rk][rl][qi]
+))(C[- `16497` visits
+  - **winrate** `52.5%`]N[52.5%]AW[op][nq][np][dr][ll]LB[op:1][pp:2][nq:3][nr:4][np:5][pr:6][dr:7][ml:8][ll:9][lk:10]AB[pp][nr][pr][ml][lk]
+))(C[- `1645` visits
+  - **winrate** `78.6%`]N[78.6%]AB[mq][qk][rj][oj][ki]LB[mq:1][dr:2][qk:3][rk:4][rj:5][rl:6][oj:7][qi:8][ki:9][ji:10]AW[dr][rk][rl][qi][ji]
+))(C[- `15493` visits
+  - **winrate** `51.5%`]N[51.5%]AW[mo][op][nq][np][dr]LB[mo:1][mq:2][op:3][pp:4][nq:5][nr:6][np:7][pr:8][dr:9][ml:10]AB[mq][pp][nr][pr][ml]
+))(C[- `1744` visits
+  - **winrate** `77.3%`]N[77.3%]AB[rd][qk][rj][oj][mo]LB[rd:1][dr:2][qk:3][rk:4][rj:5][rl:6][oj:7][qi:8][mo:9][sp:10]AW[dr][rk][rl][qi][sp]
+))(C[- `16521` visits
+  - **winrate** `49.0%`]N[49.0%]AW[se][mo][nk][cr][bq]LB[se:1][rd:2][mo:3][mq:4][nk:5][dr:6][cr:7][br:8][bq:9][cs:10]AB[rd][mq][dr][br][cs]
+))(C[- `1692` visits
+  - **winrate** `76.4%`]N[76.4%]AB[re][se][qd][rc][nf]LB[re:1][rd:2][se:3][qe:4][qd:5][pe:6][rc:7][of:8][nf:9][og:10]AW[rd][qe][pe][of][og]
+))(C[- `15540` visits
+  - **winrate** `50.5%`]N[50.5%]AW[rf][rd][qe][pe][of]LB[rf:1][re:2][rd:3][se:4][qe:5][qd:6][pe:7][rc:8][of:9][nf:10]AB[re][se][qd][rc][nf]
+))(C[- `1511` visits
+  - **winrate** `77.4%`]N[77.4%]AB[pl][re][se][qd][rc]LB[pl:1][rf:2][re:3][rd:4][se:5][qe:6][qd:7][pe:8][rc:9][of:10]AW[rf][rd][qe][pe][of]
+))(C[- `15506` visits
+  - **winrate** `51.7%`]N[51.7%]AW[pj][dr][ok][pl][nk]LB[pj:1][mo:2][dr:3][rf:4][ok:5][ol:6][pl:7][nl:8][nk:9][ml:10]AB[mo][rf][ol][nl][ml]
+))(C[- `1544` visits
+  - **winrate** `77.4%`]N[77.4%]AB[pk][ol][nl][mo][om]LB[pk:1][pl:2][ol:3][ok:4][nl:5][oj:6][mo:7][nn:8][om:9]AW[pl][ok][oj][nn]
+))(C[- `15950` visits
+  - **winrate** `49.0%`]N[49.0%]AW[ab][cr][rf][se][sd]LB[ab:1][dr:2][cr:3][mo:4][rf:5][re:6][se:7][rd:8][sd:9][sc:10]AB[dr][mo][re][rd][sc]
+))(C[- `1682` visits
+  - **winrate** `78.6%`]N[78.6%]AB[ff][mo][re]LB[ff:1][ab:2][mo:3][rf:4][re:5][dr:6]AW[ab][rf][dr]
+))(C[- `15947` visits
+  - **winrate** `47.7%`]N[47.7%]AW[ad][af][dc][ef][eg]LB[ad:1][ah:2][af:3][ab:4][dc:5][ee:6][ef:7][ff:8][eg:9][eh:10]AB[ah][ab][ee][ff][eh]
+))(C[- `1531` visits
+  - **winrate** `74.0%`]N[74.0%]AB[ae][jf][rf][mq]LB[ae:1][ad:2][jf:3][ke:4][rf:5][mo:6][mq:7]AW[ad][ke][mo]
+))(C[- `16881` visits
+  - **winrate** `49.8%`]N[49.8%]AW[bd][cr][ad][dc][ff]LB[bd:1][dr:2][cr:3][ae:4][ad:5][ab:6][dc:7][ef:8][ff:9][fg:10]AB[dr][ae][ab][ef][fg]
+))(C[- `1538` visits
+  - **winrate** `75.2%`]N[75.2%]AB[ce][jf][lg]LB[ce:1][cd:2][jf:3][ke:4][lg:5][kg:6]AW[cd][ke][kg]
+))(C[- `16590` visits
+  - **winrate** `47.9%`]N[47.9%]AW[fe][ge][ke][cr][bq]LB[fe:1][ff:2][ge:3][jf:4][ke:5][dr:6][cr:7][br:8][bq:9][cs:10]AB[ff][jf][dr][br][cs]
+))(C[- `1677` visits
+  - **winrate** `73.4%`]N[73.4%]AB[gd][gc][re][ag]LB[gd:1][fb:2][gc:3][rf:4][re:5][dr:6][ag:7]AW[fb][rf][dr]
+))(C[- `16151` visits
+  - **winrate** `50.1%`]N[50.1%]AW[fd][fe][ge][ke][if]LB[fd:1][gd:2][fe:3][ff:4][ge:5][jf:6][ke:7][rf:8][if:9][dr:10]AB[gd][ff][jf][rf][dr]
+))(C[- `1549` visits
+  - **winrate** `73.2%`]N[73.2%]AB[eb][gd][gc][re]LB[eb:1][fd:2][gd:3][fb:4][gc:5][rf:6][re:7][mo:8]AW[fd][fb][rf][mo]
+))(C[- `15262` visits
+  - **winrate** `50.5%`]N[50.5%]AW[ec][fd][fe][ge][ke]LB[ec:1][eb:2][fd:3][gd:4][fe:5][ff:6][ge:7][jf:8][ke:9][dr:10]AB[eb][gd][ff][jf][dr]
+))(C[- `1542` visits
+  - **winrate** `75.1%`]N[75.1%]AB[dg][rf][qh]LB[dg:1][bd:2][rf:3][dr:4][qh:5][qi:6]AW[bd][dr][qi]
+))(C[- `15339` visits
+  - **winrate** `49.0%`]N[49.0%]AW[bf][ae][cr][ds][eo]LB[bf:1][dg:2][ae:3][dr:4][cr:5][ir:6][ds:7][fr:8][eo:9][dn:10]AB[dg][dr][ir][fr][dn]
+))(C[- `1606` visits
+  - **winrate** `72.8%`]N[72.8%]AB[be][cg][ef][bd]LB[be:1][dg:2][cg:3][bf:4][ef:5][ce:6][bd:7][ad:8]AW[dg][bf][ce][ad]
+))(C[- `15002` visits
+  - **winrate** `50.6%`]N[50.6%]AW[de][bf][ef][fd][dr]LB[de:1][cg:2][bf:3][mo:4][ef:5][dg:6][fd:7][ec:8][dr:9][fr:10]AB[cg][mo][dg][ec][fr]
+))(C[- `1606` visits
+  - **winrate** `71.5%`]N[71.5%]AB[df][be][ef][di]LB[df:1][de:2][be:3][dg:4][ef:5][cg:6][di:7]AW[de][dg][cg]
+))(C[- `15510` visits
+  - **winrate** `52.6%`]N[52.6%]AW[bc][cr][bq][ar][gh]LB[bc:1][dr:2][cr:3][br:4][bq:5][cs:6][ar:7][cq:8][gh:9][fh:10]AB[dr][br][cs][cq][fh]
+))(C[- `1552` visits
+  - **winrate** `71.2%`]N[71.2%]AB[ba][df][be][ag]LB[ba:1][bc:2][df:3][de:4][be:5][bf:6][ag:7]AW[bc][de][bf]
+))(C[- `15650` visits
+  - **winrate** `52.5%`]N[52.5%]AW[bb][ab][cr][bq][ar]LB[bb:1][ba:2][ab:3][dr:4][cr:5][br:6][bq:7][cs:8][ar:9][cq:10]AB[ba][dr][br][cs][cq]
+))(C[- `1598` visits
+  - **winrate** `72.1%`]N[72.1%]AB[bh][ba][df][be]LB[bh:1][bb:2][ba:3][bc:4][df:5][de:6][be:7]AW[bb][bc][de]
+))(C[- `15657` visits
+  - **winrate** `50.7%`]N[50.7%]AW[bg][dj][bj][dk][bb]LB[bg:1][cj:2][dj:3][di:4][bj:5][ci:6][dk:7][bi:8][bb:9][ba:10]AB[cj][di][ci][bi][ba]
+))(C[- `1592` visits
+  - **winrate** `72.1%`]N[72.1%]AB[cb][di][cj][ei]LB[cb:1][dh:2][di:3][dg:4][cj:5][dk:6][ei:7][bb:8]AW[dh][dg][dk][bb]
+))(C[- `16820` visits
+  - **winrate** `51.4%`]N[51.4%]AW[ck][bg][bd][di][eh]LB[ck:1][cb:2][bg:3][bc:4][bd:5][ab:6][di:7][dh:8][eh:9][ei:10]AB[cb][bc][ab][dh][ei]
+))(C[- `1522` visits
+  - **winrate** `72.5%`]N[72.5%]AB[ch][cl][bf][df][dg]LB[ch:1][cb:2][cl:3][dr:4][bf:5][be:6][df:7][cg:8][dg:9][bg:10]AW[cb][dr][be][cg][bg]
+))(C[- `15671` visits
+  - **winrate** `55.6%`]N[55.6%]AW[rh][mo][ci][bb][cd]LB[rh:1][rf:2][mo:3][mq:4][ci:5][cb:6][bb:7][dc:8][cd:9][ba:10]AB[rf][mq][cb][dc][ba]
+))(C[- `1533` visits
+  - **winrate** `71.7%`]N[71.7%]AB[qg][ph][rf][se]LB[qg:1][qh:2][ph:3][ri:4][rf:5][sf:6][se:7]AW[qh][ri][sf]
+))(C[- `17245` visits
+  - **winrate** `55.8%`]N[55.8%]AW[rg][rh][mo][ci][qi]LB[rg:1][qg:2][rh:3][rf:4][mo:5][mq:6][ci:7][qh:8][qi:9][oh:10]AB[qg][rf][mq][qh][oh]
+))(C[- `1614` visits
+  - **winrate** `70.7%`]N[70.7%]AB[hf][jf][ck]LB[hf:1][di:2][jf:3][ke:4][ck:5][cj:6]AW[di][ke][cj]
+))(C[- `15864` visits
+  - **winrate** `54.5%`]N[54.5%]AW[jg][ci][ke][if][no]LB[jg:1][hf:2][ci:3][jf:4][ke:5][mf:6][if:7][mo:8][no:9][np:10]AB[hf][jf][mf][mo][np]
+))(C[- `1611` visits
+  - **winrate** `67.9%`]N[67.9%]AB[ig][jg][gg][kh][lh]LB[ig:1][hf:2][jg:3][kg:4][gg:5][jf:6][kh:7][ji:8][lh:9][mg:10]AW[hf][kg][jf][ji][mg]
+))(C[- `15742` visits
+  - **winrate** `54.8%`]N[54.8%]AW[jh][hf][ck][bb][bc]LB[jh:1][gh:2][hf:3][ch:4][ck:5][cb:6][bb:7][dc:8][bc:9][ed:10]AB[gh][ch][cb][dc][ed]
+))(C[- `1702` visits
+  - **winrate** `66.8%`]N[66.8%]AB[hg][ig][gg][ge][gf]LB[hg:1][gh:2][ig:3][hf:4][gg:5][fh:6][ge:7][kh:8][gf:9][fi:10]AW[gh][hf][fh][kh][fi]
+))(C[- `16591` visits
+  - **winrate** `56.3%`]N[56.3%]AW[ii][gh][fh][kh][eh]LB[ii:1][hg:2][gh:3][ig:4][fh:5][hf:6][kh:7][fi:8][eh:9][ei:10]AB[hg][ig][hf][fi][ei]
+))(C[- `1563` visits
+  - **winrate** `66.6%`]N[66.6%]AB[hi][hg][ig][gg][ge]LB[hi:1][ii:2][hg:3][gh:4][ig:5][hf:6][gg:7][fh:8][ge:9][kh:10]AW[ii][gh][hf][fh][kh]
+))(C[- `15635` visits
+  - **winrate** `56.7%`]N[56.7%]AW[hh][ii][gh][fh][kh]LB[hh:1][hi:2][ii:3][hg:4][gh:5][ig:6][fh:7][hf:8][kh:9][jf:10]AB[hi][hg][ig][hf][jf]
+))(C[- `1695` visits
+  - **winrate** `64.9%`]N[64.9%]AB[id][hi][hg][gh]LB[id:1][hh:2][hi:3][ii:4][hg:5][jh:6][gh:7]AW[hh][ii][jh]
+))(C[- `16616` visits
+  - **winrate** `54.5%`]N[54.5%]AW[je][hh][ii][gh][gg]LB[je:1][id:2][hh:3][hi:4][ii:5][hg:6][gh:7][fh:8][gg:9][gf:10]AB[id][hi][hg][fh][gf]
+))(C[- `1735` visits
+  - **winrate** `64.3%`]N[64.3%]AB[jd][id][hi][hg]LB[jd:1][je:2][id:3][hh:4][hi:5][ii:6][hg:7][jh:8]AW[je][hh][ii][jh]
+))(C[- `16072` visits
+  - **winrate** `54.3%`]N[54.3%]AW[if][je][hh][ii][gh]LB[if:1][jd:2][je:3][id:4][hh:5][hi:6][ii:7][hg:8][gh:9][fh:10]AB[jd][id][hi][hg][fh]
+))(C[- `1538` visits
+  - **winrate** `64.2%`]N[64.2%]AB[ie][jd][id][hi]LB[ie:1][if:2][jd:3][je:4][id:5][hh:6][hi:7][ii:8]AW[if][je][hh][ii]
+))(C[- `15814` visits
+  - **winrate** `52.8%`]N[52.8%]AW[he][jc][if][je][kb]LB[he:1][gd:2][jc:3][ie:4][if:5][jd:6][je:7][id:8][kb:9][ib:10]AB[gd][ie][jd][id][ib]
+))(C[- `1685` visits
+  - **winrate** `64.5%`]N[64.5%]AB[hd][ie][jd][ge][dr]LB[hd:1][he:2][ie:3][if:4][jd:5][je:6][ge:7][id:8][dr:9][cr:10]AW[he][if][je][id][cr]
+))(C[- `15689` visits
+  - **winrate** `53.8%`]N[53.8%]AW[id][he][jc][if][ke]LB[id:1][hd:2][he:3][gd:4][jc:5][ib:6][if:7][je:8][ke:9][jf:10]AB[hd][gd][ib][je][jf]
+))(C[- `1568` visits
+  - **winrate** `67.3%`]N[67.3%]AB[ih][hd][ie][jd]LB[ih:1][id:2][hd:3][he:4][ie:5][if:6][jd:7][je:8]AW[id][he][if][je]
+))(C[- `15676` visits
+  - **winrate** `54.5%`]N[54.5%]AW[kf][id][he][hh][if]LB[kf:1][kh:2][id:3][hd:4][he:5][gd:6][hh:7][ie:8][if:9][je:10]AB[kh][hd][gd][ie][je]
+))(C[- `1553` visits
+  - **winrate** `65.8%`]N[65.8%]AB[jb][ri][rh][cl]LB[jb:1][kf:2][ri:3][qi:4][rh:5][nk:6][cl:7]AW[kf][qi][nk]
+))(C[- `15326` visits
+  - **winrate** `53.9%`]N[53.9%]AW[kd][kf][mf][ih][jf]LB[kd:1][jb:2][kf:3][kh:4][mf:5][mh:6][ih:7][jg:8][jf:9]AB[jb][kh][mh][jg]
+))(C[- `1589` visits
+  - **winrate** `64.8%`]N[64.8%]AB[od][jb][ri][rh]LB[od:1][kd:2][jb:3][kf:4][ri:5][qi:6][rh:7][ok:8]AW[kd][kf][qi][ok]
+))(C[- `16411` visits
+  - **winrate** `51.3%`]N[51.3%]AW[lc][ib][jb][hc][gc]LB[lc:1][je:2][ib:3][hb:4][jb:5][ch:6][hc:7][hd:8][gc:9][ce:10]AB[je][hb][ch][hd][ce]
+))(C[- `1572` visits
+  - **winrate** `63.7%`]N[63.7%]AB[ld][od][jb][ri][rh]LB[ld:1][lc:2][od:3][kd:4][jb:5][kf:6][ri:7][qi:8][rh:9][ok:10]AW[lc][kd][kf][qi][ok]
+))(C[- `15230` visits
+  - **winrate** `51.8%`]N[51.8%]AW[mc][lc][ib][jb][hc]LB[mc:1][ld:2][lc:3][je:4][ib:5][hb:6][jb:7][ch:8][hc:9][hd:10]AB[ld][je][hb][ch][hd]
+))(C[- `1507` visits
+  - **winrate** `64.2%`]N[64.2%]AB[md][ld][od][jb][ri]LB[md:1][mc:2][ld:3][lc:4][od:5][kd:6][jb:7][kf:8][ri:9][qi:10]AW[mc][lc][kd][kf][qi]
+))(C[- `16510` visits
+  - **winrate** `52.9%`]N[52.9%]AW[kc][cr][bq][ck][mb]LB[kc:1][dr:2][cr:3][br:4][bq:5][cs:6][ck:7][mc:8][mb:9][lc:10]AB[dr][br][cs][mc][lc]
+))(C[- `1590` visits
+  - **winrate** `64.3%`]N[64.3%]AB[pc][md][mb][fe]LB[pc:1][kc:2][md:3][ke:4][mb:5][ie:6][fe:7][gd:8]AW[kc][ke][ie][gd]
+))(C[- `15563` visits
+  - **winrate** `53.6%`]N[53.6%]AW[oc][kc][cr][bq][cq]LB[oc:1][pc:2][kc:3][dr:4][cr:5][br:6][bq:7][cs:8][cq:9][ir:10]AB[pc][dr][br][cs][ir]
+))(C[- `1658` visits
+  - **winrate** `64.7%`]N[64.7%]AB[pb][pc][md][mb][fe]LB[pb:1][oc:2][pc:3][kc:4][md:5][ke:6][mb:7][ie:8][fe:9][gd:10]AW[oc][kc][ke][ie][gd]
+))(C[- `16196` visits
+  - **winrate** `51.1%`]N[51.1%]AW[ob][kc][nb][mb][lb]LB[ob:1][pc:2][kc:3][nc:4][nb:5][mc:6][mb:7][lc:8][lb:9][kd:10]AB[pc][nc][mc][lc][kd]
+))(C[- `1618` visits
+  - **winrate** `62.1%`]N[62.1%]AB[ic][pc][qb][qc][nc]LB[ic:1][pb:2][pc:3][ob:4][qb:5][rb:6][qc:7][lc:8][nc:9][nb:10]AW[pb][ob][rb][lc][nb]
+))(C[- `15287` visits
+  - **winrate** `49.7%`]N[49.7%]AW[cc][ob][kc][nb][mb]LB[cc:1][ic:2][ob:3][pc:4][kc:5][nc:6][nb:7][mc:8][mb:9][lc:10]AB[ic][pc][nc][mc][lc]
+))(C[- `1698` visits
+  - **winrate** `62.0%`]N[62.0%]AB[db][ic][pc][qb][qc]LB[db:1][cc:2][ic:3][pb:4][pc:5][ob:6][qb:7][rb:8][qc:9][lc:10]AW[cc][pb][ob][rb][lc]
+))(C[- `16435` visits
+  - **winrate** `50.6%`]N[50.6%]AW[cf][cc][ob][oc][kc]LB[cf:1][db:2][cc:3][ic:4][ob:5][pb:6][oc:7][pc:8][kc:9][md:10]AB[db][ic][pb][pc][md]
+))(C[- `1625` visits
+  - **winrate** `61.7%`]N[61.7%]AB[fc][db][ic][pc][qb]LB[fc:1][cf:2][db:3][cc:4][ic:5][pb:6][pc:7][ob:8][qb:9][rb:10]AW[cf][cc][pb][ob][rb]
+))(C[- `15361` visits
+  - **winrate** `51.7%`]N[51.7%]AW[ln][cf][cc][ob][oc]LB[ln:1][fc:2][cf:3][db:4][cc:5][ic:6][ob:7][pb:8][oc:9][pc:10]AB[fc][db][ic][pb][pc]
+))(C[- `1709` visits
+  - **winrate** `61.7%`]N[61.7%]AB[lo][fc][db][ic][pc]LB[lo:1][ln:2][fc:3][cf:4][db:5][cc:6][ic:7][pb:8][pc:9][ob:10]AW[ln][cf][cc][pb][ob]
+))(C[- `16390` visits
+  - **winrate** `52.0%`]N[52.0%]AW[mn][ln][nn][pb][mc]LB[mn:1][lo:2][ln:3][mo:4][nn:5][no:6][pb:7][qc:8][mc:9][qb:10]AB[lo][mo][no][qc][qb]
+))(C[- `1542` visits
+  - **winrate** `60.0%`]N[60.0%]AB[gi][lo][cf][cl]LB[gi:1][mn:2][lo:3][ln:4][cf:5][fc:6][cl:7]AW[mn][ln][fc]
+))(C[- `16258` visits
+  - **winrate** `51.6%`]N[51.6%]AW[ij][ih][cf][cc][gh]LB[ij:1][gi:2][ih:3][fc:4][cf:5][db:6][cc:7][cb:8][gh:9][hi:10]AB[gi][fc][db][cb][hi]
+))(C[- `1510` visits
+  - **winrate** `60.3%`]N[60.3%]AB[gk][gi][lo][mo]LB[gk:1][ij:2][gi:3][mn:4][lo:5][ln:6][mo:7]AW[ij][mn][ln]
+))(C[- `16276` visits
+  - **winrate** `50.9%`]N[50.9%]AW[im][io][mn][ln][nn]LB[im:1][ho:2][io:3][fk:4][mn:5][lo:6][ln:7][mo:8][nn:9][no:10]AB[ho][fk][lo][mo][no]
+))(C[- `1779` visits
+  - **winrate** `59.1%`]N[59.1%]AB[hm][ho][gk][mo][no]LB[hm:1][im:2][ho:3][io:4][gk:5][lo:6][mo:7][mn:8][no:9]AW[im][io][lo][mn]
+))(C[- `15538` visits
+  - **winrate** `52.4%`]N[52.4%]AW[dq][cr][ij][bq][en]LB[dq:1][dr:2][cr:3][fk:4][ij:5][cl:6][bq:7][fc:8][en:9][fn:10]AB[dr][fk][cl][fc][fn]
+))(C[- `1652` visits
+  - **winrate** `51.3%`]N[51.3%]AB[er][dq][cr][ds][go]LB[er:1][dr:2][dq:3][ep:4][cr:5][fr:6][ds:7][fo:8][go:9][gn:10]AW[dr][ep][fr][fo][gn]
+))(C[- `15226` visits
+  - **winrate** `53.5%`]N[53.5%]AW[cp][dq][cr][ij][bq]LB[cp:1][er:2][dq:3][dr:4][cr:5][fk:6][ij:7][cl:8][bq:9][eo:10]AB[er][dr][fk][cl][eo]
+))(C[- `1788` visits
+  - **winrate** `53.7%`]N[53.7%]AB[cq][er][fr][eo][ir]LB[cq:1][ep:2][er:3][dr:4][fr:5][cr:6][eo:7][cp:8][ir:9][jc:10]AW[ep][dr][cr][cp][jc]
+))(C[- `15441` visits
+  - **winrate** `53.1%`]N[53.1%]AW[co][cp][dq][cr][jc]LB[co:1][cq:2][cp:3][er:4][dq:5][dr:6][cr:7][ir:8][jc:9][cf:10]AB[cq][er][dr][ir][cf]
+))(C[- `1638` visits
+  - **winrate** `53.5%`]N[53.5%]AB[do][cq][er][fr][eo]LB[do:1][co:2][cq:3][ep:4][er:5][dr:6][fr:7][cr:8][eo:9][cp:10]AW[co][ep][dr][cr][cp]
+))(C[- `16661` visits
+  - **winrate** `52.9%`]N[52.9%]AW[il][dn][el][bl][ej]LB[il:1][dm:2][dn:3][en:4][el:5][em:6][bl:7][gk:8][ej:9][gi:10]AB[dm][en][em][gk][gi]
+))(C[- `1600` visits
+  - **winrate** `54.2%`]N[54.2%]AB[fm][hl][gl][hm]LB[fm:1][dm:2][hl:3][gm:4][gl:5][fn:6][hm:7]AW[dm][gm][fn]
+))(C[- `15963` visits
+  - **winrate** `52.8%`]N[52.8%]AW[in][il][dn][el][bl]LB[in:1][fm:2][il:3][dm:4][dn:5][en:6][el:7][em:8][bl:9][cl:10]AB[fm][dm][en][em][cl]
+))(C[- `1675` visits
+  - **winrate** `51.5%`]N[51.5%]AB[fp][ho][gn][fm]LB[fp:1][fn:2][ho:3][io:4][gn:5][lo:6][fm:7]AW[fn][io][lo]
+))(C[- `15556` visits
+  - **winrate** `54.3%`]N[54.3%]AW[eq][in][dm][kn][jn]LB[eq:1][fp:2][in:3][fm:4][dm:5][il:6][kn:7][jo:8][jn:9][io:10]AB[fp][fm][il][jo][io]
+))(C[- `1573` visits
+  - **winrate** `50.2%`]N[50.2%]AB[lp][cf][bd][dg]LB[lp:1][dq:2][cf:3][fc:4][bd:5][cg:6][dg:7]AW[dq][fc][cg]
+))(C[- `15457` visits
+  - **winrate** `55.1%`]N[55.1%]AW[ip][eq][in][dm][il]LB[ip:1][lp:2][eq:3][fp:4][in:5][fm:6][dm:7][fk:8][il:9][hk:10]AB[lp][fp][fm][fk][hk]
+))(C[- `1534` visits
+  - **winrate** `51.4%`]N[51.4%]AB[oq][pp][nq][nr][iq]LB[oq:1][op:2][pp:3][or:4][nq:5][mq:6][nr:7][mr:8][iq:9][ko:10]AW[op][or][mq][mr][ko]
+))(C[- `15363` visits
+  - **winrate** `52.9%`]N[52.9%]AW[mp][mo][mn][ln][km]LB[mp:1][lp:2][mo:3][lo:4][mn:5][oq:6][ln:7][kn:8][km:9][jn:10]AB[lp][lo][oq][kn][jn]
+))(C[- `1539` visits
+  - **winrate** `45.3%`]N[45.3%]AB[rp][op][qr][qq][mp]LB[rp:1][pp:2][op:3][pq:4][qr:5][pr:6][qq:7][nq:8][mp:9][lr:10]AW[pp][pq][pr][nq][lr]
+))(C[- `15259` visits
+  - **winrate** `52.9%`]N[52.9%]AW[ql][ip][in][en][gp]LB[ql:1][pp:2][ip:3][fo:4][in:5][fm:6][en:7][fn:8][gp:9][fp:10]AB[pp][fo][fm][fn][fp]
+))(C[- `1611` visits
+  - **winrate** `46.1%`]N[46.1%]AB[po][rp][op][qr][qq]LB[po:1][ql:2][rp:3][pp:4][op:5][pq:6][qr:7][pr:8][qq:9][nq:10]AW[ql][pp][pq][pr][nq]
+))(C[- `15143` visits
+  - **winrate** `51.9%`]N[51.9%]AW[qo][ql][ip][in][en]LB[qo:1][po:2][ql:3][pp:4][ip:5][fo:6][in:7][fm:8][en:9][fn:10]AB[po][pp][fo][fm][fn]
+))(C[- `1585` visits
+  - **winrate** `47.5%`]N[47.5%]AB[pm][po][rp][op][qr]LB[pm:1][qo:2][po:3][ql:4][rp:5][pp:6][op:7][pq:8][qr:9][pr:10]AW[qo][ql][pp][pq][pr]
+))(C[- `15085` visits
+  - **winrate** `51.1%`]N[51.1%]AW[ro][qo][rp][ql][cf]LB[ro:1][pm:2][qo:3][po:4][rp:5][qq:6][ql:7][fc:8][cf:9][jd:10]AB[pm][po][qq][fc][jd]
+))(C[- `1657` visits
+  - **winrate** `48.6%`]N[48.6%]AB[pn][qo][pm][ol][jp]LB[pn:1][qn:2][qo:3][lo:4][pm:5][pl:6][ol:7][pk:8][jp:9][mq:10]AW[qn][lo][pl][pk][mq]
+))(C[- `16199` visits
+  - **winrate** `51.8%`]N[51.8%]AW[qm][ro][qo][pp][ql]LB[qm:1][pn:2][ro:3][pm:4][qo:5][po:6][pp:7][qq:8][ql:9][op:10]AB[pn][pm][po][qq][op]
+))(C[- `1586` visits
+  - **winrate** `48.6%`]N[48.6%]AB[qf][pn][qo][pm][ol]LB[qf:1][qm:2][pn:3][qn:4][qo:5][lo:6][pm:7][pl:8][ol:9][pk:10]AW[qm][qn][lo][pl][pk]
+))(C[- `15087` visits
+  - **winrate** `51.6%`]N[51.6%]AW[qj][qm][ro][qo][rp]LB[qj:1][qh:2][qm:3][pn:4][ro:5][pm:6][qo:7][po:8][rp:9][qq:10]AB[qh][pn][pm][po][qq]
+))(C[- `1604` visits
+  - **winrate** `48.6%`]N[48.6%]AB[lq][qf][pn][qo][pm]LB[lq:1][qj:2][qf:3][qm:4][pn:5][qn:6][qo:7][lo:8][pm:9][pl:10]AW[qj][qm][qn][lo][pl]
+))(C[- `16048` visits
+  - **winrate** `52.1%`]N[52.1%]AW[cn][qj][qm][ro][qo]LB[cn:1][kq:2][qj:3][qh:4][qm:5][pn:6][ro:7][pm:8][qo:9][po:10]AB[kq][qh][pn][pm][po]
+))(C[- `1640` visits
+  - **winrate** `48.6%`]N[48.6%]AB[fq][lq][qf][pn][qo]LB[fq:1][cn:2][lq:3][qj:4][qf:5][qm:6][pn:7][qn:8][qo:9][lo:10]AW[cn][qj][qm][qn][lo]
+))(C[- `16806` visits
+  - **winrate** `52.5%`]N[52.5%]
+;W[dd]
+;B[fq]
+;W[cn]
+;B[kq]
+;W[qj]
+;B[qh]
+;W[qm]
+;B[pn]
+;W[ro]
+;B[pm]
+))(C[- `1639` visits
+  - **winrate** `48.5%`]N[48.5%]
+;B[qp]
+;W[dc]
+;B[fq]
+;W[cn]
+;B[lq]
+;W[qj]
+;B[qf]
+;W[qm]
+;B[pn]
+;W[qn]
+))(C[- `15309` visits
+  - **winrate** `51.7%`]N[51.7%]
+;W[dp]
+;B[pp]
+;W[dd]
+;B[fq]
+;W[cn]
+;B[dr]
+;W[cq]
+;B[iq]
+;W[qn]
+;B[ql]
+))(C[- `862` visits
+  - **winrate** `48.3%`]N[48.3%]
+;B[pd]
+;W[dd]
+;B[qp]
+;W[dq]
+;B[co]
+;W[oq]
+;B[lp]
+;W[on]
+;B[pq]
+;W[op]
+))

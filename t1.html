@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My page</title>
+		<script type="text/javascript" src="wgo/wgo.min.js"></script>
+	</head>
+
+	<body>
+		WGo.js showboard, click to put black/white/remove
+		<div id="board">
+		</div>
+		<script>
+			var board = new WGo.Board(document.getElementById("board"), {
+				width: 600,
+			});
+
+			var stm = "black"
+			board.addEventListener("click", function(x, y) {
+				console.log(x,y,board.getState().objects[x][y][0])
+				if (board.getState().objects[x][y][0]==undefined) {
+					board.addObject({
+						x: x,
+						y: y,
+						c: WGo.B
+					});
+				} else if (board.getState().objects[x][y][0].c==WGo.B) {
+					board.addObject({
+						x: x,
+						y: y,
+						c: WGo.W
+					});
+				} else if (board.getState().objects[x][y][0].c==WGo.W) {
+					board.removeObjectsAt(x, y);
+				} else {
+					console.log("error",x,y,board.getState().objects[x][y][0])
+				}
+			});
+		</script>
+	</body>
+
+</html>
