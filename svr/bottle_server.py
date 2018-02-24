@@ -318,8 +318,60 @@ def undo():
     ZenUndo(1)
     return json.dumps({"result":"ok"})
 
-@post('/play') # or @route('/go/play', method='POST')
+@post('/play')
 def do_play():
+    x = int(request.forms.get('x'))
+    y = int(request.forms.get('y'))
+    color = int(request.forms.get('color'))
+
+    if (color==1) : C=2
+    else: C=1
+    ret = ZenPlay(x, y, C)
+    print "ZenPlay %s(%d %d) GTP: %s%d ret: %d" % ('B' if C==2 else 'W',x,y, 'ABCDEFGHJKLMNOPQRST'[x],BoardSize-y, ret)
+
+    return json.dumps({"result":"ok"})
+
+@post('/genmove')
+def do_genmove():
+    color = int(request.forms.get('color'))
+    if (color==1) : C=2
+    else: C=1
+
+    C = ZenGetNextColor()
+    Top = ZenGenMove(C)
+    ZenPlay(Top[0][0],Top[0][1],C)
+
+    rp=[]
+    for i in range(0, len(Top)):
+        print Top[i]
+        rp.append({'x':Top[i][0],'y':Top[i][1],'color':1 if C==2 else -1, 'count':Top[i][2], 'winrate':int(Top[i][3]*1000)/10.0, 'seq':Top[i][4]})
+    #print json.dumps(rp)
+    return json.dumps(rp)
+
+@post('/play_genmove')
+def do_play_genmove():
+    x = int(request.forms.get('x'))
+    y = int(request.forms.get('y'))
+    color = int(request.forms.get('color'))
+
+    if (color==1) : C=2
+    else: C=1
+    ret = ZenPlay(x, y, C)
+    print "ZenPlay %s(%d %d) GTP: %s%d ret: %d" % ('B' if C==2 else 'W',x,y, 'ABCDEFGHJKLMNOPQRST'[x],BoardSize-y, ret)
+
+    C = ZenGetNextColor()
+    Top = ZenGenMove(C)
+    #ZenPlay(Top[0][0],Top[0][1],C)
+
+    rp=[]
+    for i in range(0, len(Top)):
+        print Top[i]
+        rp.append({'x':Top[i][0],'y':Top[i][1],'color':1 if C==2 else -1, 'count':Top[i][2], 'winrate':int(Top[i][3]*1000)/10.0, 'seq':Top[i][4]})
+    #print json.dumps(rp)
+    return json.dumps(rp)
+
+@post('/play_genmove_play')
+def do_play_genmove_play():
     x = int(request.forms.get('x'))
     y = int(request.forms.get('y'))
     color = int(request.forms.get('color'))
@@ -328,8 +380,8 @@ def do_play():
 
     if (color==1) : C=2
     else: C=1
-    print "ZenPlay %s(%d %d) GTP: %s%d" % ('B' if C==2 else 'W',x,y, 'ABCDEFGHJKLMNOPQRST'[x],BoardSize-y)
     ret = ZenPlay(x, y, C)
+    print "ZenPlay %s(%d %d) GTP: %s%d ret: %d" % ('B' if C==2 else 'W',x,y, 'ABCDEFGHJKLMNOPQRST'[x],BoardSize-y, ret)
 
     C = ZenGetNextColor()
     Top = ZenGenMove(C)
