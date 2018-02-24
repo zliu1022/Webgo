@@ -54,6 +54,7 @@
 			var player = new WGo.BasicPlayer(elem, {
                 //sgf: "(;CA[utf-8]FF[4]SZ[19]GM[1]DT[2017-10-22]PB[Human]BR[10]PW[Zen7]WR[9]KM[7.5]",
 				sgfFile: "sgf/1-135.final.sgf",
+                //sgfFile: "sgf/2-135.sgf",
 				//sgfFile: "sgf/Zen7-s1.5k_vs_Zen6-s1.5w_B+13.5_20180129.sgf",
 				//sgfFile: "sgf/Zen6-s1.5w_vs_lz-714a-1.08w_B_20180130.sgf",
 				board: {
@@ -70,7 +71,7 @@
 					//background: "#000000"
 					//background: "#FFFFFF"
 				},
-				//move: 1,
+				move: 64,
 				layout: {
 					top: ['InfoBox'],
 					bottom: ['Control', 'CommentBox']
@@ -102,8 +103,7 @@
 					//player.board.addObject({x: x, y: y, c: WGo.B})
 					svr_status=1;
 					var xhr = $.ajax({
-						url: 'http://211.160.178.29:20521/go/play',
-						//url: '/go/play',
+						url: 'http://211.160.178.29:20521/go/play_genmove_play',
 						timeout : 50000, //超时时间设置，单位毫秒
 						type: "POST",
 						data: {
@@ -145,9 +145,61 @@
 				}
 			});
 			
-			document.getElementsByClassName("wgo-box-title")[2].style.left="-40px"
+			//document.getElementsByClassName("wgo-box-title")[2].style.left="-40px"
 			document.getElementsByClassName("wgo-comments-wrapper")[0].style.height="150px"
-			
+
+            first_bn=player.components.Control.widgets[2].element.childNodes[0]
+            multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
+            prev_bn=player.components.Control.widgets[2].element.childNodes[2]
+            next_bn=player.components.Control.widgets[2].element.childNodes[4]
+            multinext_bn=player.components.Control.widgets[2].element.childNodes[5]
+            last_bn=player.components.Control.widgets[2].element.childNodes[6]
+            var prev_fn_count=0;
+            prev_fn=function(){
+                console.log("previous button pressed ", prev_fn_count);
+                document.getElementsByClassName("wgo-comments-content")[0].innerText="previous button pressed "+prev_fn_count;
+                prev_fn_count+=1;
+            }
+            prev_fn_touch=function(){
+                console.log("previous button touched ", prev_fn_count);
+                document.getElementsByClassName("wgo-comments-content")[0].innerText="previous button touched "+prev_fn_count;
+                prev_fn_count+=1;
+                
+                editmode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-editmode")
+                if ( (editmode.length == 0) || (editmode[0].classList.length!=3) ){ // no wgo-selected
+                    console.log("normal mode")
+                    document.getElementsByClassName("wgo-comments-content")[0].innerText="nomal mode, can't undo"
+                    return;
+                }
+                
+                var xhr = $.ajax({
+					url: 'http://211.160.178.29:20521/go/undo',
+					type: "GET",
+					data: {
+						step: 1
+					},
+					success: function(data) {
+						console.log("success: " + JSON.stringify(data));
+					},
+					error: function(er,statusText,b) {
+						//超时，statusText==timeout
+						console.log("error: " + JSON.stringify(er));
+					},
+				});
+
+            }
+            prev_bn.addEventListener("click",prev_fn);
+            prev_bn.addEventListener("touchstart",prev_fn_touch);
+            //prev_bn.addEventListener("touchend",prev_fn);
+
+            p=document.getElementById("player")
+            b=document.createElement("button")
+            bfn=function(){console.log("bfn");alert("bfn");}
+            b.addEventListener("click",bfn);
+            b.className="wgo-button";
+            b.title="test";
+            p.appendChild(b)
+            
 			$(document).ready(function() {
 				console.log("document onload")
 				
