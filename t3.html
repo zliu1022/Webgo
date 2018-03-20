@@ -86,6 +86,8 @@
             var qs = getQueryString(); 
             var q1 = qs["sgf"];
             var q2 = qs["move"];
+            if (q1 === undefined) { q1="1-135.final.sgf"}
+            if (q2 === undefined) { q2="85"}
             q1="sgf/"+q1;
             console.log("URL-sgf: ",q1)
             console.log("URL-move: ",q2)
