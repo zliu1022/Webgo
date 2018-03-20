@@ -53,8 +53,8 @@
 			var elem = document.getElementById("player");
 			var player = new WGo.BasicPlayer(elem, {
                 //sgf: "(;CA[utf-8]FF[4]SZ[19]GM[1]DT[2017-10-22]PB[Human]BR[10]PW[Zen7]WR[9]KM[7.5]",
-				sgfFile: "sgf/1-135.final.sgf",
-                //sgfFile: "sgf/2-135.sgf",
+                //sgfFile: "sgf/1-135.final.sgf",
+                sgfFile: "sgf/2-135.sgf",
 				//sgfFile: "sgf/Zen7-s1.5k_vs_Zen6-s1.5w_B+13.5_20180129.sgf",
 				//sgfFile: "sgf/Zen6-s1.5w_vs_lz-714a-1.08w_B_20180130.sgf",
 				board: {
@@ -145,9 +145,6 @@
 				}
 			});
 			
-			//document.getElementsByClassName("wgo-box-title")[2].style.left="-40px"
-			document.getElementsByClassName("wgo-comments-wrapper")[0].style.height="150px"
-
             first_bn=player.components.Control.widgets[2].element.childNodes[0]
             multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
             prev_bn=player.components.Control.widgets[2].element.childNodes[2]
@@ -192,16 +189,26 @@
             prev_bn.addEventListener("touchstart",prev_fn_touch);
             //prev_bn.addEventListener("touchend",prev_fn);
 
-            p=document.getElementById("player")
+            /*p=document.getElementById("player")
             b=document.createElement("button")
             bfn=function(){console.log("bfn");alert("bfn");}
             b.addEventListener("click",bfn);
             b.className="wgo-button";
             b.title="test";
-            p.appendChild(b)
+            p.appendChild(b)*/
             
 			$(document).ready(function() {
 				console.log("document onload")
+                //document.getElementsByClassName("wgo-box-title")[2].style.left="-40px"
+
+                document.getElementsByClassName("wgo-comments-wrapper")[0].style.height="150px"
+                
+                document.getElementsByClassName("wgo-player-info-title")[0].style.fontSize="10px"
+                document.getElementsByClassName("wgo-player-info-title")[1].style.fontSize="10px"
+                document.getElementsByClassName("wgo-player-info-title")[2].style.fontSize="10px"
+                document.getElementsByClassName("wgo-player-info-title")[3].style.fontSize="10px"
+                document.getElementsByClassName("wgo-player-info-title")[4].style.fontSize="10px"
+                document.getElementsByClassName("wgo-player-info-title")[5].style.fontSize="10px"
 				
 				var xhr = $.ajax({
 					url: 'http://211.160.178.29:20521/go/clear_board',

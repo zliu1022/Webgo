@@ -14,7 +14,7 @@ name = 'Zen7'
 version = '0.3'
 
 Threads = 8
-Strength = 1
+Strength = 6000
 #Strength = 15000#count, 45000 means 1500*30s, very powerful machine think 30s
 
 ZenDLL = 'c:\go\zen7\Zen.dll'
@@ -33,7 +33,7 @@ gameinfo=[] #suitable to dict data type
 gamelen=0
 passcount=0
 
-MaxSimulations = 29#MaxSimulations = 1000000000 zliu: it's MCTS Playout, only 29 MCTS will be 1 NN eval
+MaxSimulations = 1000000000#MaxSimulations = 1000000000 zliu: it's MCTS Playout, only 29 MCTS will be 1 NN eval
 MaxTime = 1000000000.0#MaxTime = c_float(1000000000.0), Time*Games/s=Playout
 PnLevel = 3
 PnWeight = c_float(1.0)

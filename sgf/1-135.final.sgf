@@ -8,7 +8,8 @@ R16  31 51.40% R16 D16
 N16   1  2.14% N16
 ]
 LB[pd:49.3]LB[dd:2]
-;W[dd];B[pq];W[dp];B[fq];W[eq];B[fp];W[dn];B[jp];W[qo];B[pl];W[no];B[qp];W[po]
+;W[dd]
+;B[pq];W[dp];B[fq];W[eq];B[fp];W[dn];B[jp];W[qo];B[pl];W[no];B[qp];W[po]
 C[注释，可以写不少文字，对这一招法进行解释，注释，可以写不少文字，对这一招法进行解释，注释，可以写不少文字，对这一招法进行解释，注释，可以写不少文字，对这一招法进行解释，
 this is a comment]
 LB[pd:1]LB[dd:2]LB[pq:123]LB[dp:456]LB[fq:55]LB[eq:66%]LB[fp:99]TR[dn]CR[jp]MA[qo]SQ[pl]SQ[no]LB[op:12%]LB[do:45%]
@@ -30,6 +31,7 @@ Top: 8 single char labels (1-4, a-d)
 
 Bottom: Labels up to 8 char length.]
 ;B[cf];W[mq];B[np];W[pp];B[mp];W[qq];B[qr];W[rp];B[cl];W[qc];B[qd];W[pc]
+LB[cf:1]LB[mq:2]LB[np:3]LB[pp:4]LB[mp:5]LB[qq:6]LB[qr:7]LB[rp:8]LB[cl:9]LB[qc:10]LB[qd:11]LB[pc:12]
 ;B[oc];W[ob];B[nc];W[nb];B[mc];W[mb];B[lc];W[pi];B[cq];W[fr];B[gr];W[bo];B[er];W[dr]
 ;B[dq];W[ep];B[fs];W[cr];B[fc];W[fd];B[gd];W[fe];B[ec];W[dc];B[be];W[mj];B[dg];W[bd]
 ;B[bc];W[de];B[fg];W[ce];B[bf];W[ad];B[ge];W[qh];B[mo];W[nn];B[nh];W[ni];B[mi];W[nj]
