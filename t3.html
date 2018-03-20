@@ -65,6 +65,31 @@
 		}
 	    </style>
 		<script type="text/javascript">
+            // get sgf name from URL 127.0.0.1/wgo/xx.html?sgf=lz-545ca-12800_vs_zen7-s1000.sgf
+            function getQueryString() {  
+                var qs = location.search.substr(1), // 获取url中"?"符后的字串  
+                args = {}, // 保存参数数据的对象
+                items = qs.length ? qs.split("&") : [], // 取得每一个参数项,
+                item = null,
+                len = items.length;
+
+              for(var i = 0; i < len; i++) {
+                item = items[i].split("=");
+                var name = decodeURIComponent(item[0]),
+                  value = decodeURIComponent(item[1]);
+                if(name) {
+                  args[name] = value;
+                }
+              }
+              return args;
+            }
+            var qs = getQueryString(); 
+            var q1 = qs["sgf"];
+            var q2 = qs["move"];
+            q1="sgf/"+q1;
+            console.log("URL-sgf: ",q1)
+            console.log("URL-move: ",q2)
+
 			var elem = document.getElementById("player");
 			var player = new WGo.BasicPlayer(elem, {
                 //sgf: "(;CA[utf-8]FF[4]SZ[19]GM[1]DT[2017-10-22]PB[Human]BR[10]PW[Zen7]WR[9]KM[7.5]",
@@ -76,8 +101,9 @@
                 //sgfFile: "sgf/lz-545ca-12800_vs_zen7-s1000.sgf",
                 //sgfFile: "sgf/超级大龙不会提.sgf",
                 //sgfFile: "sgf/lz-d7f6a-v16000_vs_zen7-s30000_no266.sgf",move: 268,//leelazero左下死活应对错误，被zen7翻盘
-                sgfFile: "sgf/lz-d996f-v16000_vs_zen7-s30000-0_No191.sgf",move: 190,//zen7胜率18%，lz没应对(H13)被zen7翻盘
+                //sgfFile: "sgf/lz-d996f-v16000_vs_zen7-s30000-0_No191.sgf",move: 190,//zen7胜率18%，lz没应对(H13)被zen7翻盘
                 //sgfFile: "sgf/lz-b7768-v16000_vs_zen7-s30000-1.sgf",move: 175,//zen7下面突然走了一步打将，185手放活lz白大龙，有点莫名其妙
+                sgfFile: q1, move: parseInt(q2),
 				board: {
 					size: 19,
 					width: 0,
