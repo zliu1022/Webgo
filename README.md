@@ -40,10 +40,11 @@ location ~* \.(htm|html|gif|jpg|jpeg|png|css|js|ico|json|net|sgf)$ {
 }
 ```
 4. put all zip content to your web site root
-In the example , it's c:\web
+
+In the example , it's ```c:\web```
 
 # Server Configuration
-In webgo.py, change to your own leelazero executable path and set the weight name correctly and make sure the leelaz.exe support lz-analyze gtp command
+In ```svr\webgo.py```, change to your own leelazero executable path and set the weight name correctly and make sure the leelaz.exe support lz-analyze gtp command
 ```
 executable = "c:/go/leela-zero/leelaz.exe"
 weight = '-wc:/go/weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
