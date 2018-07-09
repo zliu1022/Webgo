@@ -21,6 +21,7 @@ pip gevent-websocket
 3. If you already have your web server, please skip this step
 
 3.1 download ngnix 1.3
+
 3.2 modify nginx.conf and set the port and root path
 ```
 server {
