@@ -3,6 +3,7 @@
 # Introduction
 Using web browser to visit your computer which is running leela zero to analyse sgf.
 So you can analyse all kifu anywhere.
+![screenshot](screenshot/chinese.PNG)
 
 # Dependency and acknowledge
 1. Web page based on WGo.js.
