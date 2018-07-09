@@ -13,7 +13,7 @@ import os, sys
 import leelaz
 import json
 
-executable = "c:/go/leela-zero-0.13-win64-cpu/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz.exe"
+executable = "c:/go/leela-zero/leelaz.exe"
 weight = '-wc:/go/weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
 port = 32002
 
