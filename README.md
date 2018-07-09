@@ -19,6 +19,7 @@ pip gevent-websocket
 3. If you already have your web server, please skip this step
 3.1 download ngnix 1.3
 3.2 modify nginx.conf and set the port and root path
+```
 server {
         listen       80;
         server_name  localhost;
@@ -26,11 +27,14 @@ server {
         location = / {
             root   C:\web;
             index  index.html index.php;
-        }
+}
+```
 3.3 add sgf as one filetype permitted by server
+```
 location ~* \.(htm|html|gif|jpg|jpeg|png|css|js|ico|json|net|sgf)$ {
     root C:\web;
 }
+```
 4. put all zip content to your web site root
 In the example , it's c:\web
 
