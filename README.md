@@ -54,7 +54,11 @@ You can put sgf file under sgf directory
 
 # How to run
 server side, under cmd.exe run:
+```
 c:\python2.7\python webgo.py
+```
 
 browser side, can use pad/phone with any web browser
+```
 http://your_ip/webgo.html?sgf=1.sgf&move=50
+```
