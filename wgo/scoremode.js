@@ -94,6 +94,38 @@ ScoreMode.prototype.displayScore = function() {
 		black_captured: [],
 		white_captured: [],
 	}
+    
+    var b_total=0, b_pass=0, w_total=0, w_pass=0;
+    var n = player.kifu.root;
+    for ( i=0; i< player.kifuReader.path.m; i++) {
+        //console.log(i);
+        if (n.children.length!=0) {
+            if (player.kifuReader.path[i+1]) {
+                //console.log(i+1, "select ", player.kifuReader.path[i+1], " children");
+                n = n.children[player.kifuReader.path[i+1]];
+            } else {
+                n = n.children[0];
+            }
+        }
+        if(n.move.pass) {
+            //console.log(i+1, "pass", n.move.c);
+            //movelist.push({x:n.move.x, y:n.move.y, c:n.move.c})
+            if (n.move.c == WGo.B) {
+                b_pass++;
+            } else if (n.move.c == WGo.W) {
+                w_pass++;
+            }
+        } else {
+            //console.log(i+1, n.move.x, n.move.y, n.move.c);
+            //movelist.push({x:n.move.x, y:n.move.y, c:n.move.c})
+            if (n.move.c == WGo.B) {
+                b_total++;
+            } else if (n.move.c == WGo.W) {
+                w_total++;
+            }
+        }
+    }
+    console.log("B: ",b_total," W: ",w_total," B_pass: ",b_pass," W_pass: ",w_pass)
 	
 	for(var i = 0; i < this.position.size; i++) {
 		for(var j = 0; j < this.position.size; j++) {
@@ -127,11 +159,21 @@ ScoreMode.prototype.displayScore = function() {
 	var sb = score.black.length+score.white_captured.length+this.originalPosition.capCount.black;
 	var sw = score.white.length+score.black_captured.length+this.originalPosition.capCount.white+parseFloat(this.komi);
 	
-	msg += "<p>"+WGo.t("black")+": "+score.black.length+" + "+(score.white_captured.length+this.originalPosition.capCount.black)+" = "+sb+"</br>";
-	msg += WGo.t("white")+": "+score.white.length+" + "+(score.black_captured.length+this.originalPosition.capCount.white)+" + "+this.komi+" = "+sw+"</p>";
-	
-	if(sb > sw) msg += "<p style='font-weight: bold;'>"+WGo.t("bwin", sb-sw)+"</p>";
-	else msg += "<p style='font-weight: bold;'>"+WGo.t("wwin", sw-sb)+"</p>";
+    var black_live=b_total-(score.black_captured.length+this.originalPosition.capCount.white);
+    var white_live=w_total-(score.white_captured.length+this.originalPosition.capCount.black);
+    var black_area=black_live+score.black.length;
+    var white_area=white_live+score.white.length;
+    console.log("chinese rule ", "B area: ", black_area, "W area: ", white_area);
+	msg += "<p>"+WGo.t("black")+": "+score.black.length+" + "+(score.white_captured.length+this.originalPosition.capCount.black)+" = "+sb+" ("+black_area+")"+"</br>";
+	msg += WGo.t("white")+": "+score.white.length+" + "+(score.black_captured.length+this.originalPosition.capCount.white)+" + "+this.komi+" = "+sw+" ("+white_area+" + "+this.komi+")"+"</p>";
+    
+	if(sb > sw) msg += "<p style='font-weight: bold;'>"+WGo.t("bwin", sb-sw);
+	else msg += "<p style='font-weight: bold;'>"+WGo.t("wwin", sw-sb);
+    
+    white_area += parseFloat(this.komi);
+    console.log("chinese rule ", "B area: ", black_area, "W area: ", white_area, " komi: ", parseFloat(this.komi));
+    if(black_area>white_area) msg += " ("+WGo.t("bwin", black_area-white_area)+") </p>";
+	else msg += " ("+WGo.t("wwin", white_area-black_area)+") </p>";
 	
 	this.output(msg);
 }

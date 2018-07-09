@@ -253,6 +253,11 @@ control.MenuItem = WGo.extendClass(control.Clickable, function(player, args) {
 	var elem = this.element = document.createElement("div");
 	elem.className = "wgo-menu-item wgo-menu-item-"+args.name;
 	elem.title = WGo.t(args.name);
+    
+    /*alert(args.name + " " + elem.title);
+    var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
+    elem_content.innerText= args.name + " " + elem.title;*/
+    
 	elem.innerHTML = elem.title;
 	
 	this.init(player, args);

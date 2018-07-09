@@ -567,6 +567,7 @@ var exec_node = function(game, node, first) {
 	}
 	// handle other(setup) nodes
 	else {
+        //console.log("node.move: ", undefined);
 		if(!first) game.pushPosition();
 		
 		var add = [], remove = [];
