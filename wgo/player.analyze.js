@@ -283,7 +283,10 @@ ws.onmessage = function (evt) {
             player.board.removeObject(lastObj);
             player.board.removeObject(lastvarObj);
             leela_start = 0;
-            show_var="";
+            showvar="";
+            lastObj=[];
+            lastvarObj=[];
+            lastvarpv="";
         } else {
             elem_content.innerText="= "+ret.cmd+ "-"+ ret.result.length + "\r\n";
             for(var i = 0; (i < 29 && i < ret.result.length); i++) {
@@ -296,9 +299,12 @@ ws.onmessage = function (evt) {
                 var style = ["#C0334D", "#D6618F", "#F1931B"];
                 var x=-1,y=-1,winrate="",visits="";
                 for(var i = 0; i < ret.result.length; i++) {
+                    if ( (showvar!="") && (ret.result[i].move!=showvar)){
+                        continue;
+                    }
                     x = ret.result[i].x;
                     y = ret.result[i].y;
-                    if ((x==19) || (y==19)) {
+                    if ((x==player.kifuReader.game.size) || (y==player.kifuReader.game.size)) {
                         continue;
                     }
                     rt = parseInt(ret.result[i].winrate,0);
@@ -328,10 +334,9 @@ ws.onmessage = function (evt) {
                 if (showvar!="") {
                     for(var i = 0; i < ret.result.length; i++) {
                         if (ret.result[i].move==showvar){
-                            elem_notification.innerText="= "+ "showvar " + showvar + " " + ret.result[i].pv;
+                            elem_notification.innerText="= "+ "showvar " + ret.result[i].pv;
                             elem_notification.style.display="";
-                            console.log("showvar: " + ret.result[i].pv);
-                            
+
                             var pv = ret.result[i].pv.trim(" ");
                             if (lastvarpv==pv){
                                 player.board.addObject(lastvarObj);
@@ -343,10 +348,10 @@ ws.onmessage = function (evt) {
                             var xlist="ABCDEFGHJKLMNOPQRST";
                             var pvlist=pv.split(" ");
                             var varobj=[];
-                            var curc=player.kifuReader.node.move.c; //maybe player.kifuReader.game.turn will be better
+                            var curc=player.kifuReader.game.turn;
                             for(var j = 0; j < pvlist.length; j++) {
                                 varx=xlist.indexOf(pvlist[j][0]);
-                                vary=19-parseInt(pvlist[j].slice(1,pvlist[j].length));
+                                vary=player.kifuReader.game.size-parseInt(pvlist[j].slice(1,pvlist[j].length));
                                 //console.log(pvlist[j] + " -> " + x + ", " + y);
                                 if (j==0){
                                     continue;

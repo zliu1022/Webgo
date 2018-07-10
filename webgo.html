@@ -70,10 +70,15 @@
 		}
 	    </style>
 		<script type="text/javascript">
-            var black_total=0;
-            var white_total=0;
-            var black_pass=0;
-            var white_pass=0;
+            var showvar="";
+            show_var = function (obj) {
+                if (showvar == "") {
+                    showvar = obj.id;
+                } else {
+                    showvar = "";
+                }
+                return;
+            }
             // get sgf name from URL 127.0.0.1/wgo/webgo.html?sgf=lz-545ca-12800_vs_zen7-s1000.sgf
             function getQueryString() {  
                 var qs = location.search.substr(1),
@@ -329,17 +334,6 @@
 					},
 				});
 			});
-            var showvar="";
-            function show_var(obj) {
-                if (showvar == "") {
-                    showvar = obj.id;
-                    console.log("showvar open: " + obj.id);
-                } else {
-                    showvar = "";
-                    console.log("showvar close: " + obj.id);
-                }
-                return;
-            }
 		</script>
 	</body>
 </html>

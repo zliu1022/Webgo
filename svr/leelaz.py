@@ -255,9 +255,9 @@ class CLI(object):
             print >>sys.stderr, "Setting board size %d and komi %f to Leela" % (self.board_size, self.komi)
         #BLAS Core: Haswell
 
-        self.send_command('boardsize %d' % (self.board_size))
-        self.send_command('komi %f' % (self.komi))
-        self.send_command('time_settings 0 %d 1' % (self.seconds_per_search))
+        #self.send_command('boardsize %d' % (self.board_size))
+        #self.send_command('komi %f' % (self.komi))
+        #self.send_command('time_settings 0 %d 1' % (self.seconds_per_search))
         
     def stop(self):
         if self.verbosity > 0:

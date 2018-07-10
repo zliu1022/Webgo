@@ -83,11 +83,11 @@ def send_analyze(wsock):
                     if (len(analyz)<10) :continue
                     analyz_response["move"]=analyz[0]
                     if(analyz[0]=="pass"):
-                        analyz_response["x"] = 19
-                        analyz_response["y"] = 19
+                        analyz_response["x"] = board_size
+                        analyz_response["y"] = board_size
                     else:
                         analyz_response["x"] = 'ABCDEFGHJKLMNOPQRST'.find(analyz[0][0])
-                        analyz_response["y"] = 19 - int(analyz[0][1:])
+                        analyz_response["y"] = board_size - int(analyz[0][1:])
                     analyz_response["visits"]=analyz[2]
                     analyz_response["winrate"]=analyz[4]
                     analyz_response["order"]=analyz[6]
@@ -236,7 +236,7 @@ def handle_websocket():
                         lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
                     else:
                         x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
-                        y = 19 - int(move["y"])
+                        y = board_size - int(move["y"])
                         color = 'B' if move["c"]==1 else 'W'
                         print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                         lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
