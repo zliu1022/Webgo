@@ -1,3 +1,9 @@
+/**
+ * Webgo -- Web-Server Game Go Analyzer
+ * Code licensed under AGPLv3:
+ * http://www.fsf.org/licensing/licenses/agpl-3.0.html
+ *
+ */
 
 (function(WGo) {
 

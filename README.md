@@ -65,3 +65,9 @@ browser side, can use pad/phone with any web browser
 ```
 http://your_ip/webgo.html?sgf=1.sgf&move=50
 ```
+
+
+# License
+
+The code is released under the AGPLv3 or later.
+* http://www.fsf.org/licensing/licenses/agpl-3.0.html
