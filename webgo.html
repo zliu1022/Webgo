@@ -191,10 +191,10 @@
 					//document.getElementsByClassName("wgo-comments-content")[0].innerText+="\nsvr is thinking..."
 					//player.board.addObject({x: x, y: y, c: WGo.B})
 					svr_status=1;
+          var host_name=window.location.host;
+          var svr_str="http://"+host_name+"/go/"
 					var xhr = $.ajax({
-						//url: 'http://211.160.178.29:20521/go/play_genmove_play',
-                        //url: 'http://192.168.1.136:8488/go/play_genmove_play',
-                        url: 'http://10.12.29.102/go/play_genmove_play',
+						url: svr_str+"play_genmove_play", //'http://IP/go/play_genmove_play'
 						timeout : 50000, //超时时间设置，单位毫秒
 						type: "POST",
 						data: {
