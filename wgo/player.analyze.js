@@ -228,6 +228,9 @@ var RATE = {
 var lastObj=[];
 var lastvarObj=[];
 var lastvarpv="";
+var lastpassstr="";
+var lastdupstr="";
+
 var leela_start=0;
 var host_name=window.location.host;
 var ws_str="ws://"+host_name+":32002/websocket"
@@ -238,6 +241,7 @@ ws.onopen = function() {
 
 ws.onmessage = function (evt) {
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
+    var displayWidth=elem_content.offsetWidth;
     var elem_notification = document.getElementsByClassName("wgo-notification")[0];
     ret = JSON.parse(evt.data);
     if(ret.cmd=="time"){
@@ -294,9 +298,11 @@ ws.onmessage = function (evt) {
             lastvarObj=[];
             lastvarpv="";
         } else {
-            elem_content.innerText="= "+ret.cmd+ "-"+ ret.result.length + "\r\n";
+            elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length + "\r\n";
             for(var i = 0; (i < 29 && i < ret.result.length); i++) {
-                elem_content.innerHTML += "<p><a href=\"javascript:void(0)\" id=\"" + ret.result[i].move + "\" onclick=\"show_var(this)\" value=\"Q16 Y15\">" + ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,28) + "..." + "</a>" + "</p>";
+                var existingLength = ret.result[i].move.length + " " + ret.result[i].visits.length + 3 + 4;
+                elem_content.innerHTML += "<p><a href=\"javascript:void(0)\" id=\"" + ret.result[i].move + "\" onclick=\"show_var(this)\" value=\"Q16 Y15\">" + ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "..." + "</a>" + "</p>";
+                //elem_content.innerHTML += "<p><a href=\"javascript:void(0)\" id=\"" + ret.result[i].move + "\" onclick=\"show_var(this)\" value=\"Q16 Y15\">" + ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,30) + "..." + "</a>" + "</p>";
             }
             if(ret.result.length!=0){
                 var obj=[];
@@ -332,7 +338,7 @@ ws.onmessage = function (evt) {
                         obj.push( {x:x,y:y, type:RATE, winrate:winrate, visits:visits, style:style[style.length-1]} );
                     }
                 }
-                console.log("remove " + lastObj.length + " add " + obj.length);
+                //console.log("remove " + lastObj.length + " add " + obj.length);
                 player.board.removeObject(lastObj);
                 lastObj = obj;
                 player.board.addObject(obj);
@@ -340,37 +346,72 @@ ws.onmessage = function (evt) {
                 if (showvar!="") {
                     for(var i = 0; i < ret.result.length; i++) {
                         if (ret.result[i].move==showvar){
-                            elem_notification.innerText="= "+ "showvar " + ret.result[i].pv;
+                            elem_notification.innerText = showvar;
+                            //elem_notification.innerText="= "+ "showvar " + ret.result[i].pv.slice(0,displayWidth/8-10);
                             elem_notification.style.display="";
+                            if (lastpassstr!=""){
+                                elem_notification.innerText += lastpassstr;
+                            }
+                            if (lastdupstr!=""){
+                                elem_notification.innerText += lastdupstr;
+                            }
 
                             var pv = ret.result[i].pv.trim(" ");
                             if (lastvarpv==pv){
                                 player.board.addObject(lastvarObj);
-                                console.log("add var again " + lastvarObj.length);
+                                //console.log("add var again " + lastvarObj.length);
                                 return;
                             }
                             lastvarpv=pv;
+                            lastpassstr="";
+                            lastdupstr="";
 
                             var xlist="ABCDEFGHJKLMNOPQRST";
                             var pvlist=pv.split(" ");
                             var varobj=[];
                             var curc=player.kifuReader.game.turn;
+                            var passstr="";
+                            var dupstr="";
                             for(var j = 0; j < pvlist.length; j++) {
-                                varx=xlist.indexOf(pvlist[j][0]);
-                                vary=player.kifuReader.game.size-parseInt(pvlist[j].slice(1,pvlist[j].length));
-                                //console.log(pvlist[j] + " -> " + x + ", " + y);
-                                if (j==0){
+                                if ( pvlist[j]=="pass" ){
+                                    passstr += j+1 + ",";
+                                    curc = -1*curc;
                                     continue;
                                 }
-                                varobj.push( {x:varx,y:vary, c: curc} );
-                                if (curc==WGo.B) {
-                                    curc=WGo.W;
-                                }else{
-                                    curc=WGo.B;
+                                if ( j==0 ){
+                                    curc = -1*curc;
+                                    continue;
                                 }
-                                varobj.push( {x:varx,y:vary, type:WGo.Board.drawHandlers.LB, text:j} );
+                                var tmpdupstr="";
+                                // if pvlist[j] duplicate with earlier pvlist[0:j-1] add to dupstr, change color and cont
+                                for(var k = 0; k < j-1; k++) {
+                                    if (pvlist[k]==pvlist[j]) {
+                                        dupstr += (j+1) + "=" + (k+1) +"(" + pvlist[j] + ") ";
+                                        tmpdupstr = dupstr;
+                                        break;
+                                    }
+                                }
+                                if (tmpdupstr!="") {
+                                    continue;
+                                }
+                                varx=xlist.indexOf(pvlist[j][0]);
+                                vary=player.kifuReader.game.size-parseInt(pvlist[j].slice(1,pvlist[j].length));
+                                //console.log(pvlist[j] + " -> " + varx + ", " + vary);
+                                varobj.push( {x:varx,y:vary, c: curc} );
+                                varobj.push( {x:varx,y:vary, type:WGo.Board.drawHandlers.LB, text:j+1} );
+                                curc = -1*curc;
                             }
-                            console.log("remove var " + lastvarObj.length + " add " + varobj.length);
+                            if (passstr!=""){
+                                passstr = " " + passstr + "=pass";
+                                elem_notification.innerText = passstr;
+                                lastpassstr = passstr;
+                            }
+                            if (dupstr!=""){
+                                dupstr = " " + dupstr;
+                                elem_notification.innerText += dupstr;
+                                lastdupstr = dupstr;
+                            }
+                            //console.log("remove var " + lastvarObj.length + " add " + varobj.length);
                             player.board.removeObject(lastvarObj);
                             lastvarObj = varobj;
                             player.board.addObject(varobj);
@@ -380,7 +421,7 @@ ws.onmessage = function (evt) {
                 } else {
                     elem_notification.style.display="none";
                     player.board.removeObject(lastvarObj);
-                    console.log("remove var " + lastvarObj.length);
+                    //console.log("remove var " + lastvarObj.length);
                 }
             }
         }
