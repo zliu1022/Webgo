@@ -13,17 +13,11 @@ var prepare_dom = function(player) {
 	this.iconBar = document.createElement("div");
 	this.iconBar.className = "wgo-control-wrapper";
     
-    console.log("");
-    console.log("prepare_dom - this", this);
-    console.log("prepare_dom - this.element", this.element);
-    console.log("prepare_dom - this.iconBar", this.iconBar);
 	this.element.appendChild(this.iconBar);
 
 	var widget;
 	
-    console.log("prepare_dom - Control.widgets", Control.widgets);
 	for(var w in Control.widgets) {
-        console.log("prepare_dom - w", w);
 		widget = new Control.widgets[w].constructor(player, Control.widgets[w].args);
 		widget.appendTo(this.iconBar);
 		this.widgets.push(widget);
@@ -137,12 +131,7 @@ control.Group = WGo.extendClass(control.Widget, function(player, args) {
 	this.element.className = "wgo-ctrlgroup wgo-ctrlgroup-"+args.name;
 	
 	var widget;
-    console.log("");
-    console.log("control.Group = WGo.extendClass - args.widgets", args.widgets);
 	for(var w in args.widgets) {
-        console.log("control.Group = WGo.extendClass - w", w);
-        console.log("control.Group = WGo.extendClass - args.widgets[w]", args.widgets[w]);
-        console.log("control.Group = WGo.extendClass - args.widgets[w].args", args.widgets[w].args);
 		widget = new args.widgets[w].constructor(player, args.widgets[w].args);
 		widget.appendTo(this.element);
 	}
@@ -169,9 +158,6 @@ control.Clickable = WGo.extendClass(control.Widget, function(player, args) {
 control.Clickable.prototype.init = function(player, args) {
 	var fn, _this = this;
 	
-    console.log("");
-    console.log("control.Clickable.prototype.init - this", this);
-    console.log("control.Clickable.prototype.init - this.element", this.element);
 	if(args.togglable) {
 		fn = function() {
 			if(_this.disabled) return;

@@ -87,17 +87,8 @@ var appendComponents = function(area) {
 		
 		if(components.constructor != Array) components = [components];
 
-        console.log("");
-        console.log("appendComponents - this", this);
-        console.log("appendComponents - components", components);
 		for(var i in components) {
-            console.log("appendComponents: i", i);
 			if(!this.components[components[i]]) this.components[components[i]] = new BasicPlayer.component[components[i]](this);
-            console.log("appendComponents - components[]", i,components[i]);
-            console.log("appendComponents - this.components[components[i]]", this.components[components[i]]);
-            
-			console.log("appendComponents - area", area);
-            console.log("appendComponents - this.regions[area].wrapper", this.regions[area].wrapper);
 			this.components[components[i]].appendTo(this.regions[area].wrapper);
 			
 			// remove detach flag
@@ -119,9 +110,6 @@ var manageComponents = function() {
 	appendComponents.call(this, "left");
 	appendComponents.call(this, "right");
 	appendComponents.call(this, "top");
-    console.log("");
-    console.log("manageComponents - this:",this);
-    console.log("manageComponents - appendComponents.call(this, \"bottom\");");
 	appendComponents.call(this, "bottom");
 	
 	// detach all invisible components
@@ -233,8 +221,6 @@ BasicPlayer.prototype.updateDimensions = function() {
 	if(this.currentLayout && this.lastLayout != this.currentLayout) {
 		if(this.currentLayout.className) this.element.className = this.classes+" "+this.currentLayout.className;
 		else this.element.className = this.classes;
-		console.log("BasicPlayer.prototype.updateDimensions - manageComponents.call(this)");
-        console.log("this:",this);
         manageComponents.call(this);
 		this.lastLayout = this.currentLayout;
 	}
