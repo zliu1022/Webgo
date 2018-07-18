@@ -7,6 +7,8 @@
 
 (function(WGo) {
 
+"use strict";
+
 // board mousemove callback for edit move - adds highlighting
 /*
 var play_board_mouse_move = function(x,y) {
@@ -91,11 +93,11 @@ WGo.Player.Analyze.prototype.set = function(set) {
 		this.board.addEventListener("mousemove", this._ev_move);
 		this.board.addEventListener("mouseout", this._ev_out);*/
 
-        first_bn=player.components.Control.widgets[2].element.childNodes[0]
+        /*first_bn=player.components.Control.widgets[2].element.childNodes[0]
         multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
 
         multinext_bn=player.components.Control.widgets[2].element.childNodes[5]
-        last_bn=player.components.Control.widgets[2].element.childNodes[6]
+        last_bn=player.components.Control.widgets[2].element.childNodes[6]*/
 
         prev_bn=player.components.Control.widgets[2].element.childNodes[2]
         next_bn=player.components.Control.widgets[2].element.childNodes[4]
@@ -113,7 +115,6 @@ WGo.Player.Analyze.prototype.set = function(set) {
 		this.analyze = true;
 	}
 	else if(this.analyze && !set) {
-
         console.log("Analyze set 1->0 ws.send lz-analyze off, leela_start: ", leela_start);
         ws.send("lz-analyze off");
         console.log("close analyze, remove lastObj", lastObj);
@@ -200,6 +201,7 @@ var RATE = {
             var xr = board.getX(args.x),
                 yr = board.getY(args.y),
                 sr = board.stoneRadius;
+            var font = "verdana" //calibri is WGo's default
 
             // draw circle
             this.beginPath();
@@ -216,7 +218,6 @@ var RATE = {
             this.stroke();
 
             // draw winrate
-            font = "verdana" //calibri is WGo's default
             this.fillStyle = "white";
             if(args.winrate.length == 1) this.font = Math.round(sr*1.05)+"px "+font;
             else if(args.winrate.length == 2) this.font = Math.round(sr*1.05)+"px "+font;
@@ -229,7 +230,6 @@ var RATE = {
             this.fillText(args.winrate, xr, yr+0.14*sr, 1.8*sr);
             
             // draw visits
-            font = "verdana"; //calibri
             this.fillStyle = "white";
             if(args.visits.length == 1) this.font = Math.round(sr*0.8)+"px "+font;
             else if(args.visits.length == 2) this.font = Math.round(sr*0.8)+"px "+font;
@@ -279,30 +279,23 @@ var host_name=window.location.host;
 var ws_str="ws://"+host_name+":32002/websocket"
 var ws = new WebSocket(ws_str);
 
+var prev_bn={};
+var next_bn={};
+
 var next_fn_count=0;
 
-next_fn=function(){
+var next_fn = function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
-    //elem_content.innerText = "next button pressed " + next_fn_count;
     console.log("next button pressed ", next_fn_count);
     next_fn_count+=1;
 }
-next_fn_touch=function(){
+var next_fn_touch=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
     var curmove = player.kifuReader.node.move;
     console.log("next button touched ", next_fn_count);
     console.log(curmove.x, curmove.y, curmove.c)
-    //elem_content.innerText = "next button touched " + next_fn_count + "\r\n" + curmove.x + " " + curmove.y + " " + curmove.c;
     next_fn_count+=1;
 
-    var movelist = [];
-    if(curmove.pass) {
-        movelist.push({x:curmove.x, y:curmove.y, c:curmove.c})
-        //movelist.push({c:curmove.c})
-    } else {
-        movelist.push({x:curmove.x, y:curmove.y, c:curmove.c})
-    }
-    
     var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
         console.log("normal mode")
@@ -310,6 +303,8 @@ next_fn_touch=function(){
         return;
     }
     
+    //console.log("next_fn_touch remove lastObj", lastObj);
+    //console.log("next_fn_touch remove lastvarObj", lastvarObj);
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
     leela_start = 0;
@@ -317,29 +312,36 @@ next_fn_touch=function(){
     lastObj=[];
     lastvarObj=[];
     lastvarpv="";
+    
+    player.board.addObject(objbeforevar);
+    objbeforevar = [];
+    
+    var movelist = [];
+    movelist.push({x:curmove.x, y:curmove.y, c:curmove.c})
+    if(curmove && !curmove.pass) { // not home and not pass
+        player.board.addObject({x:curmove.x, y:curmove.y, c:curmove.c});
+    }
     ws.send("play-and-analyze " + JSON.stringify(movelist));
 }
 
 var prev_fn_count=0;
-prev_fn=function(){
+var prev_fn=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
-    //elem_content.innerText = "previous button pressed " + prev_fn_count;
     console.log("previous button pressed ", prev_fn_count);
     prev_fn_count+=1;
 }
-prev_fn_touch=function(){
+var prev_fn_touch=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
     var curmove = player.kifuReader.node.move;
     console.log("previous button touched ", prev_fn_count);
     if (curmove) {
         console.log(curmove.x, curmove.y, curmove.c)
-        //elem_content.innerText = "previous button touched " + prev_fn_count + "\r\n" + curmove.x + " " + curmove.y + " " + curmove.c;
     } else {
         console.log("prev to home");
     }
     prev_fn_count+=1;
     
-    analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
+    var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
         console.log("normal mode")
         //elem_content.innerText += " normal mode";
@@ -352,6 +354,14 @@ prev_fn_touch=function(){
     lastObj=[];
     lastvarObj=[];
     lastvarpv="";
+    
+    player.board.addObject(objbeforevar);
+    objbeforevar = [];
+    
+    if(curmove && !curmove.pass) { // not home and not pass
+        player.board.addObject({x:curmove.x, y:curmove.y, c:curmove.c});
+        console.log("prev_fn_touch addObject ", curmove);
+    }
     ws.send("undo-and-analyze");
 }
 
@@ -436,7 +446,8 @@ ws.onmessage = function (evt) {
                 return;
             }
             // new create <a>
-            if(elem_content.children.length==0){
+            if(document.getElementById("0")==null){
+            //if(elem_content.children.length==0 || elem_content.children[0].className=="wgo-info-list"){
                 elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
                 for(var i = 0; (i < 29); i++) {
                     //var existingLength = ret.result[i].move.length + " " + ret.result[i].visits.length + 3 + 4;
@@ -460,7 +471,7 @@ ws.onmessage = function (evt) {
                 //elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
                 var ela = elem_content.children[i].children[0];
                 if(i < ret.result.length) {
-                    ela.title = ret.result[i].move;
+                    //ela.title = ret.result[i].move;
                     ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "...";
                     ela.name = ret.result[i].move;
                     elem_content.children[i].style.display="";
@@ -563,8 +574,8 @@ ws.onmessage = function (evt) {
                                     curc = -1*curc;
                                     continue;
                                 }
-                                varx=xlist.indexOf(pvlist[j][0]);
-                                vary=player.kifuReader.game.size-parseInt(pvlist[j].slice(1,pvlist[j].length));
+                                var varx=xlist.indexOf(pvlist[j][0]);
+                                var vary=player.kifuReader.game.size-parseInt(pvlist[j].slice(1,pvlist[j].length));
                                 
                                 if(player.board.obj_arr[varx][vary][0] && !(player.board.obj_arr[varx][vary][0].type)){
                                     tmpobjbeforevar.push( player.board.obj_arr[varx][vary][0] );
