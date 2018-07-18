@@ -73,7 +73,8 @@
             var showvar="";
             show_var = function (obj) {
                 if (showvar == "") {
-                    showvar = obj.id;
+                    //showvar = obj.id;
+                    showvar = obj.title;
                 } else {
                     showvar = "";
                 }
@@ -196,8 +197,8 @@
 					//document.getElementsByClassName("wgo-comments-content")[0].innerText+="\nsvr is thinking..."
 					//player.board.addObject({x: x, y: y, c: WGo.B})
 					svr_status=1;
-          var host_name=window.location.host;
-          var svr_str="http://"+host_name+"/go/"
+                    var host_name=window.location.host;
+                    var svr_str="http://"+host_name+"/go/"
 					var xhr = $.ajax({
 						url: svr_str+"play_genmove_play", //'http://IP/go/play_genmove_play'
 						timeout : 50000, //超时时间设置，单位毫秒
@@ -241,50 +242,6 @@
 				}
 			});
             // code for playmode - end
-			
-            // bind your own click event here - begin
-            first_bn=player.components.Control.widgets[2].element.childNodes[0]
-            multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
-            prev_bn=player.components.Control.widgets[2].element.childNodes[2]
-            next_bn=player.components.Control.widgets[2].element.childNodes[4]
-            multinext_bn=player.components.Control.widgets[2].element.childNodes[5]
-            last_bn=player.components.Control.widgets[2].element.childNodes[6]
-            var prev_fn_count=0;
-            prev_fn=function(){
-                console.log("previous button pressed ", prev_fn_count);
-                prev_fn_count+=1;
-            }
-            prev_fn_touch=function(){
-                console.log("previous button touched ", prev_fn_count);
-                prev_fn_count+=1;
-                
-                playmode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-playmode")
-                if ( (playmode.length == 0) || (playmode[0].classList.length!=3) ){ // no wgo-selected
-                    console.log("normal mode")
-                    return;
-                }
-                var host_name=window.location.host;
-                var svr_str="http://"+host_name+"/go/"
-                var xhr = $.ajax({
-                    url: svr_str+"undo", //'http://IP/go/undo'
-					type: "GET",
-					data: {
-						step: 1
-					},
-					success: function(data) {
-						console.log("success: " + JSON.stringify(data));
-					},
-					error: function(er,statusText,b) {
-						//statusText==timeout
-						console.log("error: " + JSON.stringify(er));
-					},
-				});
-
-            }
-            prev_bn.addEventListener("click",prev_fn);
-            prev_bn.addEventListener("touchstart",prev_fn_touch);
-            //prev_bn.addEventListener("touchend",prev_fn);
-            // bind your own click event here - end
 
             // another method to bind your own event
             /*p=document.getElementById("player")

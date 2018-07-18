@@ -169,7 +169,6 @@ def handle_websocket():
             ret["para"] = cmd[1:]
 
             if (cmd[0]=="hello"):
-                print "client: %s" % cmd
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -209,8 +208,58 @@ def handle_websocket():
                 wsock.send(json.dumps(ret))
                 continue
 
+            if (cmd[0]=="play-and-analyze"):
+                print "stopping lz-analyze..."
+                on_off = False
+                th.join()
+
+                movelist = json.loads(cmd[1])
+                ret["para"] = len(movelist)
+                if (len(movelist) == 0 ):
+                    print "play-and-analyze 0 error"
+                    continue
+                #print "play-and-analyze ... %d (movelist[0]: %d %d %d)" % (len(movelist), movelist[0]["x"], movelist[0]["y"], movelist[0]["c"])
+                no = 1
+                move = movelist[0]
+                if (len(move)==1):
+                    color = 'B' if move["c"]==1 else 'W'
+                    print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
+                    lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
+                else:
+                    x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
+                    y = board_size - int(move["y"])
+                    color = 'B' if move["c"]==1 else 'W'
+                    print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
+                    lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
+
+                print "starting lz-analyze..."
+                on_off = True
+                th = threading.Thread(target=send_analyze, args=(wsock,), name='analyze-thread')
+                th.start()
+                
+                ret["result"] = "ok"
+                wsock.send(json.dumps(ret))
+                continue;
+
             if (cmd[0]=="undo"):
                 lz.send_command('undo')
+                ret["result"] = "ok"
+                wsock.send(json.dumps(ret))
+                continue
+
+            if (cmd[0]=="undo-and-analyze"):
+                print "stopping lz-analyze..."
+                on_off = False
+                th.join()
+
+                print "undo"
+                lz.send_command('undo')
+
+                print "starting lz-analyze..."
+                on_off = True
+                th = threading.Thread(target=send_analyze, args=(wsock,), name='analyze-thread')
+                th.start()
+
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -250,7 +299,7 @@ def handle_websocket():
         except WebSocketError:
             #lz.stop()
             on_off = False
-            th.join()
+            #th.join()
             break
 
 from gevent.pywsgi import WSGIServer
