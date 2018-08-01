@@ -68,20 +68,28 @@ http://your_ip/webgo.html?sgf=1.sgf&move=50
 
 # Using Webgo server in mac
 1. Install brew using ruby
+```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 2. git clone branch
-git clone -b 0.13-elf-liz https://github.com/gcp/leela-zero.git
+```
+git clone -b next https://github.com/gcp/leela-zero.git
+```
 3. install boost
+```
 brew install boost
+```
 4. Compile leelaz with boardsize 9 or 19
 5. using curl -O or ftp to get weight
 6. full-tuner
 7. install pip， bottle, gevent, gevent-websocket
+```
 sudo easy_install pip
 sudo pip install bottle
 pip install --user greenlet
 pip install --user gevent
 pip install --user gevent-websocket
+```
 If failed, maybe need to install pyenv, then using pyenv to install another version python
 pyenv global 2.7.11 to switch version, but wish you lucky
 
