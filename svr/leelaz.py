@@ -180,20 +180,21 @@ class CLI(object):
                     break
         raise Exception("Failed to send command '%s' to Leela" % (cmd))
 
-    def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
-        sleep_per_try = 0.1
+    #def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
+    def wait_start(self, expected_string="Max workgroup dimensions", drain=True, timeout=20):
+        sleep_per_try = 1
         tries = 0
         while tries * sleep_per_try <= timeout and self.p is not None:
             time.sleep(sleep_per_try)
             tries += 1
+            print " %d seconds" % tries
             # Readline loop
             while True:
-                s = self.stdout_thread.readline()
-                # No output, so break readline loop and sleep and wait for more
-                #print "lz: %s" % s
-                # Leela follows GTP and prints a line starting with "=" upon success.
-                if s.find(expected_string):
-                    print "leela zero started"
+                #s = self.stdout_thread.readline()
+                #s = self.stderr_thread.read_all_lines()
+                s = self.stderr_thread.readline()
+                if s.find(expected_string)!=-1:
+                    print "leela zero started %d seconds" % tries
                     if drain:
                         so,se = self.drain()
                     return
@@ -243,6 +244,8 @@ class CLI(object):
 
         if self.verbosity > 0:
             print >>sys.stderr, "Starting leela-zero..."
+            print >>sys.stderr, self.executable
+            print >>sys.stderr, weight
 
         p = Popen([self.executable, '--gtp', weight] + xargs, stdout=PIPE, stdin=PIPE, stderr=PIPE)
         self.p = p
@@ -252,11 +255,10 @@ class CLI(object):
         #time.sleep(5)
         self.wait_start()
         if self.verbosity > 0:
-            print >>sys.stderr, "Setting board size %d and komi %f to Leela" % (self.board_size, self.komi)
-        #BLAS Core: Haswell
+            print >>sys.stderr, "Setting board size %d and komi %.1f to Leela" % (self.board_size, self.komi)
 
-        #self.send_command('boardsize %d' % (self.board_size))
-        #self.send_command('komi %f' % (self.komi))
+        self.send_command('boardsize %d' % (self.board_size))
+        self.send_command('komi %f' % (self.komi))
         #self.send_command('time_settings 0 %d 1' % (self.seconds_per_search))
         
     def stop(self):

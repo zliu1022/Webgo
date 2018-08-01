@@ -13,14 +13,27 @@ import os, sys
 import leelaz
 import json
 
-executable = "c:/go/leela-zero/leelaz.exe"
-weight = '-wc:/go/weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
-port = 32002
+if (len(sys.argv)==2):
+    board_size = int(sys.argv[1])
+else:
+    board_size = 19
+
+if (board_size == 19):
+    komi = 7.5
+    executable = "./leelaz"
+    #weight = '-w./weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
+    weight = '-w./weight/d13c40993740cb77d85c838b82c08cc9c3f0fbc7d8c3761366e5d59e8f371cbd.gz'
+    port = 32019
+else:
+    komi = 6.5
+    executable = "./leelaz-9"
+    weight = "-w./weight/9-128x20.gz"
+    port = 32009
+
 
 is_japanese_rules = False
 is_handicap_game = False
-board_size = 19
-komi = 7.5
+
 seconds_per_search = 10
 verbosity = 2
 
@@ -48,6 +61,7 @@ th = 1
 def send_analyze(wsock):
     global on_off
     global lz
+    global th
     print "thread %s is running" % threading.current_thread().name
 
     #localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
@@ -307,4 +321,8 @@ from geventwebsocket import WebSocketError
 from geventwebsocket.handler import WebSocketHandler
 server = WSGIServer(("0.0.0.0", port), app,
     handler_class=WebSocketHandler)
-server.serve_forever()
+
+try:
+    server.serve_forever()
+except KeyboardInterrupt:
+    lz.stop()
