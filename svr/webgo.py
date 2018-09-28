@@ -1,5 +1,6 @@
 #coding=utf-8
 # 2018-07-04 initial version
+# 2018-09-27 zen7 & leelaz
 
 from bottle import abort, Bottle
 from bottle import route, run, template
@@ -11,6 +12,7 @@ import time
 
 import os, sys
 import leelaz
+from Zen7 import *
 import json
 
 if (len(sys.argv)==2):
@@ -20,29 +22,36 @@ else:
 
 if (board_size == 19):
     komi = 7.5
-    executable = "./leelaz"
-    #weight = '-w./weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
-    weight = '-w./weight/d13c40993740cb77d85c838b82c08cc9c3f0fbc7d8c3761366e5d59e8f371cbd.gz'
+    executable = "c:/go/leela-zero-0.13-win64-cpu/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz.exe"
+    weight = '-wc:/go/weight/d351f06e446ba10697bfd2977b4be52c3de148032865eaaf9efc9796aea95a0c.gz'
     port = 32019
 else:
     komi = 6.5
-    executable = "./leelaz-9"
-    weight = "-w./weight/9-128x20.gz"
+    executable = "C:/go/9/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz-9.exe"
+    weight = "-wC:/go/9/9-128x20.gz"
     port = 32009
 
 
-is_japanese_rules = False
-is_handicap_game = False
-
 seconds_per_search = 10
 verbosity = 2
-
 lz = leelaz.CLI(board_size=board_size,
-                  executable=executable,
-                  is_handicap_game=is_handicap_game,
-                  komi=komi,
-                  seconds_per_search=seconds_per_search,
-                  verbosity=verbosity)
+    executable=executable,
+    is_handicap_game=False,
+    komi=komi,
+    seconds_per_search=seconds_per_search,
+    verbosity=verbosity)
+lz.start(weight)
+
+Strength=15000
+ZenDLL='c:\go\zen7\Zen.dll'
+Threads=4
+ResignRate=0.1
+ThinkInterval=0.1
+PrintInterval=1
+
+Z=ZEN(ZenDLL,board_size, komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval)
+
+app = Bottle()
 
 def get_time_stamp():
     ct = time.time()
@@ -52,118 +61,12 @@ def get_time_stamp():
     time_stamp = "%s.%03d" % (data_head, data_secs)
     return time_stamp
 
-app = Bottle()
-lz.start(weight)
-on_off = True
-#wsock = 1
-th = 1
-
-def send_analyze(wsock):
-    global on_off
-    global lz
-    global th
-    print "thread %s is running" % threading.current_thread().name
-
-    #localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
-    interval = 100
-    analyze_count = 2
-    cmd = "lz-analyze %d" % interval # send analyze per second 
-    lz.p.stdin.write(cmd + "\n")
-    sleep_per_try = interval/1000
-    tries = 0
-    success_count = 0
-    ret={"cmd":"", "para":"", "result":""}
-
-    #while on_off and tries <= analyze_count and lz.p is not None:
-    while on_off and lz.p is not None:
-        time.sleep(sleep_per_try)
-        tries += 1
-        # Readline loop
-        while True:
-            s = lz.stdout_thread.readline()
-            #print s
-            if (len(s) > 3): 
-                success_count += 1
-
-                s_array = s.split("info move ")
-                #print "s_array: %s " % s_array
-                re = []
-                for analyz_orig in s_array:
-                    #print "analyz_orig: %s " % analyz_orig
-                    analyz_response={"x":-1, "y":-1, "move":"", "visits":1, "winrate":1, "order":1, "pv":""}
-                    
-                    analyz = analyz_orig.split(" ")
-                    #print "analyz: %s " % analyz
-                    if (len(analyz)<10) :continue
-                    analyz_response["move"]=analyz[0]
-                    if(analyz[0]=="pass"):
-                        analyz_response["x"] = board_size
-                        analyz_response["y"] = board_size
-                    else:
-                        analyz_response["x"] = 'ABCDEFGHJKLMNOPQRST'.find(analyz[0][0])
-                        analyz_response["y"] = board_size - int(analyz[0][1:])
-                    analyz_response["visits"]=analyz[2]
-                    analyz_response["winrate"]=analyz[4]
-                    analyz_response["order"]=analyz[6]
-                    analyz_response["pv"]=" ".join(analyz[8:])
-                    
-                    re.append(analyz_response)
-                    if(len(re)>30) : break
-
-                localtime = get_time_stamp();
-                if (len(re)>0):
-                    print "time: %s success %d INFO: %s" % (localtime, success_count, re[0])
-                else :
-                    print "time: %s success %d INFO: %s" % (localtime, success_count, "END")
-                #print "success: %d" % success_count
-                #print "INFO: %s (len:%d)" % (re[0], len(re))
-                #print ""
-                try:
-                    ret["cmd"]="time";
-                    ret["result"]=localtime;
-                    wsock.send(json.dumps(ret))
-
-                    ret["cmd"]="lz-analyze";
-                    ret["result"]=re;
-                    wsock.send(json.dumps(ret))
-
-                except WebSocketError:
-                    cmd = ""
-                    on_off = False
-                    if lz.p is not None:
-                        print "WebSocketError lz.p is not None"
-                        lz.p.stdin.write(cmd + "\n")
-                    else:
-                        print "WebSocketError lz.p is None"
-                    #lz.stop()
-                    break
-            # No output, so break readline loop and sleep and wait for more
-            if s == "":
-                #print "success: %d" % success_count
-                break
-    if success_count :
-        cmd = ""
-        if lz.p is not None:
-            print "if lz.p is not None"
-            lz.p.stdin.write(cmd + "\n")
-            time.sleep(sleep_per_try)
-            (so,se) = lz.drain()
-            print "stdout"
-            print "".join(so)
-            print "stderr"
-            print "".join(se)
-        else:
-            print "if lz.p is None"
-        return re
-
-    print "thread %s ended" % threading.current_thread().name
-
 @app.route('/websocket')
 def handle_websocket():
     #global wsock
     global lz
-    global th
-    global on_off
+    th_lz, th_zen7=0,0
+    analyze_type=0 # 0:lz(default), 1:zen7
     ret={"cmd":"", "para":"", "result":""}
     wsock = request.environ.get('wsgi.websocket')
     if not wsock:
@@ -189,16 +92,30 @@ def handle_websocket():
 
             if (cmd[0]=="lz-analyze"):
                 if (cmd[1]=="off"):
-                    on_off = False
-                    th.join()
+                    if analyze_type==0:
+                        lz.analyzeStatus = False
+                        th_lz.join()
+                    else:
+                        Z.analyzeStatus=False
+                        th_zen7.join()
                     ret["result"] = "ok"
                     wsock.send(json.dumps(ret))
                 else:
-                    on_off = True
-                    th = threading.Thread(target=send_analyze, args=(wsock,), name='analyze-thread')
-                    th.start()
+                    if (cmd[1]=="leelaz"):
+                        analyze_type=0
+                    elif (cmd[1]=="zen7"):
+                        analyze_type=1
+
+                    if analyze_type==0:
+                        lz.analyzeStatus = True
+                        th_lz = threading.Thread(target=lz.gen_analyze, args=(wsock,), name='analyze-thread')
+                        th_lz.start()
+                    else:
+                        th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
+                        th_zen7.start()
                 continue
 
+            '''
             if (cmd[0]=="leelaz-start"):
                 print "leelaz starting ... "
                 #if lz: lz.stop()
@@ -213,19 +130,24 @@ def handle_websocket():
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
+            '''
 
             if (cmd[0]=="play"):
                 print "play %s %s" % (cmd[1], cmd[2])
-                #leelaz.play(cmd[1], cmd[2])
                 lz.send_command('play %s %s' % (cmd[1], cmd[2]), sleep_per_try = 0.01)
+                Z.play(cmd[1].lower(), cmd[2].lower())
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
 
             if (cmd[0]=="play-and-analyze"):
                 print "stopping lz-analyze..."
-                on_off = False
-                th.join()
+                if analyze_type==0:
+                    lz.analyzeStatus = False
+                    th_lz.join()
+                else:
+                    Z.analyzeStatus=False
+                    th_zen7.join()
 
                 movelist = json.loads(cmd[1])
                 ret["para"] = len(movelist)
@@ -239,17 +161,23 @@ def handle_websocket():
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                     lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
+                    Z.play(color.lower(), "pass")
                 else:
                     x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                     y = board_size - int(move["y"])
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                     lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
+                    Z.play(color.lower(), ('%s%d' % (x,y)).lower())
 
                 print "starting lz-analyze..."
-                on_off = True
-                th = threading.Thread(target=send_analyze, args=(wsock,), name='analyze-thread')
-                th.start()
+                if analyze_type==0:
+                    lz.analyzeStatus = True
+                    th_lz = threading.Thread(target=lz.gen_analyze, args=(wsock,), name='analyze-thread')
+                    th_lz.start()
+                else:
+                    th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
+                    th_zen7.start()
                 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
@@ -257,22 +185,32 @@ def handle_websocket():
 
             if (cmd[0]=="undo"):
                 lz.send_command('undo')
+                Z.ZenUndo(1)
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
 
             if (cmd[0]=="undo-and-analyze"):
                 print "stopping lz-analyze..."
-                on_off = False
-                th.join()
+                if analyze_type==0:
+                    lz.analyzeStatus = False
+                    th_lz.join()
+                else:
+                    Z.analyzeStatus=False
+                    th_zen7.join()
 
                 print "undo"
                 lz.send_command('undo')
+                Z.ZenUndo(1)
 
                 print "starting lz-analyze..."
-                on_off = True
-                th = threading.Thread(target=send_analyze, args=(wsock,), name='analyze-thread')
-                th.start()
+                if analyze_type==0:
+                    lz.analyzeStatus = True
+                    th_lz = threading.Thread(target=lz.gen_analyze, args=(wsock,), name='analyze-thread')
+                    th_lz.start()
+                else:
+                    th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
+                    th_zen7.start()
 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
@@ -280,6 +218,7 @@ def handle_websocket():
 
             if (cmd[0]=="clear_board"):
                 lz.send_command('clear_board')
+                Z.clear()
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -297,28 +236,35 @@ def handle_websocket():
                         color = 'B' if move["c"]==1 else 'W'
                         print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                         lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
+                        Z.play(color.lower(), "pass")
                     else:
                         x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                         y = board_size - int(move["y"])
                         color = 'B' if move["c"]==1 else 'W'
                         print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                         lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
-                    no += 1
+                        Z.play(color.lower(), ('%s%d' % (x,y)).lower())
                     ret["result"] = "%d" % no
                     wsock.send(json.dumps(ret))
+                    no += 1
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
 
         except WebSocketError:
-            #lz.stop()
-            on_off = False
-            #th.join()
+            lz.analyzeStatus = False
+            Z.analyzeStatus=False
             break
 
 from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
 from geventwebsocket.handler import WebSocketHandler
+
+import socket
+myname=socket.getfqdn(socket.gethostname())
+myaddr=socket.gethostbyname(myname)
+print 'listening', port, 'at', myaddr, myname
+
 server = WSGIServer(("0.0.0.0", port), app,
     handler_class=WebSocketHandler)
 

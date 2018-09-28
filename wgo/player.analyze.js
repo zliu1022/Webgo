@@ -276,7 +276,9 @@ var leela_start=0;
 var sessid=0;
 
 var host_name=window.location.host;
-var ws_str="ws://"+host_name+":32002/websocket"
+var ws_str="ws://"+host_name+":32019/websocket"
+//var analyze_type="zen7"
+var analyze_type="leelaz"
 var ws = new WebSocket(ws_str);
 
 var prev_bn={};
@@ -367,7 +369,7 @@ var prev_fn_touch=function(){
 
 ws.onopen = function() {
     //show some hint info
-    console.log("websocket onopen");
+    console.log("websocket onopen: ", ws);
 };
 
 var log_obj = function (obj) {
@@ -402,8 +404,9 @@ ws.onmessage = function (evt) {
                 }
             }
             
+            // empty board and no stone has been added
             if ( (player.kifuReader.path.m==0) && (movelist.length==0) ){
-                ws.send("lz-analyze 100");
+                ws.send("lz-analyze "+analyze_type);
                 return;
             }
 
@@ -432,7 +435,7 @@ ws.onmessage = function (evt) {
         }
     }else if(ret.cmd=="playlist"){
         if(ret.result=="ok"){
-            ws.send("lz-analyze 100");
+            ws.send("lz-analyze "+analyze_type);
             elem_notification.style.display="none";
         }else{
             elem_notification.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
