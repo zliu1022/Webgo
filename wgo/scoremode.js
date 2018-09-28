@@ -176,7 +176,7 @@ ScoreMode.prototype.displayScore = function() {
 	var msg = "<p style='font-weight: bold;'>"+WGo.t("RE")+"</p>";
 	
 	var sb = score.black.length+score.white_captured.length+this.originalPosition.capCount.black;
-	var sw = score.white.length+score.black_captured.length+this.originalPosition.capCount.white+parseFloat(this.komi);
+	var sw = score.white.length+score.black_captured.length+this.originalPosition.capCount.white;
 	
     var black_live=b_total-(score.black_captured.length+this.originalPosition.capCount.white);
     var white_live=w_total-(score.white_captured.length+this.originalPosition.capCount.black);
@@ -186,16 +186,17 @@ ScoreMode.prototype.displayScore = function() {
     console.log("chinese rule ", "W live: ", white_live, " territory: ", score.white.length, " area: ", white_area);
 	msg += "<p>"+WGo.t("black")+": "+score.black.length+" + "+(score.white_captured.length+this.originalPosition.capCount.black)+" = "+sb;
     msg += " ("+black_live+"+"+score.black.length+"="+black_area+")"+"</br>";
-	msg += WGo.t("white")+": "+score.white.length+" + "+(score.black_captured.length+this.originalPosition.capCount.white)+" + "+this.komi+" = "+sw
-    msg += " ("+white_live+"+"+score.white.length+"="+white_area+" + "+this.komi+")"+"</p>";
+	msg += WGo.t("white")+": "+score.white.length+" + "+(score.black_captured.length+this.originalPosition.capCount.white)+" = "+sw;
+    msg += " ("+white_live+"+"+score.white.length+"="+white_area+") + "+this.komi+"</p>";
     
+    sw=sw+parseFloat(this.komi);
 	if(sb > sw) msg += "<p style='font-weight: bold;'>"+WGo.t("bwin", sb-sw);
 	else msg += "<p style='font-weight: bold;'>"+WGo.t("wwin", sw-sb);
     
     white_area += parseFloat(this.komi);
     console.log("chinese rule ", "B area: ", black_area, "W area: ", white_area, " komi: ", parseFloat(this.komi));
-    if(black_area>white_area) msg += " ("+WGo.t("bwin", black_area-white_area)+") </p>";
-	else msg += " ("+WGo.t("wwin", white_area-black_area)+") </p>";
+    if(black_area>white_area) msg += " ("+WGo.t("b-area-win", black_area-white_area)+") </p>";
+	else msg += " ("+WGo.t("w-area-win", white_area-black_area)+") </p>";
 	
 	this.output(msg);
 }
