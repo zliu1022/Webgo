@@ -43,13 +43,20 @@ lz = leelaz.CLI(board_size=board_size,
 lz.start(weight)
 
 Strength=15000
-ZenDLL='c:\go\zen7\Zen.dll'
+name = 'Zen7'
+ZenDLL=sys.path[0]+'/Zen.dll'
 Threads=4
 ResignRate=0.1
 ThinkInterval=0.1
 PrintInterval=1
 
-Z=ZEN(ZenDLL,board_size, komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval)
+MaxSimulations=1000000000
+MaxTime=1000000000.0
+PnLevel=3
+PnWeight=1.0
+VnMixRate=0.75
+
+Z=ZEN(name, ZenDLL,board_size, komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate)
 
 app = Bottle()
 

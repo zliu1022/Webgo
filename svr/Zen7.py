@@ -20,14 +20,14 @@
 
 from ctypes import *
 import sys, time, getopt
-import numpy as np
+#import numpy as np
 import threading
 import json
 from geventwebsocket import WebSocketError
 
 class ZEN(object):
-    def __init__(self, dll, boardsize, komi, strength, threads, resign, thinkinterval, printinterval):
-        self.name = 'Zen7'
+    def __init__(self, name, dll, boardsize, komi, strength, threads, resign, thinkinterval, printinterval, maxsimulations=1000000000, maxtime=1000000000.0, pnlevel=3, pnweight=1.0, vnmixrate=0.75):
+        self.name = name
         self.version = '0.4'
         #self.name = 'Leela Zero'
         #self.version = '0.16'
@@ -55,11 +55,8 @@ class ZEN(object):
         self.blackpass=0
         self.whitepass=0
 
-        self.MaxSimulations = 1000000000#MaxSimulations = 1000000000 zliu: it's MCTS Playout, only 29 MCTS will be 1 NN eval
-        self.MaxTime = 1000000000.0#MaxTime = c_float(1000000000.0), Time*Games/s=Playout
-        self.PnLevel = 3
-        self.PnWeight = c_float(1.0)
-        self.VnMixRate = c_float(0.75)
+        self.MaxSimulations = maxsimulations#MaxSimulations = 1000000000 zliu: it's MCTS Playout, only 29 MCTS will be 1 NN eval
+        self.MaxTime = maxtime #MaxTime = c_float(1000000000.0), Time*Games/s=Playout
         self.ResignRate=resign
 
         self.ThinkInterval=thinkinterval
@@ -68,21 +65,30 @@ class ZEN(object):
         self.analyzeStatus = 0
 
         self.SabakiFlat = 1 #0:off 1:on
+        self.SabakiFlatStatus=False
 
         #statistics
         #countarray=[]
         self.Itemall = []
 
         self.X, self.Y, self.P, self.W, self.S = c_int(0), c_int(0), c_int(0), c_float(0), create_string_buffer(100)
+        
+        self.PnLevel = pnlevel
+        self.PnWeight = c_float(pnweight)
+        self.VnMixRate = c_float(vnmixrate)
 
         Print('')
-        Print('Starting Zen7...')
+        Print('Starting %s...' % name)
         try:
             Zen = CDLL(self.ZenDLL)
         except WindowsError:
             Help()
         Print(self.ZenDLL + ' load ok')
+        
+        if name=='Zen7': self.Zen7Init(Zen)
+        else: self.Zen6Init(Zen)
 
+    def Zen7Init(self, Zen):
         ### Zen7's address, 36 total
         self.ZenAddStone = Zen[1] #bool ZenAddStone(int,int,int)
         self.ZenIsInitialized = Zen[14] #bool ZenIsInitialized(void)
@@ -127,24 +133,81 @@ class ZEN(object):
         self.ZenSetMaxTime(c_float(self.MaxTime))
         self.ZenSetBoardSize(self.BoardSize)
         self.ZenSetKomi(c_float(self.Komi))
-
-        Print('Zen Initialize ok(%d)' % self.ZenIsInitialized())
-        Print('Threads: %d' % self.Threads)
-        Print('MaxSimulations: %d (playouts, MCTS search)' % self.MaxSimulations)
-        Print('MaxTime: %.1f' % self.MaxTime)
-        Print('ResignRate: %.2f' % self.ResignRate)
-
-        Print('Strength: %d (counts, NN eval)' % self.Strength)
-        Print('BoardSize: %d' % self.BoardSize)
-        Print('Komi: %.1f' % self.Komi)
-        Print('')
-
-        self.ZenSetPnLevel(3)
-        self.ZenSetPnWeight(c_float(1.0))
-        self.ZenSetVnMixRate(c_float(0.75))
+        
+        self.ZenSetPnLevel(self.PnLevel)
+        self.ZenSetPnWeight(self.PnWeight)
+        self.ZenSetVnMixRate(self.VnMixRate)
 
         self.ZenClearBoard()
 
+        Print('Zen Initialize ok(%d)' % self.ZenIsInitialized())
+        Print('Threads:   %d' % self.Threads)
+        Print('BoardSize: %d' % self.BoardSize)
+        Print('Komi:      %.1f' % self.Komi)
+        Print('Resign:    %.1f%%' % (self.ResignRate*100.0))
+        
+        Print('Strength:  %d (counts, NN eval)' % self.Strength)
+        Print('MaxSim:    %d (playouts, MCTS search)' % self.MaxSimulations)
+        Print('MaxTime:   %.1f' % self.MaxTime)
+        
+        Print('PnLevel:   %d' % self.PnLevel)
+        Print('PnWeight:  %4.2f' % self.PnWeight.value)
+        Print('VnMixRate: %4.2f' % self.VnMixRate.value)
+        
+        Print('ThinkInterval:  %6.2f' % self.ThinkInterval)
+        Print('PrintInterval:  %6.2f' % self.PrintInterval)
+        Print('')
+    
+    def Zen6Init(self,Zen):
+        self.ZenClearBoard = Zen[2]
+        self.ZenGetBoardColor = Zen[5] #int ZenGetBoardColor(int,int)
+        self.ZenGetNextColor = Zen[7]
+        self.ZenGetNumBlackPrisoners = Zen[8]
+        self.ZenGetNumWhitePrisoners = Zen[9]
+        self.ZenGetTopMoveInfo = Zen[12]
+        self.ZenInitialize = Zen[13]
+        self.ZenIsThinking = Zen[17]
+        self.ZenPass = Zen[19]
+        self.ZenPlay = Zen[20]
+        self.ZenSetAmafWeightFactor = Zen[22]
+        self.ZenSetBoardSize = Zen[23]
+        self.ZenSetDCNN = Zen[24]
+        self.ZenSetKomi = Zen[25]
+        self.ZenSetMaxTime = Zen[26]
+        self.ZenSetNumberOfSimulations = Zen[28]
+        self.ZenSetNumberOfThreads = Zen[29]
+        self.ZenSetPriorWeightFactor = Zen[30]
+        self.ZenStartThinking = Zen[31]
+        self.ZenStopThinking = Zen[32]
+        
+        self.Zen_10 = Zen[10] #void ZenGetPolicyKnowledge(int (* const)[19])
+        self.Zen_11 = Zen[11] #void ZenGetTerritoryStatictics(int (* const)[19])
+
+        self.ZenInitialize('')
+        self.ZenSetBoardSize(self.BoardSize)
+        self.ZenSetNumberOfThreads(self.Threads)
+        self.ZenSetNumberOfSimulations(self.MaxSimulations)
+        self.ZenSetMaxTime(c_float(self.MaxTime))
+        self.ZenSetAmafWeightFactor(c_float(1.0))
+        self.ZenSetPriorWeightFactor(c_float(1.0))
+        self.ZenSetDCNN(True)
+        self.ZenClearBoard()
+        self.ZenSetKomi(c_float(self.Komi))
+        
+        #Print('Zen Initialize ok(%d)' % self.ZenIsInitialized())
+        Print('Threads:   %d' % self.Threads)
+        Print('BoardSize: %d' % self.BoardSize)
+        Print('Komi:      %.1f' % self.Komi)
+        Print('Resign:    %.1f%%' % (self.ResignRate*100.0))
+        
+        Print('Strength:  %d (counts, NN eval)' % self.Strength)
+        Print('MaxSim:    %d (playouts, MCTS search)' % self.MaxSimulations)
+        Print('MaxTime:   %.1f' % self.MaxTime)
+        
+        Print('ThinkInterval:  %5.2f' % self.ThinkInterval)
+        Print('PrintInterval:  %5.2f' % self.PrintInterval)
+        Print('')
+    
     def clear(self):
         self.ZenClearBoard()
         self.Sgf = []
@@ -272,6 +335,7 @@ class ZEN(object):
         self.ZenStartThinking(C)
 
         reason = 'Stop by Zen'
+        time_begin=time.time()
         while self.ZenIsThinking() != -0x80000000:
             thinkcount+=1
             #PrintListDebug(list, list_prv)
@@ -289,7 +353,10 @@ class ZEN(object):
                 list=list_tmp
                 break
             else:
-                if ((self.ThinkInterval*thinkcount)%self.PrintInterval)==0:
+                time_end=time.time()
+                if int(time_end-time_begin)>=int(self.PrintInterval):
+                    time_begin=time_end
+                #if ((self.ThinkInterval*thinkcount)%self.PrintInterval)==0:
                     Print('')
                     self.PrintTopMove(list_tmp,C)
                 list_prv=list
@@ -390,12 +457,15 @@ class ZEN(object):
                 if t[i][j] <= threshhold: white_alive+=1
       return black_alive, black_capture, black_territory, white_alive, white_capture, white_territory
 
-    def ZenScore(self):
+    def ZenScore(self, level=3):
         black_prisoner=self.ZenGetNumBlackPrisoners()
         white_prisoner=self.ZenGetNumWhitePrisoners()
+        '''
         Print('')
         Print("Black Passes: %3d    White Passes: %3d" % (self.blackpass, self.whitepass ))
         Print('level tb_wocap tw_wocap cap_b cap_w terr_b terr_w dead_b dead_w alive_b alive_w stone_b stone_w    result(terr,area)')
+        '''
+        Print('level result(terr,area)')
         t=self.ZenGetTerritoryStatictics()
         rt,ra=[0]*10,[0]*10
         for i in range(0,10,1):
@@ -413,6 +483,7 @@ class ZEN(object):
             rt[i]=result_score_territory-self.Komi
             ra[i]=result_score_area-self.Komi
 
+            '''
             Print('%5d %8d %8d %5d %5d %6d %6d %6d %6d %7d %7d %7d %7d %4d %4d %6.1f %6.1f' % (i*100, \
                 black_territory,white_territory, \
                 black_capture, white_capture, \
@@ -422,11 +493,19 @@ class ZEN(object):
                 black_alive+white_capture+white_prisoner, white_alive+black_capture+black_prisoner, \
                 result_score_territory, result_score_area, \
                 result_score_territory-self.Komi, result_score_area-self.Komi))
+            '''
+            Print('%5d %6.1f %6.1f' % (i*100, result_score_territory-self.Komi, result_score_area-self.Komi))
 
-        i=3
+        i=level
+        '''
         if rt[i]>0 : str='B+%.1f' % rt[i]
         else: str='W+%.1f' % -rt[i]
         return rt[i],str
+        '''
+        
+        if ra[i]>0 : str='B+%.1f' % ra[i]
+        else: str='W+%.1f' % -ra[i]
+        return ra[i],str
 
     def gen_analyze(self, wsock, C=-1, interval=100):
         global X, Y, P, W, S
@@ -621,14 +700,14 @@ class ZEN(object):
 
         Print('')
         Print("BoardSize: %d Komi %.1f Handicap %d" % (self.BoardSize, self.Komi, self.Handicap))
-        Print(u"Black: %s White: %s" % (self.PlayerBlack, self.PlayerWhite))
+        Print("Black: %s White: %s" % (self.PlayerBlack, self.PlayerWhite))
         Print("Total move: %d" % int(self.gamelen))
         Print("Result: %s" % self.ResultStr)
         Print('')
         #Print(self.final_score())
         r,s=self.ZenScore()
         Print('')
-        Print(s)
+        print filename, s, self.PlayerBlack, self.PlayerWhite
 
         self.gamestr = str
         #Print('')
@@ -725,34 +804,84 @@ def Print(S):
     sys.stderr.flush()
 
 def Help():
-    Print("Allowed options:")
+    Print('')
+    Print("Basic options:")
     Print(" -h [ --help ]".ljust(32) + "Show all allowed options.")
-    Print(" -t [ --threads ] arg (=1)".ljust(32) + "Set the number of threads.")
-    Print(" -s [ --strength ] arg (=10000)".ljust(32) + "Set the playing strength.")
+    Print(" -d [ --dll ] arg (=.\Zen.dll)".ljust(32) + "Set the path of Zen.dll.")
+    Print(" -t [ --threads ] arg (=4)".ljust(32) + "Set the number of threads.")
     Print(" --size arg (=19)".ljust(32) + "Set the board size.")
     Print(" --komi arg (=7.5)".ljust(32) + "Set the komi.")
     Print(" -r [ --resign ] arg (=0.1)".ljust(32) + "Set the resign rate.")
-    Print(" --interval arg (=0.1s)".ljust(32) + "Set the print interval.")
-    Print(" -d [ --dll ] arg (=.\Zen.dll)".ljust(32) + "Set the path of Zen.dll.")
+    Print(" -n [ --name ] arg (=7)".ljust(32) + "Choose 6(Zen6) or 7(Zen7)")
+    
+    Print('')
+    Print('Strength options (Make sure one option is used):')
+    Print(" -s [ --strength ] arg (=10000)".ljust(32) + "Set the top move visits")
+    Print(" --maxsim arg (=1g)".ljust(32) + "Set the max simulation.")
+    Print(" --maxtime arg (=1g s)".ljust(32) + "Set the max time.")
+    
+    Print("Advanced Strength options:")
+    Print(" --pnlevel arg (=3)".ljust(32) + "Set the policy network level.")
+    Print(" --pnweight arg (=1.0)".ljust(32) + "Set the policy network weight.")
+    Print(" --vnrate arg (=0.75)".ljust(32) + "Set the value network mix rate.")
+    Print('')
+    Print("Strength reference:")
+    Print('Level   maxsim      PnLevel PnWeight VnMixRate MaxTime')
+    Print('------------------------------------------------------')
+    Print('6k      1000        0       1.6      0.3       60s')
+    Print('5k      1100        0       1.4      0.3       60s')
+    Print('4k      1200        0       1        0.3       60s')
+    Print('------------------------------------------------------')
+    Print('3k      1300        1       2.4      0.3       60s')
+    Print('2k      1400        1       2        0.3       60s')
+    Print('1k      1500        1       1.6      0.3       60s')
+    Print('1d      1800        1       1.3      0.35      60s')
+    Print('2d      2000        1       1        0.4       60s')
+    Print('------------------------------------------------------')
+    Print('3d      2200        2       2        0.45      60s')
+    Print('4d      2400        2       1.5      0.5       60s')
+    Print('5d      2700        2       1        0.55      60s')
+    Print('------------------------------------------------------')
+    Print('6d      3000        3       4.4      0.6       60s')
+    Print('7d      3500        3       2.8      0.65      60s')
+    Print('8d      4000        3       1.4      0.7       60s')
+    Print('9d      6000        3       1        0.75      60s')
+    Print('------------------------------------------------------')
+    Print('5s~     1000000     3       1        0.75      5s~')
+    Print('analyse 1000000     3       1        0.75      3600s')
+    
+    Print('')
+    Print("Other options:")
+    Print(" --thinkinterval arg (=0.1s)".ljust(32) + "Set the think interval, how much time to check strength threshhold")
+    Print(" --interval arg (=300s)".ljust(32) + "Set the print log interval.")
+
     sys.exit()
 
 def main(argv=None):
     if argv is None:
         argv = sys.argv
         
-    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:d:", ["help", "threads=", "strength=","size=","komi=","resign=","interval=","dll="])
+    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:n:d:", ["help", "threads=", "strength=","size=","komi=","resign=","name=","interval=","thinkinterval=","maxsim=","maxtime=","pnlevel=","pnweight=","vnrate=","dll="])
     except getopt.GetoptError: Help()
 
     if args != []: Help()
 
+    name = 'Zen7'
+    ZenDLL=sys.path[0]+'/Zen.dll'
+
     BoardSize=19
     Komi=7.5
-    Strength=15000
-    ZenDLL='d:\go\zen7\Zen.dll'
+    Strength=10000
     Threads=4
     ResignRate=0.1
     ThinkInterval=0.1
-    PrintInterval=1
+    PrintInterval=300
+    
+    MaxSimulations=1000000000
+    MaxTime=1000000000.0
+    PnLevel=3
+    PnWeight=1.0
+    VnMixRate=0.75
 
     for opt, arg in opts:
         if opt in ['-h','--help']: Help()
@@ -780,19 +909,63 @@ def main(argv=None):
             except ValueError:
                 Help()
             continue
+        if opt in ['-n','--name']:
+            if not arg.isdigit() or int(arg) < 6 or int(arg) > 7: Help()
+            if int(arg) == 7:
+                name='Zen7'
+                ZenDLL='d:/go/zen7/Zen.dll'
+            if int(arg) == 6: 
+                name='Zen6'
+                ZenDLL='d:/go/zen6/Zen.dll'
+            continue
         if opt in ['--interval']:
             try:
                 PrintInterval = float(arg)
             except ValueError:
                 Help()
             continue
+        if opt in ['--thinkinterval']:
+            try:
+                ThinkInterval = float(arg)
+            except ValueError:
+                Help()
+            continue
+        if opt in ['--maxsim']:
+            if not arg.isdigit() or int(arg) < 0 or int(arg) > 1000000000: Help()
+            MaxSimulations = int(arg)
+            Strength=1000000
+            continue
+        if opt in ['--maxtime']:
+            try:
+                MaxTime = float(arg)
+                Strength=1000000
+            except ValueError:
+                Help()
+            continue
+        if opt in ['--pnlevel']:
+            if not arg.isdigit() or int(arg) < 0 or int(arg) > 3: Help()
+            PnLevel = int(arg)
+            continue
+        if opt in ['--pnweight']:
+            try:
+                PnWeight = float(arg)
+            except ValueError:
+                Help()
+            continue
+        if opt in ['--vnrate']:
+            try:
+                VnMixRate = float(arg)
+            except ValueError:
+                Help()
+            continue
+
         if opt in ['-d','--dll']:
             if arg[-7:].lower() != 'zen.dll': Help()
             ZenDLL = arg
             continue
         Help()
 
-    Z=ZEN(ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval)
+    Z=ZEN(name, ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate)
 
     while True:
         Cmd = raw_input('').lower().split()
@@ -893,18 +1066,22 @@ def main(argv=None):
             Reply('')
             continue
 
-        if Cmd in [['genmove', 'w'],['genmove', 'b']]:
+        if Cmd in [['genmove', 'w'],['genmove', 'b'],['genmove', 'white'],['genmove', 'black']]:
             C = Z.ZenGetNextColor()
-            if [C, Cmd[1]] in [[1, 'b'], [2, 'w']]:
+            if [C, Cmd[1]] in [[1, 'b'], [2, 'w'], [1, 'black'], [2, 'white']]:
                 Z.ZenPass(C)
                 Z.passcount+=1
                 Z.Sgf.append(('W' if C == 1 else 'B') + '[tt]')
                 C = 3 - C 
             Top = Z.ZenGenMove(C)
             if len(Top) != 0 and Top[0][3] < Z.ResignRate:
+                ra,rastr=Z.ZenScore()
+                Print(rastr)
                 Reply('resign')
             elif len(Top) == 0 or not Z.ZenPlay(Top[0][0], Top[0][1], C): 
                 Z.ZenPass(C)
+                ra,rastr=Z.ZenScore()
+                Print(rastr)
                 Z.Sgf.append(('W' if C == 1 else 'B') + '[tt]')
                 Z.passcount+=1
                 Reply('pass')
@@ -912,6 +1089,8 @@ def main(argv=None):
                 if (len(Top)==1): Top.append([-1,-1,0,0.0,''])
                 Z.Sgf.append(('W' if C == 1 else 'B') +  '[' + 'abcdefghijklmnopqrstuvwxyz'[Top[0][0]] + 'abcdefghijklmnopqrstuvwxyz'[Top[0][1]] + ']\nC[%.2f %s\n%.2f %s]' % (Top[0][3] * 100, Top[0][4], Top[1][3] * 100, Top[1][4]))
                 Z.passcount=0
+                ra,rastr=Z.ZenScore()
+                Print(rastr)
                 Reply(Top[0][4].split()[0])
             continue  
 
@@ -1081,7 +1260,8 @@ def main(argv=None):
             #t=ZenGetPolicyKnowledge()
             #print19(t)
 
-            t = np.array(Z.ZenGetPolicyKnowledge())
+            #t = np.array(Z.ZenGetPolicyKnowledge())
+            t = Z.ZenGetPolicyKnowledge()
             r = 1000.0/9
             #r = (t.max()-t.min())/9
             #m = -t.min()
@@ -1108,7 +1288,8 @@ def main(argv=None):
             #Z.print19(t1)
             #print
             
-            t = np.array(t1)
+            #t = np.array(t1)
+            t = t1
             r = 999.0/9
             alllist=[]
             for i in range(0, Z.BoardSize):
@@ -1147,9 +1328,19 @@ def main(argv=None):
           ...
           "}
         '''
-        if Cmd == ['sabaki-flat']:
-            Z.SabakiFlat=not Z.SabakiFlat
-            Print('Sabaki Flat: %d -> %d' % (not Z.SabakiFlat, Z.SabakiFlat) )
+        if Cmd[0] == 'sabaki-flat':
+            if len(Cmd)==1:
+                Z.SabakiFlat=not Z.SabakiFlat
+                Print('Sabaki Flat: %d -> %d' % (not Z.SabakiFlat, Z.SabakiFlat) )
+            elif len(Cmd)==2:
+                if Cmd[1]=='off':
+                    Z.SabakiFlatStatus=False
+                elif Cmd[1]=='on':
+                    Z.SabakiFlatStatus=True
+                else:
+                    Print('error')
+            else:
+                Print('error')
             Reply('')
             continue
         if Cmd == ['sabaki-genmovelog']:
@@ -1158,7 +1349,8 @@ def main(argv=None):
               nc=1
             else:
               nc=2
-            t = np.array(Z.ZenGetPolicyKnowledge())
+            #t = np.array(Z.ZenGetPolicyKnowledge())
+            t = Z.ZenGetPolicyKnowledge()
             r = 1000.0/9
             #r = (t.max()-t.min())/9
             #m = -t.min()
@@ -1187,10 +1379,13 @@ def main(argv=None):
             seqstr.append('(;C[- `%d` visits\\n  - **winrate** `%.1f%%`]N[%.1f%%]' % (Top[0][2],Top[0][3]*100,Top[0][3]*100) )
             for i in range(0,len(seq)):
               if len(seq[i])==0:continue
-              zenx='ABCDEFGHJKLMNOPQRST'.find(seq[i][0])
-              zeny=BoardSize-int(seq[i][1:])
-              #print(i,'abcdefghijklmnopqrstuvwxyz'[zenx], 'abcdefghijklmnopqrstuvwxyz'[zeny])
-              onestr='abcdefghijklmnopqrstuvwxyz'[zenx]+ 'abcdefghijklmnopqrstuvwxyz'[zeny]
+              if seq[i]=='pass':
+                  onestr='tt'
+              else:
+                  zenx='ABCDEFGHJKLMNOPQRST'.find(seq[i][0])
+                  zeny=BoardSize-int(seq[i][1:])
+                  #print(i,'abcdefghijklmnopqrstuvwxyz'[zenx], 'abcdefghijklmnopqrstuvwxyz'[zeny])
+                  onestr='abcdefghijklmnopqrstuvwxyz'[zenx]+ 'abcdefghijklmnopqrstuvwxyz'[zeny]
               if Z.SabakiFlat:
                 seqstr.append('A%s[%s]LB[%s:%d]' % ('B'if nc==2 else 'W',onestr,onestr,i+1) ) #flat
               else:
@@ -1200,7 +1395,10 @@ def main(argv=None):
             seqstr.append(')')
             #print(seqstr)
 
-            str = '#sabaki{"variations":"%s","heatmap":[%s]}' % (''.join(seqstr), ','.join(alllist) )
+            if Z.SabakiFlatStatus:
+                str = '#sabaki{"variations":"%s","heatmap":[%s]}' % (''.join(seqstr), ','.join(alllist) )
+            else:
+                str = '#sabaki{"variations":"%s","heatmap":[]}' % (''.join(seqstr) )
             Reply(str)
 
             continue
