@@ -19,14 +19,14 @@
 
 
 from ctypes import *
-import sys, time, getopt
+import sys, time, getopt, os
 #import numpy as np
 import threading
 import json
 from geventwebsocket import WebSocketError
 
 class ZEN(object):
-    def __init__(self, name, dll, boardsize, komi, strength, threads, resign, thinkinterval, printinterval, maxsimulations=1000000000, maxtime=1000000000.0, pnlevel=3, pnweight=1.0, vnmixrate=0.75):
+    def __init__(self, name, dll, boardsize, komi, strength, threads, resign, thinkinterval, printinterval, maxsimulations=1000000000, maxtime=1000000000.0, pnlevel=3, pnweight=1.0, vnmixrate=0.75, amaf=1.0, prior=1.0, dcnn=True):
         self.name = name
         self.version = '0.4'
         #self.name = 'Leela Zero'
@@ -76,6 +76,10 @@ class ZEN(object):
         self.PnLevel = pnlevel
         self.PnWeight = c_float(pnweight)
         self.VnMixRate = c_float(vnmixrate)
+        
+        self.Amaf = c_float(amaf)
+        self.Prior = c_float(prior)
+        self.Dcnn = dcnn
 
         Print('')
         Print('Starting %s...' % name)
@@ -169,14 +173,14 @@ class ZEN(object):
         self.ZenIsThinking = Zen[17]
         self.ZenPass = Zen[19]
         self.ZenPlay = Zen[20]
-        self.ZenSetAmafWeightFactor = Zen[22]
+        self.ZenSetAmafWeightFactor = Zen[22] #All Moves As First means simulate the enviroment of the first move, from mc+uct -> mc+amaf
         self.ZenSetBoardSize = Zen[23]
         self.ZenSetDCNN = Zen[24]
         self.ZenSetKomi = Zen[25]
         self.ZenSetMaxTime = Zen[26]
         self.ZenSetNumberOfSimulations = Zen[28]
         self.ZenSetNumberOfThreads = Zen[29]
-        self.ZenSetPriorWeightFactor = Zen[30]
+        self.ZenSetPriorWeightFactor = Zen[30] #PriorWeightFactor = min(1.0, 0.2 + move number/100), can increase the moves to select
         self.ZenStartThinking = Zen[31]
         self.ZenStopThinking = Zen[32]
         
@@ -188,9 +192,11 @@ class ZEN(object):
         self.ZenSetNumberOfThreads(self.Threads)
         self.ZenSetNumberOfSimulations(self.MaxSimulations)
         self.ZenSetMaxTime(c_float(self.MaxTime))
-        self.ZenSetAmafWeightFactor(c_float(1.0))
-        self.ZenSetPriorWeightFactor(c_float(1.0))
-        self.ZenSetDCNN(True)
+
+        self.ZenSetAmafWeightFactor(self.Amaf)
+        self.ZenSetPriorWeightFactor(self.Prior)
+        self.ZenSetDCNN(self.Dcnn)
+
         self.ZenClearBoard()
         self.ZenSetKomi(c_float(self.Komi))
         
@@ -203,6 +209,10 @@ class ZEN(object):
         Print('Strength:  %d (counts, NN eval)' % self.Strength)
         Print('MaxSim:    %d (playouts, MCTS search)' % self.MaxSimulations)
         Print('MaxTime:   %.1f' % self.MaxTime)
+        
+        Print('Amaf:      %4.2f' % self.Amaf.value)
+        Print('Prior:     %4.2f' % self.Prior.value)
+        Print('Dcnn:      %d' % self.Dcnn)
         
         Print('ThinkInterval:  %5.2f' % self.ThinkInterval)
         Print('PrintInterval:  %5.2f' % self.PrintInterval)
@@ -819,13 +829,35 @@ def Help():
     Print(" -s [ --strength ] arg (=10000)".ljust(32) + "Set the top move visits")
     Print(" --maxsim arg (=1g)".ljust(32) + "Set the max simulation.")
     Print(" --maxtime arg (=1g s)".ljust(32) + "Set the max time.")
+    Print('')
     
-    Print("Advanced Strength options:")
-    Print(" --pnlevel arg (=3)".ljust(32) + "Set the policy network level.")
+    Print("Advanced Strength options (Zen6):")
+    Print(" --amaf arg (=1.0)".ljust(32) + "Set the amaf (All Moves As First).")
+    Print(" --prior arg (=1.0)".ljust(32) + "Set the policy network.")
+    Print(" --dcnn arg (=1)".ljust(32) + "Open/Close the dcnn. (0: close, 1: open)")
+    Print('')
+    Print("Strength reference (Zen6):")
+    Print('Level   maxsim      amaf    prior    dcnn     MaxTime')
+    Print('------------------------------------------------------')
+    Print('7d      12000        1.0     1.0       1       60s')
+    Print('6d       3000        1.0     1.0       1       60s')
+    Print('5d       3000        0.5     1.0       1       60s')
+    Print('4d       3000        0.3     1.0       1       60s')
+    Print('3d       3000        0.1     1.0       1       60s')
+    Print('2d       3000        1.0     1.0       0       60s')
+    Print('1d       3000        0.7     0.8       0       60s')
+    Print('1k       3000        0.58    0.8       0       60s')
+    Print('2k       2500        0.35    0.75      0       60s')
+    Print('3k       2500        0.35    0.75      0       60s')
+    Print('4k       2000        0.25    0.7       0       60s')
+    Print('5k       1500        0.18    0.65      0       60s')
+    Print('')
+    Print("Advanced Strength options (Zen7):")
+    Print(" --pnlevel arg (=3)".ljust(32) + "Set the policy level.")
     Print(" --pnweight arg (=1.0)".ljust(32) + "Set the policy network weight.")
     Print(" --vnrate arg (=0.75)".ljust(32) + "Set the value network mix rate.")
     Print('')
-    Print("Strength reference:")
+    Print("Strength reference (Zen7):")
     Print('Level   maxsim      PnLevel PnWeight VnMixRate MaxTime')
     Print('------------------------------------------------------')
     Print('6k      1000        0       1.6      0.3       60s')
@@ -860,14 +892,17 @@ def Help():
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-        
-    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:n:d:", ["help", "threads=", "strength=","size=","komi=","resign=","name=","interval=","thinkinterval=","maxsim=","maxtime=","pnlevel=","pnweight=","vnrate=","dll="])
+
+    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:n:d:", ["help", "threads=", "strength=","size=","komi=","resign=","name=","interval=","thinkinterval=","maxsim=","maxtime=","amaf=","prior=","dcnn=","pnlevel=","pnweight=","vnrate=","dll="])
     except getopt.GetoptError: Help()
 
     if args != []: Help()
 
     name = 'Zen7'
-    ZenDLL=sys.path[0]+'/Zen.dll'
+
+    dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
+    #ZenDLL=sys.path[0]+'/Zen.dll'
+    ZenDLL=dirname+'/Zen.dll'
 
     BoardSize=19
     Komi=7.5
@@ -882,6 +917,10 @@ def main(argv=None):
     PnLevel=3
     PnWeight=1.0
     VnMixRate=0.75
+    
+    Amaf=1.0
+    Prior=1.0
+    Dcnn=True
 
     for opt, arg in opts:
         if opt in ['-h','--help']: Help()
@@ -942,6 +981,24 @@ def main(argv=None):
             except ValueError:
                 Help()
             continue
+
+        if opt in ['--dcnn']:
+            if not arg.isdigit() or int(arg) < 0 or int(arg) > 1: Help()
+            Dcnn = True if int(arg) == 1 else False
+            continue
+        if opt in ['--amaf']:
+            try:
+                Amaf = float(arg)
+            except ValueError:
+                Help()
+            continue
+        if opt in ['--prior']:
+            try:
+                Prior = float(arg)
+            except ValueError:
+                Help()
+            continue
+
         if opt in ['--pnlevel']:
             if not arg.isdigit() or int(arg) < 0 or int(arg) > 3: Help()
             PnLevel = int(arg)
@@ -965,7 +1022,7 @@ def main(argv=None):
             continue
         Help()
 
-    Z=ZEN(name, ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate)
+    Z=ZEN(name, ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate, Amaf, Prior, Dcnn)
 
     while True:
         Cmd = raw_input('').lower().split()
@@ -984,7 +1041,7 @@ def main(argv=None):
                 'showboard\n' + 'undo\n' + 'pass\n'  + 'genmove\n' + 'protocol_version\n' + \
                 'strength\n' + 'maxtime\n' + 'rotate\n' + 'zen-analyze\n' + 'loadsgf\n' + \
                 'printsgf\n' + 'savesgf\n' + 'time_settings\n' + 'lz-analyze\n' + 'time_left\n' + \
-                'fixed_handicap\n' + 'final_score\n' + 'analyze\n' + 'go\n' + 'auto\n' + \
+                'set_free_handicap\n' + 'final_score\n' + 'analyze\n' + 'go\n' + 'auto\n' + \
                 'policy\n' + 'territory\n' + 'gogui-analyze_commands\n' + \
                 'sabaki-genmovelog\n' + 'sabaki-flat\n')
             continue
@@ -1376,7 +1433,8 @@ def main(argv=None):
             #print(seq)
             seqstr=[]
             # ** means bold font
-            seqstr.append('(;C[- `%d` visits\\n  - **winrate** `%.1f%%`]N[%.1f%%]' % (Top[0][2],Top[0][3]*100,Top[0][3]*100) )
+            #seqstr.append('(;C[- `%d` visits\\n  - **winrate** `%.1f%%`]N[%.1f%%]' % (Top[0][2],Top[0][3]*100,Top[0][3]*100) )
+            seqstr.append('(;C[- `%d`\\n  - **`%.1f%%`**\\n  - **`%s`**]N[%.1f%% %s]' % (Top[0][2],Top[0][3]*100,rastr,Top[0][3]*100,rastr) )
             for i in range(0,len(seq)):
               if len(seq[i])==0:continue
               if seq[i]=='pass':
@@ -1526,10 +1584,18 @@ def main(argv=None):
             Reply('')
             continue
 
-        if Cmd[0] == 'fixed_handicap':
+        '''
+        set_free_handicap: Put free placement handicap stones on the board.
+        Arguments: list of vertices with handicap stones
+        Fails:     board not empty, bad list of vertices
+        Returns:   nothing
+        '''
+        if Cmd[0] == 'set_free_handicap':
             if (len(Cmd)==1) :
-              Reply('')
+              Reply('Missing list of vertices')
               continue
+            for i  in range (1, len(Cmd)):
+                Z.play('b', Cmd[i])
             Reply('')
             continue
 
