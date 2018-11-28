@@ -22,6 +22,12 @@ pip gevent-websocket
 ```
 3. If you already have your web server, please skip this step
 
+As an alternate web server solution, you can do several step:
+```
+cd webgo
+python -m SimpleHTTPServer
+```
+
 3.1 download nginx/1.2.8
 
 3.2 modify nginx.conf and set the port and root path
