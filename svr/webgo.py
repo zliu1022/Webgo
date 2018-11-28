@@ -44,7 +44,10 @@ lz.start(weight)
 
 Strength=15000
 name = 'Zen7'
-ZenDLL=sys.path[0]+'/Zen.dll'
+dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
+#ZenDLL=sys.path[0]+'/Zen.dll'
+ZenDLL=dirname+'/Zen.dll'
+
 Threads=4
 ResignRate=0.1
 ThinkInterval=0.1
