@@ -275,7 +275,7 @@ var objbeforevar=[];
 var leela_start=0;
 var sessid=0;
 
-var host_name=window.location.host;
+var host_name=window.location.hostname;
 var ws_str="ws://"+host_name+":32019/websocket"
 //var analyze_type="zen7"
 var analyze_type="leelaz"
