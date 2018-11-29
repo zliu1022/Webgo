@@ -28,8 +28,8 @@ if os.name == 'posix':
 else:
     if (board_size == 19):
         komi = 7.5
-        executable = "c:/go/leela-zero-0.13-win64-cpu/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz.exe"
-        weight = '-wc:/go/weight/e6779c9becc10a7e147d3cb9c5177a45d3659f95856cd7199d98d0f9ecaf156e.gz'
+        executable = "./dist/leelaz.exe"
+        weight = '-w./dist/network.gz'
         port = 32019
     else:
         komi = 6.5
@@ -52,7 +52,7 @@ Strength=15000
 name = 'Zen7'
 dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
 #ZenDLL=sys.path[0]+'/Zen.dll'
-ZenDLL=dirname+'/Zen.dll'
+ZenDLL=dirname + '/Zen.dll'
 
 Threads=4
 ResignRate=0.1
@@ -286,7 +286,7 @@ httpd = ServerClass(server_address, HandlerClass)
 sa = httpd.socket.getsockname()
 
 def httpdworker(sa,port):
-    print "Serving HTTP on", sa[0], "port", sa[1], "..."
+    print "httpserver listening", sa[1], 'at', sa[0]
     httpd.serve_forever()
     print "closing httpd"
 
@@ -300,7 +300,10 @@ from geventwebsocket.handler import WebSocketHandler
 import socket
 myname=socket.getfqdn(socket.gethostname())
 myaddr=socket.gethostbyname(myname)
-print 'listening', port, 'at', myaddr, myname
+print 'websocket listening', port, 'at', myaddr, myname
+
+#tmpstr = 'http://'+myaddr+':'+port+'/webgo.html?sgf=1.sgf&move=10'
+print('please enter URL: http://%s:%d/webgo.html?sgf=1.sgf&move=10' % (myaddr,httpdport))
 
 server = WSGIServer(("0.0.0.0", port), app,
     handler_class=WebSocketHandler)
