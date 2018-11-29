@@ -284,7 +284,8 @@ class CLI(object):
         raise Exception("Failed to send command '%s' to Leela" % (cmd))
 
     #cpu version
-    def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
+    #def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
+    def wait_start(self, expected_string="Detecting residual layers", drain=True, timeout=20):
     #gpu version
     #def wait_start(self, expected_string="Max workgroup dimensions", drain=True, timeout=20):
         sleep_per_try = 1
