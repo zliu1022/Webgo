@@ -20,16 +20,22 @@ if (len(sys.argv)==2):
 else:
     board_size = 19
 
-if (board_size == 19):
+if os.name == 'posix':
     komi = 7.5
-    executable = "c:/go/leela-zero-0.13-win64-cpu/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz.exe"
-    weight = '-wc:/go/weight/d351f06e446ba10697bfd2977b4be52c3de148032865eaaf9efc9796aea95a0c.gz'
+    executable = '/Users/zliu/go/leela-zero/leelaz-0.13-cpu'
+    weight = '-w/Users/zliu/go/weights/LeelaMaster/GX5B.gz'
     port = 32019
 else:
-    komi = 6.5
-    executable = "C:/go/9/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz-9.exe"
-    weight = "-wC:/go/9/9-128x20.gz"
-    port = 32009
+    if (board_size == 19):
+        komi = 7.5
+        executable = "c:/go/leela-zero-0.13-win64-cpu/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz.exe"
+        weight = '-wc:/go/weight/e6779c9becc10a7e147d3cb9c5177a45d3659f95856cd7199d98d0f9ecaf156e.gz'
+        port = 32019
+    else:
+        komi = 6.5
+        executable = "C:/go/9/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz-9.exe"
+        weight = "-wC:/go/9/9-128x20.gz"
+        port = 32009
 
 
 seconds_per_search = 10
@@ -59,7 +65,9 @@ PnLevel=3
 PnWeight=1.0
 VnMixRate=0.75
 
-Z=ZEN(name, ZenDLL,board_size, komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate)
+Z=None
+if os.path.isfile(ZenDLL):
+    Z=ZEN(name, ZenDLL,board_size, komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate)
 
 app = Bottle()
 
@@ -114,7 +122,7 @@ def handle_websocket():
                     if (cmd[1]=="leelaz"):
                         analyze_type=0
                     elif (cmd[1]=="zen7"):
-                        analyze_type=1
+                        if Z<>None: analyze_type=1
 
                     if analyze_type==0:
                         lz.analyzeStatus = True
@@ -145,7 +153,7 @@ def handle_websocket():
             if (cmd[0]=="play"):
                 print "play %s %s" % (cmd[1], cmd[2])
                 lz.send_command('play %s %s' % (cmd[1], cmd[2]), sleep_per_try = 0.01)
-                Z.play(cmd[1].lower(), cmd[2].lower())
+                if Z<>None: Z.play(cmd[1].lower(), cmd[2].lower())
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -171,14 +179,14 @@ def handle_websocket():
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                     lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
-                    Z.play(color.lower(), "pass")
+                    if Z<>None: Z.play(color.lower(), "pass")
                 else:
                     x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                     y = board_size - int(move["y"])
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                     lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
-                    Z.play(color.lower(), ('%s%d' % (x,y)).lower())
+                    if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
 
                 print "starting lz-analyze..."
                 if analyze_type==0:
@@ -195,7 +203,7 @@ def handle_websocket():
 
             if (cmd[0]=="undo"):
                 lz.send_command('undo')
-                Z.ZenUndo(1)
+                if Z<>None: Z.ZenUndo(1)
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -211,7 +219,7 @@ def handle_websocket():
 
                 print "undo"
                 lz.send_command('undo')
-                Z.ZenUndo(1)
+                if Z<>None: Z.ZenUndo(1)
 
                 print "starting lz-analyze..."
                 if analyze_type==0:
@@ -228,7 +236,7 @@ def handle_websocket():
 
             if (cmd[0]=="clear_board"):
                 lz.send_command('clear_board')
-                Z.clear()
+                if Z<>None: Z.clear()
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -246,14 +254,14 @@ def handle_websocket():
                         color = 'B' if move["c"]==1 else 'W'
                         print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                         lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
-                        Z.play(color.lower(), "pass")
+                        if Z<>None: Z.play(color.lower(), "pass")
                     else:
                         x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                         y = board_size - int(move["y"])
                         color = 'B' if move["c"]==1 else 'W'
                         print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                         lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
-                        Z.play(color.lower(), ('%s%d' % (x,y)).lower())
+                        if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
                     ret["result"] = "%d" % no
                     wsock.send(json.dumps(ret))
                     no += 1
