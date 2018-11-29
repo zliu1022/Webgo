@@ -274,6 +274,25 @@ def handle_websocket():
             Z.analyzeStatus=False
             break
 
+import BaseHTTPServer
+from SimpleHTTPServer import SimpleHTTPRequestHandler
+HandlerClass = SimpleHTTPRequestHandler
+ServerClass  = BaseHTTPServer.HTTPServer
+Protocol     = "HTTP/1.0"
+httpdport = 8000
+server_address = ('0.0.0.0', httpdport)
+HandlerClass.protocol_version = Protocol
+httpd = ServerClass(server_address, HandlerClass)
+sa = httpd.socket.getsockname()
+
+def httpdworker(sa,port):
+    print "Serving HTTP on", sa[0], "port", sa[1], "..."
+    httpd.serve_forever()
+    print "closing httpd"
+
+th_httpd = threading.Thread(target=httpdworker, args=(sa,httpdport,), name='httpd-thread')
+th_httpd.start()
+
 from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
 from geventwebsocket.handler import WebSocketHandler
@@ -290,3 +309,6 @@ try:
     server.serve_forever()
 except KeyboardInterrupt:
     lz.stop()
+    httpd.shutdown()
+    th_httpd.join()
+
