@@ -1,6 +1,12 @@
 
 # .v4p backup files
 *~.xml
+*.pyc
+*.spec
+*.bat
 
 # Dynamic plugins .dll
 bin/
+dist/
+build/
+
