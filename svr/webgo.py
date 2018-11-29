@@ -271,7 +271,7 @@ def handle_websocket():
 
         except WebSocketError:
             lz.analyzeStatus = False
-            Z.analyzeStatus=False
+            if Z<>None: Z.analyzeStatus=False
             break
 
 import BaseHTTPServer
