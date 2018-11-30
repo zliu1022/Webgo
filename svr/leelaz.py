@@ -131,8 +131,9 @@ class CLI(object):
                             analyz_response["y"] = self.board_size - int(analyz[0][1:])
                         analyz_response["visits"]=analyz[2]
                         analyz_response["winrate"]=analyz[4]
-                        analyz_response["order"]=analyz[6]
-                        analyz_response["pv"]=" ".join(analyz[8:])
+                        analyz_response["prior"]=analyz[6]
+                        analyz_response["order"]=analyz[8]
+                        analyz_response["pv"]=" ".join(analyz[10:])
                         
                         re.append(analyz_response)
                         if(len(re)>30) : break
