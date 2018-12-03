@@ -22,8 +22,8 @@ else:
 
 if os.name == 'posix':
     komi = 7.5
-    executable = '/Users/zliu/go/leela-zero/leelaz-0.13-cpu'
-    weight = '-w/Users/zliu/go/weights/LeelaMaster/GX5B.gz'
+    executable = './dist/leelaz'
+    weight = '-w./dist/network.gz'
     port = 32019
 else:
     if (board_size == 19):
