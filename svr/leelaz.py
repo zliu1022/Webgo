@@ -8,6 +8,7 @@ from Queue import Queue, Empty
 import threading
 from subprocess import Popen, PIPE, STDOUT
 import json
+from geventwebsocket import WebSocketError
 
 update_regex = r'Nodes: ([0-9]+), Win: ([0-9]+\.[0-9]+)\% \(MC:[0-9]+\.[0-9]+\%\/VN:[0-9]+\.[0-9]+\%\), PV:(( [A-Z][0-9]+)+)'
 update_regex_no_vn = r'Nodes: ([0-9]+), Win: ([0-9]+\.[0-9]+)\%, PV:(( [A-Z][0-9]+)+)'
@@ -155,8 +156,8 @@ class CLI(object):
 
                         ret["cmd"]="lz-analyze";
                         ret["result"]=re;
-                        print ret
-                        print
+                        #print ret
+                        #print
                         wsock.send(json.dumps(ret))
                     except WebSocketError:
                         cmd = ""
