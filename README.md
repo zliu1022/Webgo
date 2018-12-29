@@ -16,38 +16,22 @@ So you can analyse all kifu anywhere.
 1. Install python 2.7
 2. Install bottle, gevent, gevent-websocket
 ```
-pip bottle
-pip gevent
-pip gevent-websocket
+pip install bottle
+pip install gevent
+pip install gevent-websocket
 ```
 3. If you already have your web server, please skip this step
 
-As an alternate web server solution, you can do several step:
+There is already an internal web server together with Webgo.
+The default listening port is 8000.
+You can change it in svr/webgo.py.
 ```
-cd webgo
-python -m SimpleHTTPServer
+httpdport = 8000
 ```
 
-3.1 download nginx/1.2.8
-
-3.2 modify nginx.conf and set the port and root path
-```
-server {
-        listen       80;
-        server_name  localhost;
-        charset utf-8;
-        location = / {
-            root   C:\web;
-            index  index.html index.php;
-}
-```
-3.3 add sgf as one filetype permitted by server
-```
-location ~* \.(htm|html|gif|jpg|jpeg|png|css|js|ico|json|net|sgf)$ {
-    root C:\web;
-}
-```
 4. put all zip content to your web site root
+
+If you are under windows platform, please run start.bat and you can change your favorite leela-zero in directory "dist".
 
 In the example , it's ```c:\web```
 
