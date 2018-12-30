@@ -297,13 +297,29 @@ from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
 from geventwebsocket.handler import WebSocketHandler
 
+
 import socket
-myname=socket.getfqdn(socket.gethostname())
-myaddr=socket.gethostbyname(myname)
-print 'websocket listening', port, 'at', myaddr, myname
+def get_host_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+ 
+    return ip
+
+#myname=socket.getfqdn(socket.gethostname()) # will not work under macos with only mifi
+#myaddr=socket.gethostbyname(myname)
+#print 'websocket listening', port, 'at', myaddr, myname
+
+myaddr = get_host_ip()
+print 'websocket listening', port, 'at', myaddr
 
 #tmpstr = 'http://'+myaddr+':'+port+'/webgo.html?sgf=1.sgf&move=10'
-print('please enter URL: http://%s:%d/webgo.html?sgf=1.sgf&move=10' % (myaddr,httpdport))
+#print('please enter URL: http://%s:%d/webgo.html?sgf=1.sgf&move=10' % (myaddr,httpdport))
+print('please enter URL: http://%s:%d/webgo.html' % (myaddr,httpdport))
+
 
 server = WSGIServer(("0.0.0.0", port), app,
     handler_class=WebSocketHandler)
