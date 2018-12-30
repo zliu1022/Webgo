@@ -76,13 +76,13 @@ WGo.Player.Analyze = function(player, board) {
 WGo.Player.Analyze.prototype.set = function(set) {
 	if(!this.analyze && set) {
 		// save original kifu reader
-		this.originalReader = this.player.kifuReader;
+		//this.originalReader = this.player.kifuReader;
 		
 		// create new reader with cloned kifu
-		this.player.kifuReader = new WGo.KifuReader(this.player.kifu.clone(), this.originalReader.rememberPath, this.originalReader.allow_illegal, this.originalReader.allow_illegal);
+		//this.player.kifuReader = new WGo.KifuReader(this.player.kifu.clone(), this.originalReader.rememberPath, this.originalReader.allow_illegal, this.originalReader.allow_illegal);
 		
 		// go to current position
-		this.player.kifuReader.goTo(this.originalReader.path);
+		//this.player.kifuReader.goTo(this.originalReader.path);
 		
 		// register edit listeners
 		this._ev_click = this._ev_click || this.play.bind(this);
@@ -131,14 +131,14 @@ WGo.Player.Analyze.prototype.set = function(set) {
         objbeforevar = [];
 
 		// go to the last original position
-		this.originalReader.goTo(this.player.kifuReader.path);
+		//this.originalReader.goTo(this.player.kifuReader.path);
 		
 		// change object isn't actual - update it, not elegant solution, but simple
-		this.originalReader.change = analyze_pos_diff(this.player.kifuReader.getPosition(), this.originalReader.getPosition());
+		//this.originalReader.change = analyze_pos_diff(this.player.kifuReader.getPosition(), this.originalReader.getPosition());
 		
 		// update kifu reader
-		this.player.kifuReader = this.originalReader;
-		this.player.update(true);
+		//this.player.kifuReader = this.originalReader;
+		//this.player.update(true);
 		
 		// remove edit listeners
 		this.board.removeEventListener("click", this._ev_click);
@@ -156,17 +156,13 @@ WGo.Player.Analyze.prototype.set = function(set) {
 }
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
-	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
 
     var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
         console.log("normal mode")
-        //elem_content.innerText += " normal mode";
         return;
     }
     
-    //console.log("next_fn_touch remove lastObj", lastObj);
-    //console.log("next_fn_touch remove lastvarObj", lastvarObj);
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
     leela_start = 0;
@@ -179,12 +175,10 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
     objbeforevar = [];
     
     var movelist = [];
-    //movelist.push({x:curmove.x, y:curmove.y, c:curmove.c})
     movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
-    /*if(curmove && !curmove.pass) { // not home and not pass
-        player.board.addObject({x:curmove.x, y:curmove.y, c:curmove.c});
-    }*/
+    ws.send("play-and-analyze " + JSON.stringify(movelist));
 
+	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
 	this.player.kifuReader.node.appendChild(new WGo.KNode({
 		move: {
 			x: x, 
@@ -195,7 +189,6 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 	}));
 	this.player.next(this.player.kifuReader.node.children.length-1);
     
-    ws.send("play-and-analyze " + JSON.stringify(movelist));
 }
 
 if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
