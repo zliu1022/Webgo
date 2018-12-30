@@ -271,12 +271,15 @@ class CLI(object):
             # Readline loop
             while True:
                 s = self.stdout_thread.readline()
+                print "STDOUT: ", s
                 # Leela follows GTP and prints a line starting with "=" upon success.
                 if s.strip()[0:1] == '=':
                     success_count += 1
                     if success_count >= expected_success_count:
                         if drain:
                             so,se = self.drain()
+                            print "STDOUT: ", so
+                            print "STDERR: ", se
                             #print >>sys.stdout, so
                             #print >>sys.stderr, se
                         return
@@ -298,9 +301,11 @@ class CLI(object):
             print " %d seconds" % tries
             # Readline loop
             while True:
-                #s = self.stdout_thread.readline()
+                s1 = self.stdout_thread.readline()
+                print "STDOUT: ", s1
                 #s = self.stderr_thread.read_all_lines()
                 s = self.stderr_thread.readline()
+                print "STDERR: ", s
                 if s.find(expected_string)!=-1:
                     print "leela zero started %d seconds" % tries
                     if drain:
@@ -348,7 +353,7 @@ class CLI(object):
         raise Exception("Failed to send command '%s' to Leela" % (cmd))
 
     def start(self, weight):
-        xargs = []
+        xargs = ['--puct', '0.5', '--softmax_temp', '2.0', '--fpu_reduction', '0.25']
 
         if self.verbosity > 0:
             print >>sys.stderr, "Starting leela-zero..."
