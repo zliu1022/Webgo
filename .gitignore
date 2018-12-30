@@ -4,6 +4,7 @@
 *.pyc
 *.spec
 *.bat
+.DS_Store
 
 # Dynamic plugins .dll
 bin/
