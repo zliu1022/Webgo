@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="wgo/basicplayer.control.js"></script>
 		<script type="text/javascript" src="wgo/player.editable.js"></script>
 		<script type="text/javascript" src="wgo/scoremode.js"></script>
-		<script type="text/javascript" src="wgo/player.permalink.js"></script>
+		<script type="text/javascript" src="wgo/player.sgflib.js"></script>
         
         <!-- customize your own menu -->
         <!-- play mode in the future -->
@@ -26,7 +26,7 @@
         <script type="text/javascript" src="wgo/player.analyze.js"></script>
 
         <!-- open this for chinese language -->
-		<!--script type="text/javascript" src="wgo/i18n.zh.js"></script-->
+		<script type="text/javascript" src="wgo/i18n.zh.js"></script>
 		<!--script src="wgo/jquery-1.8.3.min.js" type="text/javascript"></script-->
 		<link type="text/css" href="wgo/wgo.player.css" rel="stylesheet" />
 	</head>
@@ -101,7 +101,7 @@
             var qs = getQueryString(); 
             var q1 = qs["sgf"];
             var q2 = qs["move"];
-            if (q1 === undefined) { q1="1.sgf"}
+            if (q1 === undefined) { q1="0.sgf"}
             if (q2 === undefined) { q2="999"}
             q1="sgf/"+q1;
             console.log("URL-sgf: ",q1)

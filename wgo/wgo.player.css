@@ -705,3 +705,28 @@ input[type="text"].wgo-permalink {
 }
 
 /*--- /Permalinks ---------------------------------------------------------------------------*/
+
+/*--- Sgflib ---------------------------------------------------------------------------*/
+
+input[type="text"].wgo-sgflib {
+	padding: 7px 10px !important;
+	border: 1px solid white !important;
+	color: white !important;
+	width: 100% !important;
+	background-color: rgba(0,0,0,0) !important;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+a.wgo-sgflib {
+	padding: 2px 3px !important;
+	//border: 1px solid white !important;
+	color: white !important;
+	width: 100% !important;
+	background-color: rgba(0,0,0,0) !important;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+/*--- /Sgflib ---------------------------------------------------------------------------*/
