@@ -353,7 +353,9 @@ class CLI(object):
         raise Exception("Failed to send command '%s' to Leela" % (cmd))
 
     def start(self, weight):
-        xargs = ['--puct', '0.5', '--softmax_temp', '2.0', '--fpu_reduction', '0.25']
+        #xargs = ['--puct', '0.5', '--softmax_temp', '2.0', '--fpu_reduction', '0.25']
+        #xargs = ['-t8', '--gpu', '0', '--gpu', '1']
+        xargs = []
 
         if self.verbosity > 0:
             print >>sys.stderr, "Starting leela-zero..."
