@@ -655,7 +655,7 @@ input[type="text"].wgo-player-mn-value  {
 .wgo-info-message {
 	margin: 15% auto;
 	min-height: 50%;
-	max-height: 75%;
+	max-height: 80%;
 	min-width: 50%;
 	max-width: 90%;
 	background-color: rgba(0,0,0,0.95);
