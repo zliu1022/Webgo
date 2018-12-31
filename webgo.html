@@ -63,12 +63,12 @@
 	        transition: opacity .5s;
 	        pointer-events: none;
 	        z-index: 999;
-	    }
+	    	}
 		#info-overlay.show {
 		    opacity: 1;
 		    transition: opacity .1s;
 		}
-	    </style>
+	    	</style>
 		<script type="text/javascript">
             var showvar="";
             show_var = function (obj) {
@@ -123,7 +123,7 @@
                     //stoneHandler: WGo.Board.drawHandlers.PAINTED,
                     //stoneHandler: WGo.Board.drawHandlers.GLOW,
                     //stoneHandler: WGo.Board.drawHandlers.SHELL,
-                    stoneHandler: WGo.Board.drawHandlers.MONO,
+                    //stoneHandler: WGo.Board.drawHandlers.MONO,
                     //stoneHandler: WGo.Board.drawHandlers.CR, // circle
                     //stoneHandler: WGo.Board.drawHandlers.LB, // need to add text at the same time
                     //stoneHandler: WGo.Board.drawHandlers.SQ, // square
@@ -144,28 +144,31 @@
                         //WGo.DIR + "stones/white08_128.png",
                         //WGo.DIR + "stones/white09_128.png",
                         //WGo.DIR + "stones/white10_128.png",
-                        //"theme/sabaki/stone_-1.png"             //sabaki-default
-                        //"theme/walnut-theme/white.png"     //walnut
-                        //"theme/Cartoon/white1.png"         //cartoon
+                        "theme/sabaki/stone_-1.png"             //sabaki-default
+                        //"theme/walnut-theme/white.png"     	//walnut
+                        //"theme/Cartoon/white1.png"         	//cartoon
+                        //"theme/yunnan/w.png"         		//yunzi
 					],
                     blackStoneGraphic: [ 	
                         //WGo.DIR + "stones/black00_128.png",
                         //WGo.DIR + "stones/black01_128.png",
                         //WGo.DIR + "stones/black02_128.png",
                         //WGo.DIR + "stones/black03_128.png",
-                        //"theme/sabaki/stone_1.png"              //sabaki-default
-                        //"theme/walnut-theme/black.png"     //walnut
-                        //"theme/Cartoon/black1.png"         //cartoon
+                        "theme/sabaki/stone_1.png"              //sabaki-default
+                        //"theme/walnut-theme/black.png"     	//walnut
+                        //"theme/Cartoon/black1.png"         	//cartoon
+                        //"theme/yunnan/b.png"         		//yunzi
                     ],
 					starSize: 10,
 					stoneSize: 1,
 					shadowSize: 1,
-					//background: "theme/board/02.png",			//my favorite board
-                    			//background: "theme/sabaki/board.png",		//sabaki-default
+					//background: "theme/board/02.png",		//my favorite board
+                    			background: "theme/sabaki/board.png",		//sabaki-default
                     			//background: "theme/walnut-theme/walnut.jpg",	//walnut
-                    			//background: "theme/Cartoon/board.png",		//cartoon
+                    			//background: "theme/Cartoon/board.png",	//cartoon
+                    			//background: "theme/yunnan/bd4.jpg",		//yunzi
 					//background: "#000000" // black board
-					background: "#FFFFFF" // white board
+					//background: "#FFFFFF" // white board
 				},
 				layout: {
 					top: ['InfoBox'],
