@@ -51,7 +51,7 @@ WGo.i18n[WGo.lang] = {
 	"menu": "菜单",
 	"comments": "注解",
 	"gameinfo": "棋局",
-	"editmode": "编辑模式",
+	"editmode": "试下模式",
 	"playmode": "对弈模式",
 	"analyze": "分析",
 	"permalink": "链接",

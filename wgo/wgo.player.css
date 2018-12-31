@@ -655,9 +655,9 @@ input[type="text"].wgo-player-mn-value  {
 .wgo-info-message {
 	margin: 15% auto;
 	min-height: 50%;
-	max-height: 70%;
+	max-height: 75%;
 	min-width: 50%;
-	max-width: 70%;
+	max-width: 90%;
 	background-color: rgba(0,0,0,0.95);
 	overflow: auto;
 	padding: 20px;
@@ -719,8 +719,9 @@ input[type="text"].wgo-sgflib {
 	-webkit-box-sizing: border-box;
 }
 a.wgo-sgflib {
-	padding: 2px 3px !important;
+	padding: 1px 3px !important;
 	//border: 1px solid white !important;
+	font-size: 14px;
 	color: white !important;
 	width: 100% !important;
 	background-color: rgba(0,0,0,0) !important;
