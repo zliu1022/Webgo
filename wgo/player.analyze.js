@@ -162,6 +162,7 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
         console.log("normal mode")
         return;
     }
+	if(this.player.kifuReader.game.position.get(x, y)!=0  ) return;
     
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
