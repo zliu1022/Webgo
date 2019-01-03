@@ -157,12 +157,17 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
 
+	console.log('isValid: ',this.player.kifuReader.game.isValid(x, y),
+		'position: ', 	this.player.kifuReader.game.position.get(x, y),
+		'allow_write: ',this.player.kifuReader.game.allow_rewrite,
+		'repeating: ', 	this.player.kifuReader.game.repeating  );
+
     var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
         console.log("normal mode")
         return;
     }
-	if(this.player.kifuReader.game.position.get(x, y)!=0  ) return;
+//	if(this.player.kifuReader.game.position.get(x, y)!=0  ) return;
     
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);

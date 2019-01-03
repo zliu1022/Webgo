@@ -126,6 +126,7 @@ def handle_websocket():
 
                     if analyze_type==0:
                         lz.analyzeStatus = True
+                        lz.analyzeSend = True
                         th_lz = threading.Thread(target=lz.gen_analyze, args=(wsock,), name='analyze-thread')
                         th_lz.start()
                     else:
@@ -159,6 +160,7 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="play-and-analyze"):
+		'''
                 print "stopping lz-analyze..."
                 if analyze_type==0:
                     lz.analyzeStatus = False
@@ -166,6 +168,8 @@ def handle_websocket():
                 else:
                     Z.analyzeStatus=False
                     th_zen7.join()
+		'''
+                lz.analyzeSend = False
 
                 movelist = json.loads(cmd[1])
                 ret["para"] = len(movelist)
@@ -185,9 +189,12 @@ def handle_websocket():
                     y = board_size - int(move["y"])
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
-                    lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
+                    lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01, nowait=True)
                     if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
 
+                lz.send_command('lz-analyze 20', sleep_per_try = 0.01, nowait=True)
+                lz.analyzeSend = True
+		'''
                 print "starting lz-analyze..."
                 if analyze_type==0:
                     lz.analyzeStatus = True
@@ -196,6 +203,7 @@ def handle_websocket():
                 else:
                     th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
                     th_zen7.start()
+		'''
                 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
@@ -209,6 +217,7 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="undo-and-analyze"):
+                '''
                 print "stopping lz-analyze..."
                 if analyze_type==0:
                     lz.analyzeStatus = False
@@ -216,11 +225,16 @@ def handle_websocket():
                 else:
                     Z.analyzeStatus=False
                     th_zen7.join()
+                '''
+                lz.analyzeSend = False
 
                 print "undo"
                 lz.send_command('undo')
                 if Z<>None: Z.ZenUndo(1)
 
+                lz.send_command('lz-analyze 20', sleep_per_try = 0.01, nowait=True)
+                lz.analyzeSend = True
+                '''
                 print "starting lz-analyze..."
                 if analyze_type==0:
                     lz.analyzeStatus = True
@@ -229,6 +243,7 @@ def handle_websocket():
                 else:
                     th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
                     th_zen7.start()
+                '''
 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))

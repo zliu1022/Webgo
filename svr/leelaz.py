@@ -87,13 +87,14 @@ class CLI(object):
         self.seconds_per_search = seconds_per_search + 1 #add one to account for lag time
         self.p = None
         self.analyzeStatus=False
+        self.analyzeSend=False
 
     def gen_analyze(self,wsock):
         print "leelaz thread %s is running" % threading.current_thread().name
         print wsock
 
         #localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
-        interval = 100
+        interval = 20
         analyze_count = 2
         cmd = "lz-analyze %d" % interval # send analyze per second 
         self.p.stdin.write(cmd + "\n")
@@ -114,7 +115,8 @@ class CLI(object):
                     success_count += 1
 
                     s_array = s.split("info move ")
-                    #print "s_array: %s " % s_array
+                    if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0]
+                    if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
                     for analyz_orig in s_array:
                         #print "analyz_orig: %s " % analyz_orig
@@ -137,7 +139,7 @@ class CLI(object):
                         analyz_response["pv"]=" ".join(analyz[10:])
                         
                         re.append(analyz_response)
-                        if(len(re)>30) : break
+                        if(len(re)>5) : break
 
                     '''
                     localtime = get_time_stamp();
@@ -158,7 +160,8 @@ class CLI(object):
                         ret["result"]=re;
                         #print ret
                         #print
-                        wsock.send(json.dumps(ret))
+                        if self.analyzeSend == True:
+                            wsock.send(json.dumps(ret))
                     except WebSocketError:
                         cmd = ""
                         self.analyzeStatus = False
@@ -261,7 +264,7 @@ class CLI(object):
         return (so,se)
 
     # Send command and wait for ack
-    def send_command(self, cmd, expected_success_count=1, drain=True, timeout=20, sleep_per_try = 0.1):
+    def send_command(self, cmd, expected_success_count=1, drain=True, timeout=20, sleep_per_try = 0.1, nowait=True):
         self.p.stdin.write(cmd + "\n")
         tries = 0
         success_count = 0
@@ -271,7 +274,8 @@ class CLI(object):
             # Readline loop
             while True:
                 s = self.stdout_thread.readline()
-                print "STDOUT: ", s
+                if (len(s)): print "STDOUT: ", s
+                if (nowait): s = '='
                 # Leela follows GTP and prints a line starting with "=" upon success.
                 if s.strip()[0:1] == '=':
                     success_count += 1
