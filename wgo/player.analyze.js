@@ -504,7 +504,7 @@ ws.onmessage = function (evt) {
             if(document.getElementById("0")==null){
             //if(elem_content.children.length==0 || elem_content.children[0].className=="wgo-info-list"){
                 elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
-                for(var i = 0; (i < 29); i++) {
+                for(var i = 0; (i < 33); i++) {
                     //var existingLength = ret.result[i].move.length + " " + ret.result[i].visits.length + 3 + 4;
                     //elem_content.innerHTML += "<p><a href=\"javascript:void(0)\" id=\"" + ret.result[i].move + "\" onclick=\"show_var(this)\" value=\"Q16 Y15\">" + ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "..." + "</a>" + "</p>";
                     //elem_content.innerHTML += "<p><a href=\"javascript:void(0)\" id=\"" + ret.result[i].move + "\" onclick=\"show_var(this)\" value=\"Q16 Y15\">" + ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,30) + "..." + "</a>" + "</p>";
@@ -522,7 +522,7 @@ ws.onmessage = function (evt) {
                 }
             }
             // modify <a> text
-            for(var i = 0; (i < 29); i++) {
+            for(var i = 0; (i < 33); i++) {
                 //elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
                 var ela = elem_content.children[i].children[0];
                 if(i < ret.result.length) {

@@ -115,8 +115,9 @@ class CLI(object):
                     success_count += 1
 
                     s_array = s.split("info move ")
+                    print "s_array len: %d " % len(s_array)
                     if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0]
-                    if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
+                    #if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
                     for analyz_orig in s_array:
                         #print "analyz_orig: %s " % analyz_orig
@@ -139,7 +140,7 @@ class CLI(object):
                         analyz_response["pv"]=" ".join(analyz[10:])
                         
                         re.append(analyz_response)
-                        if(len(re)>5) : break
+                        if(len(re)>33) : break
 
                     '''
                     localtime = get_time_stamp();
