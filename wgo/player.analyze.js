@@ -157,13 +157,17 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
 
+	console.log('');
 	console.log(
 		'isValid: ',this.player.kifuReader.game.isValid(x, y),
 		'position: ', 	this.player.kifuReader.game.position.get(x, y),
 		'game.turn:',    this.player.kifuReader.game.turn,
 		'node.turn:',	this.player.kifuReader.node.turn);
-	console.log(player.kifuReader.node.move);
+	console.log('node:      ', player.kifuReader.node);
+	console.log('node.move: ', player.kifuReader.node.move);
+	console.log('game:      ', player.kifuReader.game);
 
+	// coordinate should on board
 	if(!this.player.kifuReader.game.isOnBoard(x, y)){
 		return;
 	}
@@ -173,21 +177,16 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 		console.log(player.board.obj_arr[x][y][0]);
 	}
 
-	// can judge KO but can't play in the kifu
-	/*
-	if(!this.player.kifuReader.game.isValid(x, y)){
-		this.player.kifuReader.game.allow_rewrite = false;
+	// can judge KO and suicide but can't play in the kifu
+	if(!this.player.kifuReader.game.isValid(x, y) && (this.player.kifuReader.game.position.get(x, y)==0)  ){
 		return;
 	}
-	*/
-
 
     var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
         console.log("normal mode")
         return;
     }
-//	if(this.player.kifuReader.game.position.get(x, y)!=0  ) return;
     
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
@@ -201,13 +200,13 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
     objbeforevar = [];
     
     var movelist = [];
-	if(player.kifuReader.node.move){
-		movelist.push({x:x, y:y, c:player.kifuReader.node.move.c})
+
+	if(this.player.kifuReader.game.position.get(x, y)!=0 ){
+		movelist.push({x:x, y:y, c:this.player.kifuReader.node.move.c})
 	}else{
 		movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
 	}
-
-    ws.send("play-and-analyze " + JSON.stringify(movelist));
+	ws.send("play-and-analyze " + JSON.stringify(movelist));
 
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
 	this.player.kifuReader.node.appendChild(new WGo.KNode({
