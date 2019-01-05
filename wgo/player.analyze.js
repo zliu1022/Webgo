@@ -157,11 +157,12 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
 
-	console.log('isOnBoard: ',this.player.kifuReader.game.isOnBoard(x, y),
+	console.log(
 		'isValid: ',this.player.kifuReader.game.isValid(x, y),
 		'position: ', 	this.player.kifuReader.game.position.get(x, y),
-		'allow_write: ',this.player.kifuReader.game.allow_rewrite,
-		'repeating: ', 	this.player.kifuReader.game.repeating  );
+		'game.turn:',    this.player.kifuReader.game.turn,
+		'node.turn:',	this.player.kifuReader.node.turn);
+	console.log(player.kifuReader.node.move);
 
 	if(!this.player.kifuReader.game.isOnBoard(x, y)){
 		return;
@@ -200,7 +201,12 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
     objbeforevar = [];
     
     var movelist = [];
-    movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
+	if(player.kifuReader.node.move){
+		movelist.push({x:x, y:y, c:player.kifuReader.node.move.c})
+	}else{
+		movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
+	}
+
     ws.send("play-and-analyze " + JSON.stringify(movelist));
 
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
