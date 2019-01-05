@@ -157,10 +157,29 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
 
-	console.log('isValid: ',this.player.kifuReader.game.isValid(x, y),
+	console.log('isOnBoard: ',this.player.kifuReader.game.isOnBoard(x, y),
+		'isValid: ',this.player.kifuReader.game.isValid(x, y),
 		'position: ', 	this.player.kifuReader.game.position.get(x, y),
 		'allow_write: ',this.player.kifuReader.game.allow_rewrite,
 		'repeating: ', 	this.player.kifuReader.game.repeating  );
+
+	if(!this.player.kifuReader.game.isOnBoard(x, y)){
+		return;
+	}
+
+	// empty or stone&rate
+	if(player.board.obj_arr[x][y][0]){
+		console.log(player.board.obj_arr[x][y][0]);
+	}
+
+	// can judge KO but can't play in the kifu
+	/*
+	if(!this.player.kifuReader.game.isValid(x, y)){
+		this.player.kifuReader.game.allow_rewrite = false;
+		return;
+	}
+	*/
+
 
     var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
     if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
