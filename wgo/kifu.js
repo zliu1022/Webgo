@@ -593,6 +593,20 @@ var exec_node = function(game, node, first) {
 	}
 }
 
+var set_color = function() {
+	//console.log("turn: ", player.kifuReader.game.turn);
+	var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+	var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+	elem_black.style.borderLeftWidth="1px";
+	if (player.kifuReader.game.turn == WGo.B) {
+		elem_black.style.borderColor="gray"
+		elem_white.style.borderColor="rgba(200, 200, 200, 0.5)"
+	}else{
+		elem_white.style.borderColor="gray"
+		elem_black.style.borderColor="rgba(200, 200, 200, 0.5)"
+	}
+}
+
 var exec_next = function(i) {
 	if(i === undefined && this.rememberPath) i = this.node._last_selected;
 	i = i || 0;
@@ -601,6 +615,8 @@ var exec_next = function(i) {
 	if(!node) return false;
 	
 	var ch = exec_node(this.game, node);
+
+	set_color();
 	
 	this.path.m++;
 	if(this.node.children.length > 1) this.path[this.path.m] = i;
@@ -616,6 +632,8 @@ var exec_previous = function() {
 	
 	this.game.popPosition();
 	if(this.node.turn) this.game.turn = this.node.turn;
+
+	set_color();
 	
 	if(this.path[this.path.m] !== undefined) delete this.path[this.path.m];
 	this.path.m--;
@@ -633,6 +651,8 @@ var exec_first = function() {
 	
 	if(this.kifu.info["HA"] && this.kifu.info["HA"] > 1) this.game.turn = WGo.W;
 	this.change = exec_node(this.game, this.node, true);
+
+	set_color();
 }
 
 KifuReader.prototype = {
