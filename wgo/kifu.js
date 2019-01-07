@@ -599,11 +599,17 @@ var set_color = function() {
 	var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
 	elem_black.style.borderLeftWidth="1px";
 	if (player.kifuReader.game.turn == WGo.B) {
-		elem_black.style.borderColor="gray"
-		elem_white.style.borderColor="rgba(200, 200, 200, 0.5)"
+		//elem_black.style.borderColor="gray"
+		//elem_white.style.borderColor="rgba(200, 200, 200, 0.5)"
+
+		elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+		elem_white.style.boxShadow = "none"
 	}else{
-		elem_white.style.borderColor="gray"
-		elem_black.style.borderColor="rgba(200, 200, 200, 0.5)"
+		//elem_white.style.borderColor="gray"
+		//elem_black.style.borderColor="rgba(200, 200, 200, 0.5)"
+
+		elem_black.style.boxShadow = "none"
+		elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
 	}
 }
 
