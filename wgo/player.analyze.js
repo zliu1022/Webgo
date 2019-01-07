@@ -335,7 +335,7 @@ var ws_str="ws://"+host_name+":32019/websocket"
 var analyze_type="leelaz"
 var ws = new WebSocket(ws_str);
 
-var analyze_interval = 10;
+var analyze_interval = 50;
 var sess=-1;
 var update_sess = function(){
     var stamp=Date.now();
