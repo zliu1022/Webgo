@@ -92,6 +92,7 @@ class CLI(object):
         self.analyzeInterval=100
 
     def gen_analyze(self,wsock):
+        infolen = 0
         print "leelaz thread %s is running" % threading.current_thread().name
         print wsock
 
@@ -116,9 +117,11 @@ class CLI(object):
                     success_count += 1
 
                     s_array = s.split("info move ")
-                    print "s_array len: %d " % len(s_array)
-                    if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0]
-                    #if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
+                    if (len(s_array) != infolen): 
+                        infolen = len(s_array)
+                        print "s_array len: %d " % len(s_array)
+                        if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0]
+                        if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
                     for analyz_orig in s_array:
                         #print "analyz_orig: %s " % analyz_orig
@@ -185,10 +188,10 @@ class CLI(object):
                 self.p.stdin.write(cmd + "\n")
                 time.sleep(sleep_per_try)
                 (so,se) = self.drain()
-                print "stdout"
-                print "".join(so)
-                print "stderr"
-                print "".join(se)
+                print "STDOUT: ", so
+                print "STDERR: ", se
+                #print "".join(so)
+                #print "".join(se)
             else:
                 print "if lz.p is None"
             return re
