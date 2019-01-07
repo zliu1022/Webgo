@@ -109,14 +109,16 @@ WGo.Player.Analyze.prototype.set = function(set) {
         prev_bn.addEventListener("click",prev_fn);
         prev_bn.addEventListener("touchstart",prev_fn_touch);
         //prev_bn.addEventListener("touchend",prev_fn);
-        console.log("Analyze set 0->1 ws.send clear_board, leela_start: ", leela_start);
-        ws.send("clear_board");
+        console.log("Analyze set 0->1 send clear_board, leela_start: ", leela_start);
+        var stamp=update_sess();
+        ws.send("clear_board " + stamp);
 
 		this.analyze = true;
 	}
 	else if(this.analyze && !set) {
-        console.log("Analyze set 1->0 ws.send lz-analyze off, leela_start: ", leela_start);
-        ws.send("lz-analyze off");
+        console.log("Analyze set 1->0 send lz-analyze off, leela_start: ", leela_start);
+        var stamp=update_sess();
+        ws.send("lz-analyze " + stamp + " off");
         console.log("close analyze, remove lastObj", lastObj);
         console.log("close analyze, remove lastvarObj", lastvarObj);
         console.log("close analyze, add objbeforevar", objbeforevar);
@@ -205,8 +207,9 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 		movelist.push({x:x, y:y, c:this.player.kifuReader.node.move.c})
 	}else{
 		movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
-	}
-	ws.send("play-and-analyze " + JSON.stringify(movelist));
+    }
+    var stamp=update_sess();
+	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
 
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
 	this.player.kifuReader.node.appendChild(new WGo.KNode({
@@ -325,13 +328,20 @@ var lastdupstr="";
 var objbeforevar=[];
 
 var leela_start=0;
-var sessid=0;
 
 var host_name=window.location.hostname;
 var ws_str="ws://"+host_name+":32019/websocket"
 //var analyze_type="zen7"
 var analyze_type="leelaz"
 var ws = new WebSocket(ws_str);
+
+var analyze_interval = 10;
+var sess=-1;
+var update_sess = function(){
+    var stamp=Date.now();
+    sess=stamp;
+    return stamp;
+}
 
 var prev_bn={};
 var next_bn={};
@@ -375,7 +385,8 @@ var next_fn_touch=function(){
     if(curmove && !curmove.pass) { // not home and not pass
         player.board.addObject({x:curmove.x, y:curmove.y, c:curmove.c});
     }
-    ws.send("play-and-analyze " + JSON.stringify(movelist));
+    var stamp=update_sess();
+    ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
 }
 
 var prev_fn_count=0;
@@ -416,12 +427,21 @@ var prev_fn_touch=function(){
         player.board.addObject({x:curmove.x, y:curmove.y, c:curmove.c});
         console.log("prev_fn_touch addObject ", curmove);
     }
-    ws.send("undo-and-analyze");
+    var stamp=update_sess();
+    ws.send("undo-and-analyze " + stamp);
 }
 
 ws.onopen = function() {
     //show some hint info
-    console.log("websocket onopen: ", ws);
+    console.log("websocket onopen: ", ws, ws.readyState);
+};
+
+ws.error = function() {
+    console.log("websocket error: ", ws, ws.readyState);
+};
+
+ws.close = function() {
+    console.log("websocket close: ", ws, ws.readyState);
 };
 
 var log_obj = function (obj) {
@@ -438,6 +458,7 @@ ws.onmessage = function (evt) {
     var displayWidth=elem_content.offsetWidth;
     var elem_notification = document.getElementsByClassName("wgo-notification")[0];
     var ret = JSON.parse(evt.data);
+
     if(ret.cmd=="time"){
         //show time code
     }else if(ret.cmd=="clear_board"){
@@ -458,7 +479,8 @@ ws.onmessage = function (evt) {
             
             // empty board and no stone has been added
             if ( (player.kifuReader.path.m==0) && (movelist.length==0) ){
-                ws.send("lz-analyze "+analyze_type);
+                var stamp=update_sess();
+                ws.send("lz-analyze " + stamp + " " + analyze_type + " " + analyze_interval);
                 return;
             }
 
@@ -478,16 +500,18 @@ ws.onmessage = function (evt) {
                     movelist.push({x:n.move.x, y:n.move.y, c:n.move.c})
                 }
             }
-            ws.send("playlist " + JSON.stringify(movelist));
+            var stamp=update_sess();
+            ws.send("playlist " + stamp + " " + JSON.stringify(movelist));
         }
-    }else if(ret.cmd=="leelaz-stop"){
+    /*}else if(ret.cmd=="leelaz-stop"){
         //elem_content.innerText="= "+ret.cmd+" "+ret.result;
         if(ret.result=="ok"){
             leela_start=0;
-        }
+        }*/
     }else if(ret.cmd=="playlist"){
         if(ret.result=="ok"){
-            ws.send("lz-analyze "+analyze_type);
+            var stamp=update_sess();
+            ws.send("lz-analyze " + stamp + " " + analyze_type + " " + analyze_interval);
             elem_notification.style.display="none";
         }else{
             elem_notification.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
@@ -498,6 +522,10 @@ ws.onmessage = function (evt) {
             //elem_content.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
         } else {
             if (leela_start == 0){
+                return;
+            }
+            if (ret.sess != sess){
+                console.log("sess error: ", ret.sess, sess);
                 return;
             }
             // new create <a>

@@ -88,20 +88,21 @@ class CLI(object):
         self.p = None
         self.analyzeStatus=False
         self.analyzeSend=False
+        self.analyzeSess=""
+        self.analyzeInterval=100
 
     def gen_analyze(self,wsock):
         print "leelaz thread %s is running" % threading.current_thread().name
         print wsock
 
         #localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
-        interval = 20
         analyze_count = 2
-        cmd = "lz-analyze %d" % interval # send analyze per second 
+        cmd = "lz-analyze %d" % self.analyzeInterval # send analyze per second 
         self.p.stdin.write(cmd + "\n")
-        sleep_per_try = interval/1000
+        sleep_per_try = self.analyzeInterval/1000
         tries = 0
         success_count = 0
-        ret={"cmd":"", "para":"", "result":""}
+        ret={"cmd":"", "sess":"", "para":"", "result":""}
 
         #while self.analyzeStatus and tries <= analyze_count and lz.p is not None:
         while self.analyzeStatus and self.p is not None:
@@ -159,6 +160,7 @@ class CLI(object):
 
                         ret["cmd"]="lz-analyze";
                         ret["result"]=re;
+                        ret["sess"]=self.analyzeSess;
                         #print ret
                         #print
                         if self.analyzeSend == True:

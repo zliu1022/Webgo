@@ -101,7 +101,8 @@ def handle_websocket():
                 continue
             print "cmd: %s" % cmd
             ret["cmd"] = cmd[0]
-            ret["para"] = cmd[1:]
+            ret["sess"] = cmd[1]
+            ret["para"] = cmd[2:]
 
             if (cmd[0]=="hello"):
                 ret["result"] = "ok"
@@ -109,7 +110,7 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="lz-analyze"):
-                if (cmd[1]=="off"):
+                if (cmd[2]=="off"):
                     if analyze_type==0:
                         lz.analyzeStatus = False
                         th_lz.join()
@@ -119,10 +120,13 @@ def handle_websocket():
                     ret["result"] = "ok"
                     wsock.send(json.dumps(ret))
                 else:
-                    if (cmd[1]=="leelaz"):
+                    if (cmd[2]=="leelaz"):
                         analyze_type=0
-                    elif (cmd[1]=="zen7"):
+                    elif (cmd[2]=="zen7"):
                         if Z<>None: analyze_type=1
+
+                    lz.analyzeSess = cmd[1]
+                    lz.analyzeInterval = int(cmd[3])
 
                     if analyze_type==0:
                         lz.analyzeStatus = True
@@ -151,13 +155,15 @@ def handle_websocket():
                 continue
             '''
 
+            '''
             if (cmd[0]=="play"):
-                print "play %s %s" % (cmd[1], cmd[2])
-                lz.send_command('play %s %s' % (cmd[1], cmd[2]), sleep_per_try = 0.01)
-                if Z<>None: Z.play(cmd[1].lower(), cmd[2].lower())
+                print "play %s %s" % (cmd[2], cmd[3])
+                lz.send_command('play %s %s' % (cmd[2], cmd[3]), sleep_per_try = 0.01)
+                if Z<>None: Z.play(cmd[2].lower(), cmd[3].lower())
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
+            '''
 
             if (cmd[0]=="play-and-analyze"):
 		'''
@@ -171,7 +177,7 @@ def handle_websocket():
 		'''
                 lz.analyzeSend = False
 
-                movelist = json.loads(cmd[1])
+                movelist = json.loads(cmd[2])
                 ret["para"] = len(movelist)
                 if (len(movelist) == 0 ):
                     print "play-and-analyze 0 error"
@@ -191,9 +197,10 @@ def handle_websocket():
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                     lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01, nowait=True)
                     if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
-
-                lz.send_command('lz-analyze 20', sleep_per_try = 0.01, nowait=True)
+                tmpstr = format("lz-analyze %d" % lz.analyzeInterval)
+                lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
                 lz.analyzeSend = True
+                lz.analyzeSess = cmd[1]
 		'''
                 print "starting lz-analyze..."
                 if analyze_type==0:
@@ -209,12 +216,14 @@ def handle_websocket():
                 wsock.send(json.dumps(ret))
                 continue;
 
+            '''
             if (cmd[0]=="undo"):
                 lz.send_command('undo')
                 if Z<>None: Z.ZenUndo(1)
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
+            '''
 
             if (cmd[0]=="undo-and-analyze"):
                 '''
@@ -231,9 +240,10 @@ def handle_websocket():
                 print "undo"
                 lz.send_command('undo')
                 if Z<>None: Z.ZenUndo(1)
-
-                lz.send_command('lz-analyze 20', sleep_per_try = 0.01, nowait=True)
+                tmpstr = format("lz-analyze %d" % lz.analyzeInterval)
+                lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
                 lz.analyzeSend = True
+                lz.analyzeSess = cmd[1]
                 '''
                 print "starting lz-analyze..."
                 if analyze_type==0:
@@ -257,7 +267,7 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="playlist"):
-                movelist = json.loads(cmd[1])
+                movelist = json.loads(cmd[2])
                 ret["para"] = len(movelist)
                 if (len(movelist) == 0 ):
                     print "playlist 0 error"
@@ -331,10 +341,7 @@ def get_host_ip():
 myaddr = get_host_ip()
 print 'websocket listening', port, 'at', myaddr
 
-#tmpstr = 'http://'+myaddr+':'+port+'/webgo.html?sgf=1.sgf&move=10'
-#print('please enter URL: http://%s:%d/webgo.html?sgf=1.sgf&move=10' % (myaddr,httpdport))
 print('please enter URL: http://%s:%d/webgo.html' % (myaddr,httpdport))
-
 
 server = WSGIServer(("0.0.0.0", port), app,
     handler_class=WebSocketHandler)
