@@ -66,7 +66,7 @@ if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
 				var link = location.href.split("#")[0]+'#'+player.element.id+'={"goto":'+JSON.stringify(player.kifuReader.path)+'}';
 				var sgfstr = '<h3>'+WGo.t('sgflib')+'</h3>';
 				//sgfstr += '<p><input class="wgo-sgflib" type="text" value=\''+link+'\' onclick="this.select(); event.stopPropagation()"/></p>';
-				link = location.href.split("?")[0]+'?sgf=0.sgf&move=0';
+				link = location.href.split("?")[0];
 				sgfstr += '<p><a class="wgo-sgflib" + href=\''+link+'\'/>空棋盘</p>'; 
 
 				link = location.href.split("?")[0]+'?sgf=1.sgf&move=102';
