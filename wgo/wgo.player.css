@@ -85,7 +85,8 @@
 
 .wgo-board {
 	margin: 0 auto;
-    background-color: #CEB053;
+    background-color: #CEB053; // default: dark yellow
+    /*background-color: #F9D65B; // light yellow*/
     border-top: #F0E7A7 solid 1px;
     border-right: #D1A974 solid 1px;
     border-left: #CCB467 solid 1px;

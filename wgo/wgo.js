@@ -1627,7 +1627,7 @@ Board.default = {
 	//background: WGo.DIR+"wood_512.jpg", // Mobile friendly, low resolution
 	//background: WGo.DIR+"wood_1024.jpg",  // High resolution version, use with REALISTIC handler
 	//background: "/theme/board/wood_1024.jpg",
-	background: "/theme/board/06.png",
+	//background: "/theme/board/06.png",
 	//whiteStoneGraphic: [ WGo.DIR+"white_128.png" ], // Single image only, hires
 	//blackStoneGraphic: [ WGo.DIR+"black_128.png" ], // Single image only, hires
 

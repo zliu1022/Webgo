@@ -120,7 +120,7 @@ class CLI(object):
                     if (len(s_array) != infolen): 
                         infolen = len(s_array)
                         print "s_array len: %d " % len(s_array)
-                        if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0]
+                        if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0], 
                         if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
                     for analyz_orig in s_array:
@@ -288,8 +288,8 @@ class CLI(object):
                     if success_count >= expected_success_count:
                         if drain:
                             so,se = self.drain()
-                            print "STDOUT: ", so
-                            print "STDERR: ", se
+                            print "STDOUT: ", "".join(so)
+                            print "STDERR: ", "".join(se)
                             #print >>sys.stdout, so
                             #print >>sys.stderr, se
                         return

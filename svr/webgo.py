@@ -99,7 +99,9 @@ def handle_websocket():
                 cmd = message.split(" ")
             else:
                 continue
-            print "cmd: %s" % cmd
+            print
+            print "CMD: %s" % cmd
+            print
             ret["cmd"] = cmd[0]
             ret["sess"] = cmd[1]
             ret["para"] = cmd[2:]
