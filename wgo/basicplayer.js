@@ -71,6 +71,8 @@ var getCurrentLayout = function() {
 			(!cl[i].conditions.maxHeight || !bh || cl[i].conditions.maxHeight >= bh) &&
 			(!cl[i].conditions.custom || cl[i].conditions.custom.call(this))
 		  )) {
+			console.log("width: ", this.width, "board height: ", bh);
+			console.log("current layout: ", cl[i].className, cl[i].conditions, cl[i].layout);
 			return cl[i];
 		}
 	}
@@ -195,6 +197,14 @@ BasicPlayer.prototype.appendTo = function(elem) {
 	
 BasicPlayer.prototype.updateDimensions = function() {
 	var css = window.getComputedStyle(this.element);
+
+	var tmp_w = parseInt(css.width);
+	var tmp_h = parseInt(css.height);
+	var tmp_mh = parseInt(css.maxHeight) || 0;
+	console.log("w x h(css): ", tmp_w, tmp_h, tmp_mh);
+	console.log("w x h(win): ", window.screen.width, window.screen.height);
+	tmp_h = window.screen.height * (tmp_w/window.screen.width);
+	console.log("correct h(css): ", tmp_h);
 	
 	var els = [];
 	while(this.element.firstChild) {
@@ -202,9 +212,11 @@ BasicPlayer.prototype.updateDimensions = function() {
 		this.element.removeChild(this.element.firstChild);
 	}
 	
+	/*
 	var tmp_w = parseInt(css.width);
 	var tmp_h = parseInt(css.height);
 	var tmp_mh = parseInt(css.maxHeight) || 0;
+	*/
 
 	for(var i = 0; i < els.length; i++) {
 		this.element.appendChild(els[i]);
@@ -231,6 +243,10 @@ BasicPlayer.prototype.updateDimensions = function() {
 
 	if(bh) {
 		bh -= this.regions.top.element.offsetHeight + this.regions.bottom.element.offsetHeight;
+	}
+	console.log("w x h(brd): ", bw, bh);
+	if(bh < bw) {
+		bh = bw;
 	}
 	
 	if(bh && bh < bw) {
@@ -382,6 +398,27 @@ BasicPlayer.layouts = {
  */
 
 BasicPlayer.dynamicLayout = [
+	{
+		/* iPad Pro: horizontal */
+		conditions: {
+			minWidth: 1300,
+		},
+		layout: BasicPlayer.layouts["right_top"], 
+		className: "wgo-twocols wgo-large",
+	},
+	{
+		/* iPad & iPad Pro: vertical */
+		conditions: {
+			minWidth: 650,
+			minHeight: 1000,
+		},
+		layout: BasicPlayer.layouts["no_comment"],
+		className: "wgo-small"
+		/*custom: function(e){
+			console.log("custom: ", e.width, e.height);
+			return true;
+		}*/
+	},
 	{
 		conditions: {
 			minWidth: 650,
