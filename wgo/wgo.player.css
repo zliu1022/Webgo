@@ -187,7 +187,7 @@
 
 .wgo-player-right .wgo-player-wrapper, .wgo-player-left .wgo-player-wrapper {
 	height: 85px;
-	border-bottom: 0;
+	/*border-bottom: 0;*/
 }
 
 /* top and bottom modifications */

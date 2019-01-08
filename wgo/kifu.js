@@ -597,19 +597,25 @@ var set_color = function() {
 	//console.log("turn: ", player.kifuReader.game.turn);
 	var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
 	var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+
+	//var turn_color = "0px 0px 15px 1.5px #95B8E7"; // light blue
+	var turn_color = "2px 2px 5px 5px #95B8E7"; // light blue
+
 	elem_black.style.borderLeftWidth="1px";
 	if (player.kifuReader.game.turn == WGo.B) {
-		//elem_black.style.borderColor="gray"
-		//elem_white.style.borderColor="rgba(200, 200, 200, 0.5)"
+		elem_black.style.borderColor="gray"
+		elem_white.style.borderColor="rgba(200, 200, 200, 0.5)"
 
-		elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+		elem_black.style.outline = "none";
+		elem_black.style.boxShadow = turn_color;
 		elem_white.style.boxShadow = "none"
 	}else{
-		//elem_white.style.borderColor="gray"
-		//elem_black.style.borderColor="rgba(200, 200, 200, 0.5)"
+		elem_white.style.borderColor="gray"
+		elem_black.style.borderColor="rgba(200, 200, 200, 0.5)"
 
 		elem_black.style.boxShadow = "none"
-		elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+		elem_white.style.outline = "none";
+		elem_white.style.boxShadow = turn_color;
 	}
 }
 
