@@ -178,6 +178,8 @@ WGo.BasicPlayer.attributes["data-wgo-formatmoves"] = function(value) {
 WGo.BasicPlayer.layouts["right_top"].right.push("CommentBox");
 WGo.BasicPlayer.layouts["right"].right.push("CommentBox");
 WGo.BasicPlayer.layouts["one_column"].bottom.push("CommentBox");
+WGo.BasicPlayer.layouts["no_comment"].bottom.push("CommentBox");
+//WGo.BasicPlayer.layouts["minimal"].bottom.push("CommentBox");
 
 WGo.i18n.en["comments"] = "Comments";
 WGo.i18n.en["gameinfo"] = "Game info";

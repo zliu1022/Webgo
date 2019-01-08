@@ -14,8 +14,8 @@
 		<script type="text/javascript" src="wgo/basicplayer.js"></script>
 		<script type="text/javascript" src="wgo/basicplayer.component.js"></script>
 		<script type="text/javascript" src="wgo/basicplayer.infobox.js"></script>
-		<script type="text/javascript" src="wgo/basicplayer.commentbox.js"></script>
 		<script type="text/javascript" src="wgo/basicplayer.control.js"></script>
+		<script type="text/javascript" src="wgo/basicplayer.commentbox.js"></script>
 		<script type="text/javascript" src="wgo/player.editable.js"></script>
 		<script type="text/javascript" src="wgo/scoremode.js"></script>
 		<script type="text/javascript" src="wgo/player.sgflib.js"></script>
@@ -170,10 +170,10 @@
 					//background: "#000000" // black board
 					//background: "#FFFFFF" // white board
 				},
-				layout: {
+				/*layout: {
 					top: ['InfoBox'],
 					bottom: ['Control', 'CommentBox']
-				},
+				},*/
 			});
 
             // code for playmode - begin
@@ -287,6 +287,7 @@
                 
                 //document.getElementsByClassName("wgo-box-title")[2].style.left="-50px"
 
+		/*
                 document.getElementsByClassName("wgo-comments-wrapper")[0].style.height="150px"
                 
                 document.getElementsByClassName("wgo-player-info-title")[0].style.fontSize="10px"
@@ -295,6 +296,14 @@
                 document.getElementsByClassName("wgo-player-info-title")[3].style.fontSize="10px"
                 document.getElementsByClassName("wgo-player-info-title")[4].style.fontSize="10px"
                 document.getElementsByClassName("wgo-player-info-title")[5].style.fontSize="10px"
+		*/
+
+		// get device pt
+		/*
+		document.getElementsByClassName("wgo-comments-content")[0].innerText="w x h: " + 
+			window.screen.width + " x " + window.screen.height + 
+			" ("+window.devicePixelRatio+")";
+		*/
             }
 
             /*
