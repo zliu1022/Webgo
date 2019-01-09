@@ -118,8 +118,9 @@ class CLI(object):
                     success_count += 1
 
                     s_array = s.split("info move ")
+                    if (len(s_array) <= 1): continue
                     if (len(s_array) != infolen):
-                        print self.analyzeSend, self.analyzeSess
+                        print "SEND & SESS: ", self.analyzeSend, self.analyzeSess
                         infolen = len(s_array)
                         print "s_array len: %d " % len(s_array)
                         if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0], 
