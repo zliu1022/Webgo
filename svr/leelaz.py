@@ -174,8 +174,9 @@ class CLI(object):
                         ret["sess"]=self.analyzeSess;
 
                         if (lastsess!=self.analyzeSess):
-                            print "SESS changed, throw away first analyze"
                             if (lastsess!="") :
+                                print "SESS changed, throw away first analyze"
+                                print "fist: ", ret
                                 lastsess = self.analyzeSess
                                 continue
                             else :
