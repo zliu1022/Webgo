@@ -616,7 +616,7 @@ ws.onmessage = function (evt) {
                     var vn = parseInt(ret.result[i].visits,0);
                     if (vn > 999999) {
                         visits = Math.floor(vn/100000)/10 + "m";
-                    } if (vn > 9999){
+                    } else if (vn > 9999){
                         visits = Math.floor(vn/100)/10 + "k";
                     }else{
                         visits = ret.result[i].visits;
