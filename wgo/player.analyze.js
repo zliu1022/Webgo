@@ -352,6 +352,7 @@ var next_fn = function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
     console.log("next button pressed ", next_fn_count);
     next_fn_count+=1;
+    next_fn_touch();
 }
 var next_fn_touch=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
@@ -394,6 +395,7 @@ var prev_fn=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
     console.log("previous button pressed ", prev_fn_count);
     prev_fn_count+=1;
+    prev_fn_touch();
 }
 var prev_fn_touch=function(){
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
@@ -434,6 +436,32 @@ var prev_fn_touch=function(){
 ws.onopen = function() {
     //show some hint info
     console.log("websocket onopen: ", ws, ws.readyState);
+
+/*
+var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+var black_click = function() {
+        //console.log("black_click");
+}
+var black_touch = function() {
+        console.log("black_touch");
+        elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+        elem_white.style.boxShadow = "none"
+}
+var white_click = function() {
+        //console.log("white_click");
+}
+var white_touch = function() {
+        console.log("white_touch");
+        elem_black.style.boxShadow = "none"
+        elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+}
+elem_black.addEventListener("click", black_click);
+elem_black.addEventListener("touchstart", black_touch);
+elem_white.addEventListener("click", white_click);
+elem_white.addEventListener("touchstart", white_touch);
+*/
+
 };
 
 ws.error = function() {
