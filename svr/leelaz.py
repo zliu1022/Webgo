@@ -169,6 +169,7 @@ class CLI(object):
                             print
                             print "WARNING result length is 0"
                             print
+                            continue
                         ret["sess"]=self.analyzeSess;
 
                         if (lastsess!=self.analyzeSess):
