@@ -93,6 +93,7 @@ class CLI(object):
 
     def gen_analyze(self,wsock):
         infolen = 0
+        lastsess = ""
         print "leelaz thread %s is running" % threading.current_thread().name
         print wsock
 
@@ -117,7 +118,8 @@ class CLI(object):
                     success_count += 1
 
                     s_array = s.split("info move ")
-                    if (len(s_array) != infolen): 
+                    if (len(s_array) != infolen):
+                        print self.analyzeSend, self.analyzeSess
                         infolen = len(s_array)
                         print "s_array len: %d " % len(s_array)
                         if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0], 
@@ -163,9 +165,20 @@ class CLI(object):
 
                         ret["cmd"]="lz-analyze";
                         ret["result"]=re;
+                        if(len(re)==0) : 
+                            print
+                            print "WARNING result length is 0"
+                            print
                         ret["sess"]=self.analyzeSess;
-                        #print ret
-                        #print
+
+                        if (lastsess!=self.analyzeSess):
+                            print "SESS changed, throw away first analyze"
+                            if (lastsess!="") :
+                                lastsess = self.analyzeSess
+                                continue
+                            else :
+                                lastsess = self.analyzeSess
+
                         if self.analyzeSend == True:
                             wsock.send(json.dumps(ret))
                     except WebSocketError:
@@ -188,10 +201,8 @@ class CLI(object):
                 self.p.stdin.write(cmd + "\n")
                 time.sleep(sleep_per_try)
                 (so,se) = self.drain()
-                print "STDOUT: ", so
-                print "STDERR: ", se
-                #print "".join(so)
-                #print "".join(se)
+                print "STDOUT: ", "".join(so)
+                print "STDERR: ", "".join(se)
             else:
                 print "if lz.p is None"
             return re
@@ -280,7 +291,7 @@ class CLI(object):
             # Readline loop
             while True:
                 s = self.stdout_thread.readline()
-                if (len(s)): print "STDOUT: ", s
+                if (len(s)): print "SDCMD-STDOUT: ", s
                 if (nowait): s = '='
                 # Leela follows GTP and prints a line starting with "=" upon success.
                 if s.strip()[0:1] == '=':
@@ -288,10 +299,8 @@ class CLI(object):
                     if success_count >= expected_success_count:
                         if drain:
                             so,se = self.drain()
-                            print "STDOUT: ", "".join(so)
-                            print "STDERR: ", "".join(se)
-                            #print >>sys.stdout, so
-                            #print >>sys.stderr, se
+                            print "SDCMD-DRAIN-STDOUT: ", "".join(so)
+                            print "SDCMD-DRAIN-STDERR: ", "".join(se)
                         return
                 # No output, so break readline loop and sleep and wait for more
                 if s == "":
