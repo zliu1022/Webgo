@@ -338,7 +338,8 @@ init_ws();
 var analyze_interval = 50;
 var sess=-1;
 var update_sess = function(){
-    //var stamp=Date.now();
+    var stamp=Date.now();
+    /*
     var d = new Date();
     var str_month = "";
     if (d.getMonth()<9) {
@@ -348,7 +349,7 @@ var update_sess = function(){
     }
     var stamp = d.getFullYear() + "-" + str_month + "-" + d.getDate() + " " +
         d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
-
+    */
     sess=stamp;
     return stamp;
 }
