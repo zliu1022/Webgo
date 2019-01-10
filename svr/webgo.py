@@ -8,8 +8,6 @@ from bottle import get, post, request # or route
 import time
 import threading
 
-import time
-
 import os, sys
 import leelaz
 from Zen7 import *
@@ -108,6 +106,11 @@ def handle_websocket():
 
             if (cmd[0]=="hello"):
                 ret["result"] = "ok"
+                wsock.send(json.dumps(ret))
+                continue
+
+            if (cmd[0]=="time"):
+                ret["result"] = get_time_stamp()
                 wsock.send(json.dumps(ret))
                 continue
 

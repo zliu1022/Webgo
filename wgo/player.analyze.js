@@ -192,7 +192,6 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
     
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
-    leela_start = 0;
     showvar="";
     lastObj=[];
     lastvarObj=[];
@@ -334,11 +333,22 @@ var ws_str="ws://"+host_name+":32019/websocket"
 //var analyze_type="zen7"
 var analyze_type="leelaz"
 var ws = new WebSocket(ws_str);
+init_ws();
 
 var analyze_interval = 50;
 var sess=-1;
 var update_sess = function(){
-    var stamp=Date.now();
+    //var stamp=Date.now();
+    var d = new Date();
+    var str_month = "";
+    if (d.getMonth()<9) {
+        str_month = "0" + (d.getMonth()+1);
+    } else {
+        str_month = (d.getMonth(+1));
+    }
+    var stamp = d.getFullYear() + "-" + str_month + "-" + d.getDate() + " " +
+        d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
+
     sess=stamp;
     return stamp;
 }
@@ -372,7 +382,6 @@ var next_fn_touch=function(){
     //console.log("next_fn_touch remove lastvarObj", lastvarObj);
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
-    leela_start = 0;
     showvar="";
     lastObj=[];
     lastvarObj=[];
@@ -416,7 +425,6 @@ var prev_fn_touch=function(){
     }
     player.board.removeObject(lastObj);
     player.board.removeObject(lastvarObj);
-    leela_start = 0;
     showvar="";
     lastObj=[];
     lastvarObj=[];
@@ -433,34 +441,67 @@ var prev_fn_touch=function(){
     ws.send("undo-and-analyze " + stamp);
 }
 
+var ws_alive = false;
+
+var timeId = setInterval(function(){
+    if (leela_start == 0) {
+        if (ws_alive == false) {
+            console.log("server is down, reconnecting ... ", ws);
+            ws = new WebSocket(ws_str);
+            init_ws();
+        } else {
+            var stamp=update_sess();
+            ws.send("time " + stamp);
+            ws_alive = false;
+        }
+    }
+    leela_start = 0;
+}, 3000);
+
+var log_obj = function (obj) {
+    console.log("log_obj: ", obj.length);
+    if (obj.length==0) {
+        return;
+    }
+    for (var i=0; i<obj.length; i++) {
+        console.log("log_obj: ", obj[i].x,obj[i].y,obj[i].c);
+    }
+}
+
+function init_ws() {
 ws.onopen = function() {
     //show some hint info
     console.log("websocket onopen: ", ws, ws.readyState);
+    ws_alive = true;
 
-/*
-var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
-var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
-var black_click = function() {
-        //console.log("black_click");
-}
-var black_touch = function() {
+    var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+    var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+    var black_click = function() {
+        console.log("black_click");
+        //elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+        //elem_white.style.boxShadow = "none"
+
+        var stamp=update_sess();
+        ws.send("hello " + stamp);
+    }
+    var black_touch = function() {
         console.log("black_touch");
-        elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-        elem_white.style.boxShadow = "none"
-}
-var white_click = function() {
-        //console.log("white_click");
-}
-var white_touch = function() {
+    }
+    var white_click = function() {
+        console.log("white_click");
+        //elem_black.style.boxShadow = "none"
+        //elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+
+        var stamp=update_sess();
+        ws.send("time " + stamp);
+    }
+    var white_touch = function() {
         console.log("white_touch");
-        elem_black.style.boxShadow = "none"
-        elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-}
-elem_black.addEventListener("click", black_click);
-elem_black.addEventListener("touchstart", black_touch);
-elem_white.addEventListener("click", white_click);
-elem_white.addEventListener("touchstart", white_touch);
-*/
+    }
+    elem_black.addEventListener("click", black_click);
+    //elem_black.addEventListener("touchstart", black_touch);
+    elem_white.addEventListener("click", white_click);
+    //elem_white.addEventListener("touchstart", white_touch);
 
 };
 
@@ -472,27 +513,25 @@ ws.close = function() {
     console.log("websocket close: ", ws, ws.readyState);
 };
 
-var log_obj = function (obj) {
-    console.log("log_obj: ", obj.length);
-    if (obj.length==0) {
-        return;
-    }
-    for (var i=0; i<obj.length; i++) {
-        console.log("log_obj: ", obj[i].x,obj[i].y,obj[i].c);
-    }
-}
 ws.onmessage = function (evt) {
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
     var displayWidth=elem_content.offsetWidth;
     var elem_notification = document.getElementsByClassName("wgo-notification")[0];
     var ret = JSON.parse(evt.data);
 
-    if(ret.cmd=="time"){
-        //show time code
+    if(ret.cmd=="hello"){
+        console.log("RESP: hello");
+    }else if(ret.cmd=="time"){
+        ws_alive = true;
+        if (ret.sess != sess){
+            console.log("sess error: ", ret.sess, sess);
+            return;
+        }
+        console.log("RESP: ", ret.result);
     }else if(ret.cmd=="clear_board"){
         elem_content.innerText="= "+ret.cmd+" "+ret.result;
         if(ret.result=="ok"){
-            leela_start=1;
+            leela_start = 1;
             
             var n = player.kifu.root;
             var setup = n.setup;
@@ -531,11 +570,6 @@ ws.onmessage = function (evt) {
             var stamp=update_sess();
             ws.send("playlist " + stamp + " " + JSON.stringify(movelist));
         }
-    /*}else if(ret.cmd=="leelaz-stop"){
-        //elem_content.innerText="= "+ret.cmd+" "+ret.result;
-        if(ret.result=="ok"){
-            leela_start=0;
-        }*/
     }else if(ret.cmd=="playlist"){
         if(ret.result=="ok"){
             var stamp=update_sess();
@@ -549,9 +583,8 @@ ws.onmessage = function (evt) {
         if(ret.result=="ok"){
             //elem_content.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
         } else {
-            if (leela_start == 0){
-                return;
-            }
+            leela_start = 1;
+
             if (ret.sess != sess){
                 console.log("sess error: ", ret.sess, sess);
                 return;
@@ -743,6 +776,8 @@ ws.onmessage = function (evt) {
         leela_start = 1;
     }
 };
+
+}
 
 WGo.i18n.en["analyze"] = "Analyze";
 
