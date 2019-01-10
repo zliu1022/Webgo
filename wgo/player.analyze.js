@@ -456,7 +456,7 @@ var timeId = setInterval(function(){
             ws_alive = false;
         }
     }
-    leela_start = 0;
+    //leela_start = 0;
 }, 3000);
 
 var log_obj = function (obj) {
