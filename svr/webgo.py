@@ -187,20 +187,26 @@ def handle_websocket():
                 #print "play-and-analyze ... %d (movelist[0]: %d %d %d)" % (len(movelist), movelist[0]["x"], movelist[0]["y"], movelist[0]["c"])
                 no = 1
                 move = movelist[0]
+
+                tmpstr = ''
                 if (len(move)==1):
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
-                    lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
+                    #lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
+                    tmpstr = format('play %s pass' % color)
                     if Z<>None: Z.play(color.lower(), "pass")
                 else:
                     x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                     y = board_size - int(move["y"])
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
-                    lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01, nowait=True)
+                    #lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01, nowait=True)
+                    tmpstr = format('play %s %s%d' % (color, x,y))
                     if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
-                tmpstr = format("lz-analyze %d" % lz.analyzeInterval)
+
+                tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
                 lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
+
                 lz.analyzeSend = True
                 lz.analyzeSess = cmd[1]
 		'''
@@ -240,9 +246,11 @@ def handle_websocket():
                 lz.analyzeSend = False
 
                 print "undo"
-                lz.send_command('undo')
+                tmpstr = ''
+                #lz.send_command('undo')
+                tmpstr = 'undo'
                 if Z<>None: Z.ZenUndo(1)
-                tmpstr = format("lz-analyze %d" % lz.analyzeInterval)
+                tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
                 lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
                 lz.analyzeSend = True
                 lz.analyzeSess = cmd[1]
