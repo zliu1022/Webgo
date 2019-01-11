@@ -530,7 +530,8 @@ ws.onopen = function() {
     ws_alive = true;
 
     if (menu_analyze == 1){
-        send_playlist();
+        var stamp=update_sess();
+        ws.send("clear_board " + stamp);
     }
 
     var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
