@@ -109,10 +109,11 @@ WGo.Player.Analyze.prototype.set = function(set) {
         prev_bn.addEventListener("click",prev_fn);
         prev_bn.addEventListener("touchstart",prev_fn_touch);
         //prev_bn.addEventListener("touchend",prev_fn);
-        console.log("Analyze set 0->1 send clear_board, leela_start: ", leela_start);
+
         var stamp=update_sess();
         ws.send("clear_board " + stamp);
 
+        menu_analyze=1;
 		this.analyze = true;
 	}
 	else if(this.analyze && !set) {
@@ -125,7 +126,6 @@ WGo.Player.Analyze.prototype.set = function(set) {
         player.board.removeObject(lastObj);
         player.board.removeObject(lastvarObj);
         player.board.addObject(objbeforevar);
-        leela_start = 0;
         showvar="";
         lastObj=[];
         lastvarObj=[];
@@ -153,6 +153,7 @@ WGo.Player.Analyze.prototype.set = function(set) {
         prev_bn.removeEventListener("click",prev_fn);
         prev_bn.removeEventListener("touchstart",prev_fn_touch);
 
+        menu_analyze=0;
 		this.analyze = false;
 	}
 }
@@ -326,12 +327,18 @@ var lastdupstr="";
 // stone on board before draw variation
 var objbeforevar=[];
 
+// status of menu analyze
+var menu_analyze=0;
+
+// status of engine
 var leela_start=0;
 
 var host_name=window.location.hostname;
 var ws_str="ws://"+host_name+":32019/websocket"
 //var analyze_type="zen7"
 var analyze_type="leelaz"
+
+var ws_alive = false;
 var ws = new WebSocket(ws_str);
 init_ws();
 
@@ -442,24 +449,28 @@ var prev_fn_touch=function(){
     ws.send("undo-and-analyze " + stamp);
 }
 
-var ws_alive = false;
-
 var timeId = setInterval(function(){
-    if (leela_start == 0) {
+    if (menu_analyze == 0) {
         if (ws_alive == false) {
             console.log("server is down, reconnecting ... ", ws);
             ws = new WebSocket(ws_str);
             init_ws();
         } else {
-            /*
             var stamp=update_sess();
             ws.send("time " + stamp);
             ws_alive = false;
-            */
+        }
+    } else {
+        if (leela_start == 0) {
+            console.log("engine is down, reconnecting ... ", ws);
+            ws_alive = false;
+            ws = new WebSocket(ws_str);
+            init_ws();
+        } else {
+            leela_start = 0;
         }
     }
-    //leela_start = 0;
-}, 3000);
+}, 5000);
 
 var log_obj = function (obj) {
     console.log("log_obj: ", obj.length);
@@ -471,11 +482,54 @@ var log_obj = function (obj) {
     }
 }
 
+function send_playlist() {
+    var n = player.kifu.root;
+    var setup = n.setup;
+    var movelist = [];
+
+    // first place stone
+    if (setup){
+        for ( var i=0; i< setup.length; i++) {
+            movelist.push({x:setup[i].x, y:setup[i].y, c:setup[i].c})
+        }
+    }
+    
+    // empty board and no stone has been added
+    if ( (player.kifuReader.path.m==0) && (movelist.length==0) ){
+        var stamp=update_sess();
+        ws.send("lz-analyze " + stamp + " " + analyze_type + " " + analyze_interval);
+        return;
+    }
+
+    // then play move
+    for ( var i=0; i< player.kifuReader.path.m; i++) {
+        if (n.children.length!=0) {
+            if (player.kifuReader.path[i+1]) {
+                n = n.children[player.kifuReader.path[i+1]];
+            } else {
+                n = n.children[0];
+            }
+        }
+        if(n.move.pass) {
+            movelist.push({x:n.move.x, y:n.move.y, c:n.move.c}) // this should be pass
+            //movelist.push({c:n.move.c})
+        } else {
+            movelist.push({x:n.move.x, y:n.move.y, c:n.move.c})
+        }
+    }
+    var stamp=update_sess();
+    ws.send("playlist " + stamp + " " + JSON.stringify(movelist));
+}
+
 function init_ws() {
 ws.onopen = function() {
     //show some hint info
     console.log("websocket onopen: ", ws, ws.readyState);
     ws_alive = true;
+
+    if (menu_analyze == 1){
+        send_playlist();
+    }
 
     var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
     var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
@@ -532,48 +586,13 @@ ws.onmessage = function (evt) {
         }
         console.log("RESP: ", ret.result);
     }else if(ret.cmd=="clear_board"){
+        leela_start = 1;
         elem_content.innerText="= "+ret.cmd+" "+ret.result;
         if(ret.result=="ok"){
-            leela_start = 1;
-            
-            var n = player.kifu.root;
-            var setup = n.setup;
-            var movelist = [];
-
-            // first place stone
-            if (setup){
-                for ( var i=0; i< setup.length; i++) {
-                    movelist.push({x:setup[i].x, y:setup[i].y, c:setup[i].c})
-                }
-            }
-            
-            // empty board and no stone has been added
-            if ( (player.kifuReader.path.m==0) && (movelist.length==0) ){
-                var stamp=update_sess();
-                ws.send("lz-analyze " + stamp + " " + analyze_type + " " + analyze_interval);
-                return;
-            }
-
-            // then play move
-            for ( var i=0; i< player.kifuReader.path.m; i++) {
-                if (n.children.length!=0) {
-                    if (player.kifuReader.path[i+1]) {
-                        n = n.children[player.kifuReader.path[i+1]];
-                    } else {
-                        n = n.children[0];
-                    }
-                }
-                if(n.move.pass) {
-                    movelist.push({x:n.move.x, y:n.move.y, c:n.move.c}) // this should be pass
-                    //movelist.push({c:n.move.c})
-                } else {
-                    movelist.push({x:n.move.x, y:n.move.y, c:n.move.c})
-                }
-            }
-            var stamp=update_sess();
-            ws.send("playlist " + stamp + " " + JSON.stringify(movelist));
+            send_playlist();
         }
     }else if(ret.cmd=="playlist"){
+        leela_start = 1;
         if(ret.result=="ok"){
             var stamp=update_sess();
             ws.send("lz-analyze " + stamp + " " + analyze_type + " " + analyze_interval);
@@ -584,10 +603,11 @@ ws.onmessage = function (evt) {
         }
     }else if(ret.cmd=="lz-analyze"){
         if(ret.result=="ok"){
+            // only lz-analyze sess off return ok
+            leela_start = 0;
             //elem_content.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
         } else {
             leela_start = 1;
-
             if (ret.sess != sess){
                 console.log("sess error: ", ret.sess, sess);
                 return;
