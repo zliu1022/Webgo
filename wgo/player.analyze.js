@@ -160,7 +160,8 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
 WGo.Player.Analyze.prototype.play = function(x,y) {
 
-	console.log('');
+    /*
+    console.log('');
 	console.log(
 		'isValid: ',this.player.kifuReader.game.isValid(x, y),
 		'position: ', 	this.player.kifuReader.game.position.get(x, y),
@@ -168,7 +169,8 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 		'node.turn:',	this.player.kifuReader.node.turn);
 	console.log('node:      ', player.kifuReader.node);
 	console.log('node.move: ', player.kifuReader.node.move);
-	console.log('game:      ', player.kifuReader.game);
+    console.log('game:      ', player.kifuReader.game);
+    */
 
 	// coordinate should on board
 	if(!this.player.kifuReader.game.isOnBoard(x, y)){
@@ -452,7 +454,7 @@ var prev_fn_touch=function(){
 var timeId = setInterval(function(){
     if (menu_analyze == 0) {
         if (ws_alive == false) {
-            console.log("server is down, reconnecting ... ", ws);
+            console.log("server is down, reconnecting ... ", ws.readyState);
             ws = new WebSocket(ws_str);
             init_ws();
         } else {
@@ -462,7 +464,7 @@ var timeId = setInterval(function(){
         }
     } else {
         if (leela_start == 0) {
-            console.log("engine is down, reconnecting ... ", ws);
+            console.log("engine is down, reconnecting ... ", ws.readyState);
             ws_alive = false;
             ws = new WebSocket(ws_str);
             init_ws();
@@ -524,7 +526,7 @@ function send_playlist() {
 function init_ws() {
 ws.onopen = function() {
     //show some hint info
-    console.log("websocket onopen: ", ws, ws.readyState);
+    console.log("websocket onopen: ", ws.readyState);
     ws_alive = true;
 
     if (menu_analyze == 1){
