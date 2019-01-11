@@ -565,12 +565,12 @@ ws.onopen = function() {
 
 };
 
-ws.error = function() {
-    console.log("websocket error: ", ws, ws.readyState);
+ws.onerror = function() {
+    console.log("websocket error: ", ws.readyState);
 };
 
-ws.close = function() {
-    console.log("websocket close: ", ws, ws.readyState);
+ws.onclose = function() {
+    console.log("websocket close: ", ws.readyState);
 };
 
 ws.onmessage = function (evt) {
