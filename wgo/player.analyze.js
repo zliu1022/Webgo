@@ -583,7 +583,7 @@ ws.onmessage = function (evt) {
     }else if(ret.cmd=="time"){
         ws_alive = true;
         if (ret.sess != sess){
-            console.log("sess error: ", ret.sess, sess);
+            console.log("wrong sess: ", ret.sess, sess-ret.sess);
             return;
         }
         console.log("RESP: ", ret.result);
@@ -611,7 +611,7 @@ ws.onmessage = function (evt) {
         } else {
             leela_start = 1;
             if (ret.sess != sess){
-                console.log("sess error: ", ret.sess, sess);
+                console.log("wrong sess: ", ret.sess, sess-ret.sess);
                 return;
             }
             // new create <a>
