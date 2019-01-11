@@ -451,9 +451,11 @@ var timeId = setInterval(function(){
             ws = new WebSocket(ws_str);
             init_ws();
         } else {
+            /*
             var stamp=update_sess();
             ws.send("time " + stamp);
             ws_alive = false;
+            */
         }
     }
     //leela_start = 0;
