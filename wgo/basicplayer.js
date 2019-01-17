@@ -71,8 +71,23 @@ var getCurrentLayout = function() {
 			(!cl[i].conditions.maxHeight || !bh || cl[i].conditions.maxHeight >= bh) &&
 			(!cl[i].conditions.custom || cl[i].conditions.custom.call(this))
 		  )) {
+			console.log("getCurrentLayout:");
 			console.log("width: ", this.width, "board height: ", bh);
-			console.log("current layout: ", cl[i].className, cl[i].conditions, cl[i].layout);
+			console.log("current layout: ", cl[i].className, cl[i].conditions);
+			/*
+			var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
+			if (elem_comments) {
+				elem_comments.innerText += "width: " + this.width + " height: " + this.height + " max height: " + this.maxHeight + " bh: " + bh + "\n";
+				elem_comments.innerText += "!cl[i].conditions.minWidth:               " + !cl[i].conditions.minWidth + "\n";
+				elem_comments.innerText += "cl[i].conditions.minWidth <= this.width:  " + (cl[i].conditions.minWidth <= this.width) + "\n";
+				elem_comments.innerText += "!cl[i].conditions.minHeight:              " + !cl[i].conditions.minHeight + "\n";
+				elem_comments.innerText += "!bh:                                      " + (!bh) + "\n";
+				elem_comments.innerText += "cl[i].conditions.minHeight <= bh:         " + (cl[i].conditions.minHeight <= bh) + "\n";
+				elem_comments.innerText += "className:  " + cl[i].className + "\n";
+				elem_comments.innerText += "conditions: " + cl[i].conditions.minWidth + " " + cl[i].conditions.minHeight + "\n";
+				elem_comments.innerText += "layout:     " + cl[i].layout.top + " " + cl[i].layout.bottom + "\n";
+			}
+			*/
 			return cl[i];
 		}
 	}
@@ -196,31 +211,90 @@ BasicPlayer.prototype.appendTo = function(elem) {
  */
 	
 BasicPlayer.prototype.updateDimensions = function() {
+	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
+	console.log("updateDimensions: ");
+	console.log("w x h(win): ", window.screen.width, window.screen.height, window.devicePixelRatio);
+
 	var css = window.getComputedStyle(this.element);
 
-	var tmp_w = parseInt(css.width);
-	var tmp_h = parseInt(css.height);
-	var tmp_mh = parseInt(css.maxHeight) || 0;
-	console.log("w x h(css): ", tmp_w, tmp_h, tmp_mh);
-	console.log("w x h(win): ", window.screen.width, window.screen.height);
-	tmp_h = window.screen.height * (tmp_w/window.screen.width);
-	console.log("correct h(css): ", tmp_h);
-	
+	/* add by zliu */
+	var tmp_w1 = parseInt(css.width);
+	var tmp_h1 = parseInt(css.height);
+	var tmp_mh1 = parseInt(css.maxHeight) || 0;
+	console.log("initial: w x h(css): ", tmp_w1, tmp_h1, tmp_mh1);
+
+	/* add by zliu */
+	/*
+	if (elem_comments) {
+		elem_comments.innerText = "window.getComputedStyle(this.element): " + "\n";
+		elem_comments.innerText += "w x h(win): " + 
+			window.screen.width + " x " + window.screen.height + 
+			" (" + window.devicePixelRatio + ")\n";
+		elem_comments.innerText += "w x h(css): " + 
+			tmp_w1 + " x " + tmp_h1 + " maxHeight: " + tmp_mh1 + "\n";
+	}
+	tmp_h1 = window.screen.height * (tmp_w1/window.screen.width);
+	console.log("correct h(css): ", tmp_h1);
+	if (elem_comments) {
+		elem_comments.innerText += "correct h(css): " + tmp_h1 +"\n\n";
+	}
+	*/
+
 	var els = [];
 	while(this.element.firstChild) {
 		els.push(this.element.firstChild);
 		this.element.removeChild(this.element.firstChild);
 	}
 	
-	/*
 	var tmp_w = parseInt(css.width);
 	var tmp_h = parseInt(css.height);
 	var tmp_mh = parseInt(css.maxHeight) || 0;
+
+	/* add by zliu */
+	console.log("remove: w x h(css): ", tmp_w, tmp_h, tmp_mh);
+	//tmp_h = window.screen.height * (tmp_w/window.screen.width);
+	//console.log("correct h(css): ", tmp_h);
+	/*
+	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
+	if (elem_comments) {
+		elem_comments.innerText += "after remove: " + "\n";
+		elem_comments.innerText += "w x h(win): " + 
+			window.screen.width + " x " + window.screen.height + 
+			" (" + window.devicePixelRatio + ")\n";
+		elem_comments.innerText += "w x h(css): " + 
+			tmp_w + " x " + tmp_h + " maxHeight: " + tmp_mh + "\n";
+	}
+	if (elem_comments) {
+		//elem_comments.innerText += "correct h(css): " + tmp_h +"\n\n";
+	}
 	*/
 
 	for(var i = 0; i < els.length; i++) {
 		this.element.appendChild(els[i]);
 	}
+
+	var tmp_w3 = parseInt(css.width);
+	var tmp_h3 = parseInt(css.height);
+	var tmp_mh3 = parseInt(css.maxHeight) || 0;
+
+	/* add by zliu */
+	console.log("recover: w x h(css): ", tmp_w3, tmp_h3, tmp_mh3);
+	/*
+	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
+	if (elem_comments) {
+		elem_comments.innerText += "after append: " + "\n";
+		elem_comments.innerText += "w x h(win): " + 
+			window.screen.width + " x " + window.screen.height + 
+			" (" + window.devicePixelRatio + ")\n";
+		elem_comments.innerText += "w x h(css): " + 
+			tmp_w3 + " x " + tmp_h3 + " maxHeight: " + tmp_mh3 + "\n";
+	}
+	//tmp_h3 = window.screen.height * (tmp_w3/window.screen.width);
+	//console.log("correct h(css): ", tmp_h3);
+	if (elem_comments) {
+		//elem_comments.innerText += "correct h(css): " + tmp_h3 +"\n\n";
+	}
+	*/
 
 	if(tmp_w == this.width && tmp_h == this.height && tmp_mh == this.maxHeight) return;
 	
@@ -233,7 +307,7 @@ BasicPlayer.prototype.updateDimensions = function() {
 	if(this.currentLayout && this.lastLayout != this.currentLayout) {
 		if(this.currentLayout.className) this.element.className = this.classes+" "+this.currentLayout.className;
 		else this.element.className = this.classes;
-        manageComponents.call(this);
+		manageComponents.call(this);
 		this.lastLayout = this.currentLayout;
 	}
 	
@@ -245,9 +319,16 @@ BasicPlayer.prototype.updateDimensions = function() {
 		bh -= this.regions.top.element.offsetHeight + this.regions.bottom.element.offsetHeight;
 	}
 	console.log("w x h(brd): ", bw, bh);
+	/*
+	if (elem_comments) {
+		elem_comments.innerText += "w x h(brd): " + bw + " x " + bh + "\n";
+	}
+	*/
+	/* add by zliu
 	if(bh < bw) {
 		bh = bw;
 	}
+	*/
 	
 	if(bh && bh < bw) {
 		if(bh != this.board.height) this.board.setHeight(bh);
@@ -399,18 +480,17 @@ BasicPlayer.layouts = {
 
 BasicPlayer.dynamicLayout = [
 	{
-		/* iPad Pro: horizontal */
+		/* nexus 9: horizontal */
 		conditions: {
-			minWidth: 1300,
+			minWidth: 1000,
 		},
 		layout: BasicPlayer.layouts["right_top"], 
 		className: "wgo-twocols wgo-large",
 	},
 	{
-		/* iPad & iPad Pro: vertical */
+		/* nexus 9: vertical */
 		conditions: {
-			minWidth: 650,
-			minHeight: 1000,
+			minWidth: 750,
 		},
 		layout: BasicPlayer.layouts["no_comment"],
 		className: "wgo-small"
