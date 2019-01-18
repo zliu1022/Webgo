@@ -159,29 +159,31 @@ class CLI(object):
                     #print "success: %d" % success_count
                     #print "INFO: %s (len:%d)" % (re[0], len(re))
                     #print ""
-
-                    ret["cmd"]="lz-analyze";
-                    ret["result"]=re;
-                    if(len(re)==0) : 
-                        print
-                        print "WARNING result length is 0"
-                        print
-                        continue
-                    ret["sess"]=self.analyzeSess;
-
-                    if (lastsess!=self.analyzeSess):
-                        if (lastsess!="") :
-                            print "SESS changed, throw away first analyze"
-                            print "fist: ", ret
-                            lastsess = self.analyzeSess
-                            continue
-                        else :
-                            lastsess = self.analyzeSess
-
-                    if self.analyzeSend != True: continue
-
                     try:
-                        wsock.send(json.dumps(ret))
+                        #ret["cmd"]="time";
+                        #ret["result"]=localtime;
+                        #wsock.send(json.dumps(ret))
+
+                        ret["cmd"]="lz-analyze";
+                        ret["result"]=re;
+                        if(len(re)==0) : 
+                            print
+                            print "WARNING result length is 0"
+                            print
+                            continue
+                        ret["sess"]=self.analyzeSess;
+
+                        if (lastsess!=self.analyzeSess):
+                            if (lastsess!="") :
+                                print "SESS changed, throw away first analyze"
+                                print "fist: ", ret
+                                lastsess = self.analyzeSess
+                                continue
+                            else :
+                                lastsess = self.analyzeSess
+
+                        if self.analyzeSend == True:
+                            wsock.send(json.dumps(ret))
                     except WebSocketError:
                         cmd = ""
                         self.analyzeStatus = False
@@ -191,7 +193,6 @@ class CLI(object):
                         else:
                             print "WebSocketError lz.p is None"
                         break
-
                 # No output, so break readline loop and sleep and wait for more
                 if s == "":
                     #print "success: %d" % success_count
