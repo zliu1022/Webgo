@@ -179,7 +179,7 @@
             // code for playmode - begin
 			var svr_status=0;//0: idle 1:busy
 			player.board.addEventListener("click", function(x, y) {
-				console.log("click",x,y,player.kifuReader.game.turn)
+				//console.log("click",x,y,player.kifuReader.game.turn)
 				if (x<0 || y<0 || x>18 || y>18 || !player.kifuReader.game.isValid(x,y)) {
 					//document.getElementsByClassName("wgo-comments-content")[0].innerText="invalid click: "+x+","+y+"("+player.kifuReader.game.turn+")"
 					return;
@@ -188,7 +188,7 @@
                 
                 playmode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-playmode")
                 if ( (playmode.length == 0) || (playmode[0].classList.length!=3) ){ // no wgo-selected
-                    console.log("normal mode")
+                    //console.log("normal mode")
                     //document.getElementsByClassName("wgo-comments-content")[0].innerText="nomal mode, can't play"
                     return;
                 }
