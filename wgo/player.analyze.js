@@ -455,6 +455,7 @@ var timeId = setInterval(function(){
     if (menu_analyze == 0) {
         if (ws_alive == false) {
             console.log("server is down, reconnecting ... ", ws.readyState);
+            ws.close();
             ws = new WebSocket(ws_str);
             init_ws();
         } else {
@@ -466,6 +467,7 @@ var timeId = setInterval(function(){
         if (leela_start == 0) {
             console.log("engine is down, reconnecting ... ", ws.readyState);
             ws_alive = false;
+            ws.close();
             ws = new WebSocket(ws_str);
             init_ws();
         } else {
@@ -566,11 +568,11 @@ ws.onopen = function() {
 };
 
 ws.onerror = function() {
-    console.log("websocket error: ", ws.readyState);
+    console.log("websocket onerror: ", ws.readyState);
 };
 
 ws.onclose = function() {
-    console.log("websocket close: ", ws.readyState);
+    console.log("websocket onclose: ", ws.readyState);
 };
 
 ws.onmessage = function (evt) {
