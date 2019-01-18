@@ -3,6 +3,8 @@
 
 "use strict";
 
+var debug=0;
+
 // player counter - for creating unique ids
 var pl_count = 0;
 
@@ -58,6 +60,7 @@ var BPgenerateDom = function() {
 }
 
 var getCurrentLayout = function() {
+	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
 	var cl = this.config.layout;
 	if(cl.constructor != Array) return cl;
 	
@@ -74,10 +77,9 @@ var getCurrentLayout = function() {
 			console.log("getCurrentLayout:");
 			console.log("width: ", this.width, "board height: ", bh);
 			console.log("current layout: ", cl[i].className, cl[i].conditions);
-			/*
-			var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
-			if (elem_comments) {
-				elem_comments.innerText += "width: " + this.width + " height: " + this.height + " max height: " + this.maxHeight + " bh: " + bh + "\n";
+			if (elem_comments&&debug) {
+				elem_comments.innerText += "getCurrentLayout:\n";
+				elem_comments.innerText += "WxH mh " + this.width + " " + this.height + " " + this.maxHeight + " bh: " + bh + "\n";
 				elem_comments.innerText += "!cl[i].conditions.minWidth:               " + !cl[i].conditions.minWidth + "\n";
 				elem_comments.innerText += "cl[i].conditions.minWidth <= this.width:  " + (cl[i].conditions.minWidth <= this.width) + "\n";
 				elem_comments.innerText += "!cl[i].conditions.minHeight:              " + !cl[i].conditions.minHeight + "\n";
@@ -87,7 +89,6 @@ var getCurrentLayout = function() {
 				elem_comments.innerText += "conditions: " + cl[i].conditions.minWidth + " " + cl[i].conditions.minHeight + "\n";
 				elem_comments.innerText += "layout:     " + cl[i].layout.top + " " + cl[i].layout.bottom + "\n";
 			}
-			*/
 			return cl[i];
 		}
 	}
@@ -214,6 +215,12 @@ BasicPlayer.prototype.updateDimensions = function() {
 	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
 	console.log("updateDimensions: ");
 	console.log("w x h(win): ", window.screen.width, window.screen.height, window.devicePixelRatio);
+	if (elem_comments && debug) {
+		elem_comments.innerText = "updateDimensions: " + "\n";
+		elem_comments.innerText += "w x h(win): " + 
+			window.screen.width + " " + window.screen.height + 
+			" " + window.devicePixelRatio + "\n";
+	}
 
 	var css = window.getComputedStyle(this.element);
 
@@ -221,24 +228,11 @@ BasicPlayer.prototype.updateDimensions = function() {
 	var tmp_w1 = parseInt(css.width);
 	var tmp_h1 = parseInt(css.height);
 	var tmp_mh1 = parseInt(css.maxHeight) || 0;
-	console.log("initial: w x h(css): ", tmp_w1, tmp_h1, tmp_mh1);
-
-	/* add by zliu */
-	/*
-	if (elem_comments) {
-		elem_comments.innerText = "window.getComputedStyle(this.element): " + "\n";
-		elem_comments.innerText += "w x h(win): " + 
-			window.screen.width + " x " + window.screen.height + 
-			" (" + window.devicePixelRatio + ")\n";
-		elem_comments.innerText += "w x h(css): " + 
-			tmp_w1 + " x " + tmp_h1 + " maxHeight: " + tmp_mh1 + "\n";
+	console.log("initial WxH(css): ", tmp_w1, tmp_h1, tmp_mh1);
+	if (elem_comments && debug) {
+		elem_comments.innerText += "initial WxH(css): " + 
+			tmp_w1 + " " + tmp_h1 + " mH: " + tmp_mh1 + "\n";
 	}
-	tmp_h1 = window.screen.height * (tmp_w1/window.screen.width);
-	console.log("correct h(css): ", tmp_h1);
-	if (elem_comments) {
-		elem_comments.innerText += "correct h(css): " + tmp_h1 +"\n\n";
-	}
-	*/
 
 	var els = [];
 	while(this.element.firstChild) {
@@ -252,22 +246,10 @@ BasicPlayer.prototype.updateDimensions = function() {
 
 	/* add by zliu */
 	console.log("remove: w x h(css): ", tmp_w, tmp_h, tmp_mh);
-	//tmp_h = window.screen.height * (tmp_w/window.screen.width);
-	//console.log("correct h(css): ", tmp_h);
-	/*
-	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
-	if (elem_comments) {
-		elem_comments.innerText += "after remove: " + "\n";
-		elem_comments.innerText += "w x h(win): " + 
-			window.screen.width + " x " + window.screen.height + 
-			" (" + window.devicePixelRatio + ")\n";
-		elem_comments.innerText += "w x h(css): " + 
-			tmp_w + " x " + tmp_h + " maxHeight: " + tmp_mh + "\n";
+	if (elem_comments && debug) {
+		elem_comments.innerText += "remove WxH(css): " + 
+			tmp_w + " " + tmp_h + " mH: " + tmp_mh + "\n";
 	}
-	if (elem_comments) {
-		//elem_comments.innerText += "correct h(css): " + tmp_h +"\n\n";
-	}
-	*/
 
 	for(var i = 0; i < els.length; i++) {
 		this.element.appendChild(els[i]);
@@ -279,22 +261,10 @@ BasicPlayer.prototype.updateDimensions = function() {
 
 	/* add by zliu */
 	console.log("recover: w x h(css): ", tmp_w3, tmp_h3, tmp_mh3);
-	/*
-	var elem_comments = document.getElementsByClassName("wgo-comments-content")[0];
-	if (elem_comments) {
-		elem_comments.innerText += "after append: " + "\n";
-		elem_comments.innerText += "w x h(win): " + 
-			window.screen.width + " x " + window.screen.height + 
-			" (" + window.devicePixelRatio + ")\n";
-		elem_comments.innerText += "w x h(css): " + 
-			tmp_w3 + " x " + tmp_h3 + " maxHeight: " + tmp_mh3 + "\n";
+	if (elem_comments && debug) {
+		elem_comments.innerText += "recover WxH(css): " + 
+			tmp_w3 + " " + tmp_h3 + " mH: " + tmp_mh3 + "\n";
 	}
-	//tmp_h3 = window.screen.height * (tmp_w3/window.screen.width);
-	//console.log("correct h(css): ", tmp_h3);
-	if (elem_comments) {
-		//elem_comments.innerText += "correct h(css): " + tmp_h3 +"\n\n";
-	}
-	*/
 
 	if(tmp_w == this.width && tmp_h == this.height && tmp_mh == this.maxHeight) return;
 	
@@ -305,8 +275,11 @@ BasicPlayer.prototype.updateDimensions = function() {
 	this.currentLayout = getCurrentLayout.call(this);
 
 	if(this.currentLayout && this.lastLayout != this.currentLayout) {
-		if(this.currentLayout.className) this.element.className = this.classes+" "+this.currentLayout.className;
-		else this.element.className = this.classes;
+		if(this.currentLayout.className) {
+			this.element.className = this.classes+" "+this.currentLayout.className;
+		} else {
+			this.element.className = this.classes;
+		}
 		manageComponents.call(this);
 		this.lastLayout = this.currentLayout;
 	}
@@ -315,26 +288,40 @@ BasicPlayer.prototype.updateDimensions = function() {
 	var bw = this.dom.board.clientWidth;
 	var bh = this.height || this.maxHeight;
 
+	/* add by zliu */
+	console.log("WxH(brd): ", bw, bh);
+	if (elem_comments && debug) {
+		elem_comments.innerText += "WxH(brd): " + bw + " " + bh + "\n";
+	}
+
 	if(bh) {
 		bh -= this.regions.top.element.offsetHeight + this.regions.bottom.element.offsetHeight;
 	}
-	console.log("w x h(brd): ", bw, bh);
-	/*
-	if (elem_comments) {
-		elem_comments.innerText += "w x h(brd): " + bw + " x " + bh + "\n";
+
+	/* add by zliu */
+	console.log("change bh WxH(brd): ", bw, bh);
+	if (elem_comments && debug) {
+		elem_comments.innerText += "WxH(brd): " + bw + " " + bh + "\n";
 	}
-	*/
-	/* add by zliu
-	if(bh < bw) {
-		bh = bw;
-	}
-	*/
-	
+
 	if(bh && bh < bw) {
-		if(bh != this.board.height) this.board.setHeight(bh);
-	}
-	else {
-		if(bw != this.board.width) this.board.setWidth(bw);
+		if(bh != this.board.height) {
+			/* add by zliu */
+			console.log("board.setHeight ", this.board.height, " -> ", bh);
+			if (elem_comments && debug) {
+				elem_comments.innerText += "board.setHeight " + this.board.height + "->" + bh + "\n";
+			}
+			this.board.setHeight(bh);
+		}
+	} else {
+		if(bw != this.board.width) {
+			/* add by zliu */
+			console.log("board.setWidth ", this.board.width, " -> ", bw);
+			if (elem_comments && debug) {
+				elem_comments.innerText += "board.setWidth " + this.board.width + "->" + bw + "\n";
+			}
+			this.board.setWidth(bw);
+		}
 	}
 	
 	var diff = bh - bw;
@@ -346,6 +333,15 @@ BasicPlayer.prototype.updateDimensions = function() {
 	else {
 		this.dom.board.style.height = "auto";
 		this.dom.board.style.paddingTop = "0";
+	}
+
+	/* add by zliu */
+	console.log("diff ", diff, bh, bw);
+	console.log("height, paddingTop: ", this.dom.board.style.height, this.dom.board.style.paddingTop);
+	if (elem_comments && debug) {
+		elem_comments.innerText += "diff " + diff + " " + bh + " " + bw + "\n";
+		elem_comments.innerText += "height, paddingTop " + 
+			this.dom.board.style.height + " " + this.dom.board.style.paddingTop + " " + "\n";
 	}
 	
 	this.regions.left.element.style.height = this.dom.center.offsetHeight+"px";
