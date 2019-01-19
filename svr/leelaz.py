@@ -24,6 +24,14 @@ stats_regex = r'([0-9]+) visits, ([0-9]+) nodes(?:, ([0-9]+) playouts)(?:, ([0-9
 bookmove_regex = r'([0-9]+) book moves, ([0-9]+) total positions'
 finished_regex = r'= ([A-Z][0-9]+|resign|pass)'
 
+def get_time_stamp():
+    ct = time.time()
+    local_time = time.localtime(ct)
+    data_head = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
+    data_secs = (ct - long(ct)) * 1000
+    time_stamp = "%s.%03d" % (data_head, data_secs)
+    return time_stamp
+
 #Start a thread that perpetually reads from the given file descriptor
 #and pushes the result on to a queue, to simulate non-blocking io. We
 #could just use fcntl and make the file descriptor non-blocking, but
@@ -119,6 +127,7 @@ class CLI(object):
 
                     s_array = s.split("info move ")
                     if (len(s_array) <= 1): continue
+                    print "gen_analyze %s %d" % (get_time_stamp(), len(s_array))
                     if (len(s_array) != infolen):
                         print "SEND & SESS: ", self.analyzeSend, self.analyzeSess
                         infolen = len(s_array)
@@ -149,21 +158,7 @@ class CLI(object):
                         re.append(analyz_response)
                         if(len(re)>33) : break
 
-                    '''
-                    localtime = get_time_stamp();
-                    if (len(re)>0):
-                        print "time: %s success %d INFO: %s" % (localtime, success_count, re[0])
-                    else :
-                        print "time: %s success %d INFO: %s" % (localtime, success_count, "END")
-                    '''
-                    #print "success: %d" % success_count
-                    #print "INFO: %s (len:%d)" % (re[0], len(re))
-                    #print ""
                     try:
-                        #ret["cmd"]="time";
-                        #ret["result"]=localtime;
-                        #wsock.send(json.dumps(ret))
-
                         ret["cmd"]="lz-analyze";
                         ret["result"]=re;
                         if(len(re)==0) : 
@@ -176,7 +171,7 @@ class CLI(object):
                         if (lastsess!=self.analyzeSess):
                             if (lastsess!="") :
                                 print "SESS changed, throw away first analyze"
-                                print "fist: ", ret
+                                print "fist: ", ret["result"][0]
                                 lastsess = self.analyzeSess
                                 continue
                             else :

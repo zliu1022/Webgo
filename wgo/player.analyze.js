@@ -454,10 +454,8 @@ var prev_fn_touch=function(){
 var timeId = setInterval(function(){
     if (menu_analyze == 0) {
         if (ws_alive == false) {
-            console.log("server is down, reconnecting ... ", ws.readyState);
+            console.log("server is down, closing ... ", ws.readyState);
             ws.close();
-            ws = new WebSocket(ws_str);
-            init_ws();
         } else {
             var stamp=update_sess();
             ws.send("time " + stamp);
@@ -465,16 +463,14 @@ var timeId = setInterval(function(){
         }
     } else {
         if (leela_start == 0) {
-            console.log("engine is down, reconnecting ... ", ws.readyState);
+            console.log("engine is down, closing ... ", ws.readyState);
             ws_alive = false;
             ws.close();
-            ws = new WebSocket(ws_str);
-            init_ws();
         } else {
             leela_start = 0;
         }
     }
-}, 5000);
+}, 10000);
 
 var log_obj = function (obj) {
     console.log("log_obj: ", obj.length);
@@ -573,6 +569,9 @@ ws.onerror = function() {
 
 ws.onclose = function() {
     console.log("websocket onclose: ", ws.readyState);
+    ws = new WebSocket(ws_str);
+    init_ws();
+    console.log("reconnecting: ", ws.readyState);
 };
 
 ws.onmessage = function (evt) {

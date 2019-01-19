@@ -98,7 +98,7 @@ def handle_websocket():
             else:
                 continue
             print
-            print "CMD: %s" % cmd
+            print "CMD: %s %s" % (get_time_stamp(), cmd)
             print
             ret["cmd"] = cmd[0]
             ret["sess"] = cmd[1]
