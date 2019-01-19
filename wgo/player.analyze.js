@@ -226,6 +226,63 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
     
 }
 
+WGo.Player.Analyze.manual_play = function(x, y) {
+//function manual_play(x,y) {
+
+	// coordinate should on board
+	if(!player.kifuReader.game.isOnBoard(x, y)){
+		return;
+	}
+
+	// empty or stone&rate
+	if(player.board.obj_arr[x][y][0]){
+		console.log(player.board.obj_arr[x][y][0]);
+	}
+
+	// can judge KO and suicide but can't play in the kifu
+	if(!player.kifuReader.game.isValid(x, y) && (player.kifuReader.game.position.get(x, y)==0)  ){
+		return;
+	}
+
+    var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
+    if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
+        console.log("normal mode")
+        return;
+    }
+    
+    player.board.removeObject(lastObj);
+    player.board.removeObject(lastvarObj);
+    showvar="";
+    lastObj=[];
+    lastvarObj=[];
+    lastvarpv="";
+    
+    player.board.addObject(objbeforevar);
+    objbeforevar = [];
+    
+    var movelist = [];
+
+	if(player.kifuReader.game.position.get(x, y)!=0 ){
+		movelist.push({x:x, y:y, c:player.kifuReader.node.move.c})
+	}else{
+		movelist.push({x:x, y:y, c:player.kifuReader.game.turn})
+    }
+    var stamp=update_sess();
+	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
+
+	if(player.frozen || !player.kifuReader.game.isValid(x, y)) return;
+	player.kifuReader.node.appendChild(new WGo.KNode({
+		move: {
+			x: x, 
+			y: y, 
+			c: player.kifuReader.game.turn
+		}, 
+		_edited: true
+	}));
+	player.next(player.kifuReader.node.children.length-1);
+    
+}
+
 if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
 	WGo.BasicPlayer.component.Control.menu.push({
 		constructor: WGo.BasicPlayer.control.MenuItem,
@@ -637,6 +694,11 @@ ws.onmessage = function (evt) {
                     elem_content.appendChild(elp);
                 }
             }
+
+            if (ret.result[0].visits>3000){
+                WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
+            }
+
             // modify <a> text
             for(var i = 0; (i < 33); i++) {
                 //elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
