@@ -719,19 +719,16 @@ ws.onmessage = function (evt) {
                 }
             }
 
-            if (ret.result[0].visits>50){
+            if (ret.result[0].visits>100000){
                 WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
             // modify <a> text
             for(var i = 0; (i < 33); i++) {
                 //elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
+                var t_elem = elem_content.children[i];
+                if (t_elem==undefined) continue;
                 if(i < ret.result.length) {
-                    var t_elem = elem_content.children[i];
-                    if (t_elem==undefined) {
-                        //console.log(i);
-                        continue;
-                    }
                     var ela = t_elem.children[0];
                     //ela.title = ret.result[i].move;
                     ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "...";
