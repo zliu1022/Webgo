@@ -192,7 +192,7 @@ def handle_websocket():
                 move = movelist[0]
 
                 tmpstr = ''
-                if (len(move)==1):
+                if ((len(move)==1) or (move["x"]==board_size and move["y"]==board_size)):
                     color = 'B' if move["c"]==1 else 'W'
                     print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                     #lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
