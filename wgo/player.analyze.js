@@ -230,12 +230,14 @@ WGo.Player.Analyze.manual_play = function(x, y) {
 //function manual_play(x,y) {
 
 	// coordinate should on board
-	if(!player.kifuReader.game.isOnBoard(x, y)){
+    if(!player.kifuReader.game.isOnBoard(x, y) && 
+        !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) ){
 		return;
 	}
 
 	// empty or stone&rate
-	if(player.board.obj_arr[x][y][0]){
+    if( !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) &&
+        player.board.obj_arr[x][y][0]){
 		console.log(player.board.obj_arr[x][y][0]);
 	}
 
@@ -262,7 +264,9 @@ WGo.Player.Analyze.manual_play = function(x, y) {
     
     var movelist = [];
 
-	if(player.kifuReader.game.position.get(x, y)!=0 ){
+    /* game.position(x,y) is not empty and this move not pass*/
+    if(player.kifuReader.game.position.get(x, y)!=0 &&
+        !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size))){
 		movelist.push({x:x, y:y, c:player.kifuReader.node.move.c})
 	}else{
 		movelist.push({x:x, y:y, c:player.kifuReader.game.turn})
@@ -270,17 +274,35 @@ WGo.Player.Analyze.manual_play = function(x, y) {
     var stamp=update_sess();
 	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
 
-	if(player.frozen || !player.kifuReader.game.isValid(x, y)) return;
-	player.kifuReader.node.appendChild(new WGo.KNode({
-		move: {
-			x: x, 
-			y: y, 
-			c: player.kifuReader.game.turn
-		}, 
-		_edited: true
-	}));
+    if(player.frozen || 
+        (!player.kifuReader.game.isValid(x, y) && 
+            !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)))
+        ) return;
+    if ((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)){
+        player.kifuReader.node.appendChild(new WGo.KNode({
+            move: {
+                pass: true, 
+                c: player.kifuReader.game.turn
+            }, 
+            _edited: true
+        }));
+    } else {
+        player.kifuReader.node.appendChild(new WGo.KNode({
+            move: {
+                x: x, 
+                y: y, 
+                c: player.kifuReader.game.turn
+            }, 
+            _edited: true
+        }));
+    }
 	player.next(player.kifuReader.node.children.length-1);
     
+    /* judge game is end or not, set game_end = true */
+    game_end = false;
+    if (player.kifuReader.node.move.pass == true &&
+        player.kifuReader.node.parent.move.pass == true)
+        game_end = true;
 }
 
 if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
@@ -391,6 +413,7 @@ var menu_analyze=0;
 
 // status of engine
 var leela_start=0;
+var game_end=false;
 
 var host_name=window.location.hostname;
 var ws_str="ws://"+host_name+":32019/websocket"
@@ -524,7 +547,8 @@ var timeId = setInterval(function(){
             ws_alive = false;
             ws.close();
         } else {
-            leela_start = 0;
+            if (game_end == false)
+                leela_start = 0;
         }
     }
 }, 10000);
@@ -695,15 +719,20 @@ ws.onmessage = function (evt) {
                 }
             }
 
-            if (ret.result[0].visits>3000){
+            if (ret.result[0].visits>50){
                 WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
             // modify <a> text
             for(var i = 0; (i < 33); i++) {
                 //elem_content.innerText="= "+ret.cmd+ "-"+ displayWidth +"-"+ ret.result.length;
-                var ela = elem_content.children[i].children[0];
                 if(i < ret.result.length) {
+                    var t_elem = elem_content.children[i];
+                    if (t_elem==undefined) {
+                        //console.log(i);
+                        continue;
+                    }
+                    var ela = t_elem.children[0];
                     //ela.title = ret.result[i].move;
                     ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "...";
                     ela.name = ret.result[i].move;
