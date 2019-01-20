@@ -423,6 +423,7 @@ var analyze_type="leelaz"
 var ws_alive = false;
 var ws = new WebSocket(ws_str);
 init_ws();
+var str_ws=["CONNECTING","OPEN","CLOSING","CLOSED"];
 
 var analyze_interval = 50;
 var sess=-1;
@@ -534,7 +535,7 @@ var prev_fn_touch=function(){
 var timeId = setInterval(function(){
     if (menu_analyze == 0) {
         if (ws_alive == false) {
-            console.log("server is down, closing ... ", ws.readyState);
+            console.log("server is down, closing ... ", str_ws[ws.readyState]);
             ws.close();
         } else {
             var stamp=update_sess();
@@ -543,7 +544,7 @@ var timeId = setInterval(function(){
         }
     } else {
         if (leela_start == 0) {
-            console.log("engine is down, closing ... ", ws.readyState);
+            console.log("engine is down, closing ... ", str_ws[ws.readyState]);
             ws_alive = false;
             ws.close();
         } else {
@@ -605,7 +606,7 @@ function send_playlist() {
 function init_ws() {
 ws.onopen = function() {
     //show some hint info
-    console.log("websocket onopen: ", ws.readyState);
+    console.log("websocket onopen: ", str_ws[ws.readyState]);
     ws_alive = true;
 
     if (menu_analyze == 1){
@@ -645,14 +646,14 @@ ws.onopen = function() {
 };
 
 ws.onerror = function() {
-    console.log("websocket onerror: ", ws.readyState);
+    console.log("websocket onerror: ", str_ws[ws.readyState]);
 };
 
 ws.onclose = function() {
-    console.log("websocket onclose: ", ws.readyState);
+    console.log("websocket onclose: ", str_ws[ws.readyState]);
     ws = new WebSocket(ws_str);
     init_ws();
-    console.log("reconnecting: ", ws.readyState);
+    console.log("reconnecting: ", str_ws[ws.readyState]);
 };
 
 ws.onmessage = function (evt) {
