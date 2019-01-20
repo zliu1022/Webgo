@@ -228,6 +228,7 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 
 WGo.Player.Analyze.manual_play = function(x, y) {
 //function manual_play(x,y) {
+	console.log("x,y: ", x, y, "c,turn:",player.kifuReader.node.move.c, player.kifuReader.game.turn);
 
 	// coordinate should on board
     if(!player.kifuReader.game.isOnBoard(x, y) && 
