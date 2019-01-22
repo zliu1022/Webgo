@@ -227,8 +227,7 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 }
 
 WGo.Player.Analyze.manual_play = function(x, y) {
-//function manual_play(x,y) {
-	console.log("x,y: ", x, y, "c,turn:",player.kifuReader.node.move.c, player.kifuReader.game.turn);
+	console.log("x,y: ", x, y);
 
 	// coordinate should on board
     if(!player.kifuReader.game.isOnBoard(x, y) && 
@@ -303,7 +302,12 @@ WGo.Player.Analyze.manual_play = function(x, y) {
     game_end = false;
     if (player.kifuReader.node.move.pass == true &&
         player.kifuReader.node.parent.move.pass == true)
+    {
+        console.log("double pass, game end ", leela_start);
+        var stamp=update_sess();
+        ws.send("lz-analyze " + stamp + " off");
         game_end = true;
+    }
 }
 
 if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
@@ -690,9 +694,14 @@ ws.onmessage = function (evt) {
         }
     }else if(ret.cmd=="lz-analyze"){
         if(ret.result=="ok"){
-            // only lz-analyze sess off return ok
-            leela_start = 0;
-            //elem_content.innerText="= "+ret.cmd+"-"+ret.para+" "+ret.result;
+            player.board.removeObject(lastObj);
+            player.board.removeObject(lastvarObj);
+            player.board.addObject(objbeforevar);
+            showvar="";
+            lastObj=[];
+            lastvarObj=[];
+            lastvarpv="";
+            objbeforevar = [];
         } else {
             leela_start = 1;
             if (ret.sess != sess){
@@ -721,7 +730,7 @@ ws.onmessage = function (evt) {
                 }
             }
 
-            if (ret.result[0].visits>100000){
+            if (ret.result[0].visits>1){
                 WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
