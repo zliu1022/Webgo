@@ -541,7 +541,7 @@ var timeId = setInterval(function(){
     if (menu_analyze == 0) {
         if (ws_alive == false) {
             console.log("server is down, closing ... ", str_ws[ws.readyState]);
-            ws.close();
+            if (ws.readyState!=0) ws.close();
         } else {
             ws_alive = false;
             var stamp=update_sess();
