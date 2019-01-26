@@ -543,9 +543,9 @@ var timeId = setInterval(function(){
             console.log("server is down, closing ... ", str_ws[ws.readyState]);
             ws.close();
         } else {
+            ws_alive = false;
             var stamp=update_sess();
             ws.send("time " + stamp);
-            ws_alive = false;
         }
     } else {
         if (leela_start == 0) {
