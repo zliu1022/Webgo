@@ -90,7 +90,7 @@ def handle_websocket():
     if not wsock:
         print "ws error"
         abort(400, 'Expected WebSocket request.')
-    print "web socket client connect"
+    print "web socket client connect", wsock
     while True:
         time.sleep(0.5)
         try:
@@ -227,6 +227,7 @@ def handle_websocket():
                 continue
 
         except WebSocketError:
+            print "web socket client WebSocketError break", wsock
             lz.analyzeStatus = False
             if Z<>None: Z.analyzeStatus=False
             break
