@@ -192,7 +192,11 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="clear_board"):
-                lz.send_command('clear_board')
+                ret = lz.send_command('clear_board')
+                if ret==-1: 
+                    print "clear_board error restart lz"
+                    lz.stop()
+                    lz.start(weight)
                 if Z<>None: Z.clear()
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))

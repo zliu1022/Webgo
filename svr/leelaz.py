@@ -280,7 +280,11 @@ class CLI(object):
 
     # Send command and wait for ack
     def send_command(self, cmd, expected_success_count=1, drain=True, timeout=20, sleep_per_try = 0.1, nowait=True):
-        ret = self.p.stdin.write(cmd + "\n")
+        try:
+            ret = self.p.stdin.write(cmd + "\n")
+        except IOError:
+            print "CATCH-IOERROR: ", ret 
+            return -1
         print "RET-WRITE: ", ret 
         tries = 0
         success_count = 0
@@ -300,11 +304,12 @@ class CLI(object):
                             so,se = self.drain()
                             print "SDCMD-DRAIN-STDOUT: ", "".join(so)
                             print "SDCMD-DRAIN-STDERR: ", "".join(se)
-                        return
+                        return 0
                 # No output, so break readline loop and sleep and wait for more
                 if s == "":
                     break
         raise Exception("Failed to send command '%s' to Leela" % (cmd))
+        return 0
 
     #cpu version
     #def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
