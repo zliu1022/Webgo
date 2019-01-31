@@ -280,7 +280,8 @@ class CLI(object):
 
     # Send command and wait for ack
     def send_command(self, cmd, expected_success_count=1, drain=True, timeout=20, sleep_per_try = 0.1, nowait=True):
-        self.p.stdin.write(cmd + "\n")
+        ret = self.p.stdin.write(cmd + "\n")
+        print "RET-WRITE: ", ret 
         tries = 0
         success_count = 0
         while tries * sleep_per_try <= timeout and self.p is not None:
