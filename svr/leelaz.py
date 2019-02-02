@@ -283,7 +283,7 @@ class CLI(object):
         try:
             ret = self.p.stdin.write(cmd + "\n")
         except IOError:
-            print "CATCH-IOERROR: ", ret 
+            print "CATCH-IOERROR: "
             return -1
         print "RET-WRITE: ", ret 
         tries = 0
