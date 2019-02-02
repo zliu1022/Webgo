@@ -192,8 +192,8 @@ def handle_websocket():
                 continue
 
             if (cmd[0]=="clear_board"):
-                ret = lz.send_command('clear_board')
-                if ret==-1: 
+                r = lz.send_command('clear_board')
+                if r==-1: 
                     print "clear_board error restart lz"
                     lz.stop()
                     lz.start(weight)
