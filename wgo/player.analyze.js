@@ -730,7 +730,7 @@ ws.onmessage = function (evt) {
                 }
             }
 
-            if (ret.result[0].visits>100){
+            if (ret.result[0].visits>10000){
                 WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
