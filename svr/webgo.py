@@ -82,7 +82,6 @@ analyze_type=0 # 0:lz(default), 1:zen7
 
 @app.route('/websocket')
 def handle_websocket():
-    #global wsock
     global lz
     tmpstr = ''
     
@@ -119,8 +118,13 @@ def handle_websocket():
 
             if (cmd[0]=="lz-analyze"):
                 if (cmd[2]=="off"):
-                    tmpstr = '\n'
-                    lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
+                    if analyze_type==0:
+                        tmpstr = '\n'
+                        lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
+                    else:
+                        Z.analyzeStatus=False
+                        th_zen7.join()
+
                     ret["result"] = "ok"
                     wsock.send(json.dumps(ret))
                 else:
@@ -129,21 +133,25 @@ def handle_websocket():
                     elif (cmd[2]=="zen7"):
                         if Z<>None: analyze_type=1
 
-                    lz.analyzeSess = cmd[1]
-                    lz.analyzeInterval = int(cmd[3])
-
                     if analyze_type==0:
+                        lz.analyzeSess = cmd[1]
+                        lz.analyzeInterval = int(cmd[3])
                         lz.analyzeStatus = True
                         lz.analyzeSend = True
                         th_lz = threading.Thread(target=lz.gen_analyze, args=(wsock,), name='analyze-thread')
                         th_lz.start()
                     else:
+                        Z.analyzeSess = cmd[1]
+                        Z.analyzeStatus = True
                         th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
                         th_zen7.start()
                 continue
 
             if (cmd[0]=="play-and-analyze"):
                 lz.analyzeSend = False
+                if analyze_type==1: 
+                    Z.analyzeStatus=False
+                    th_zen7.join()
 
                 movelist = json.loads(cmd[2])
                 ret["para"] = len(movelist)
@@ -167,29 +175,45 @@ def handle_websocket():
                     tmpstr = format('play %s %s%d' % (color, x,y))
                     if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
 
-                tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
-                lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
+                if analyze_type==0:
+                    tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
+                    lz.analyzeSend = True
+                    lz.analyzeSess = cmd[1]
+                else:
+                    tmpstr = tmpstr + '\n'
+                    Z.analyzeStatus=False
+                    Z.analyzeSess = cmd[1]
+                    th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
+                    th_zen7.start()
+                lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)                    
 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
-
-                lz.analyzeSend = True
-                lz.analyzeSess = cmd[1]
                 continue;
 
             if (cmd[0]=="undo-and-analyze"):
                 lz.analyzeSend = False
+                if analyze_type==1:
+                    Z.analyzeStatus=False
+                    th_zen7.join()
 
                 tmpstr = 'undo'
                 if Z<>None: Z.ZenUndo(1)
-                tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
+                
+                if analyze_type==0:
+                    tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
+                    lz.analyzeSend = True
+                    lz.analyzeSess = cmd[1]
+                else:
+                    tmpstr = tmpstr + '\n'
+                    Z.analyzeStatus=False
+                    Z.analyzeSess = cmd[1]
+                    th_zen7 = threading.Thread(target=Z.gen_analyze, args=(wsock,), name='gen-analyze')
+                    th_zen7.start()
                 lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
 
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
-
-                lz.analyzeSend = True
-                lz.analyzeSess = cmd[1]
                 continue
 
             if (cmd[0]=="clear_board"):
