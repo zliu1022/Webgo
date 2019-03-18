@@ -7,34 +7,11 @@ Then you can play game or analyze kifu with AI.
 
 ![screenshot](screenshot/chinese.PNG)
 
-# Dependency and acknowledge
+# Acknowledge and Dependency
 1. Web page based on [WGo.js](https://github.com/waltheri/wgo.js).
 2. Server side based on [Leela Analysis Scripts](https://github.com/lightvector/leela-analysis)
 3. Server side depends on Python module: bottle, gevent and gevent-websocket
 4. Also use some [Sabaki](https://github.com/SabakiHQ/Sabaki) theme, which is my favorite go UI
-
-# Server Configuration
-Change to your own leelazero executable path and weights in ```svr\webgo.py```
-```
-executable = "c:/github/Webgo/dist/leelaz.exe"
-weight = '-wc:/github/Webgo/dist/v1.gz'
-```
-Change the command line option in leelaz.py
-```
-xargs = ['-t8', '--gpu', '0', '--gpu', '1']
-```
-
-# Start Server and play with it
-server side, under cmd.exe run:
-```
-cd Webgo
-c:\python2.7\python svr\webgo.py
-```
-
-Then on pad/phone open any web browser
-```
-http://your_ip：8000/webgo.html?sgf=1.sgf&move=50
-```
 
 # Using Webgo in mac
 1. Install brew using ruby
@@ -62,6 +39,17 @@ pip install --user gevent-websocket
 ```
 If failed, maybe need to install pyenv, then using pyenv to install another version python
 pyenv global 2.7.11 to switch version, but wish you lucky
+8. install Webgo
+mkdir github
+cd github
+git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
+cd Wegbo-next
+mkdir dist
+9. Config engine and weights
+cp leelaz ~/github/Webgo/dist/leelaz
+cp network.gz ~/github/Webgo/dist/network.gz
+10. run server and open firewall's corresponding port
+python svr/webgo.py
 
 # Using Webgo server in google cloud
 1. Compile and run leelazero
@@ -82,6 +70,17 @@ cp leelaz ~/github/Webgo/dist/leelaz
 cp network.gz ~/github/Webgo/dist/network.gz
 4. run server and open firewall's corresponding port
 python svr/webgo.py
+
+# Server Configuration
+Change to your own leelazero executable path and weights in ```svr\webgo.py```
+```
+executable = "c:/github/Webgo/dist/leelaz.exe"
+weight = '-wc:/github/Webgo/dist/v1.gz'
+```
+Change the command line option in leelaz.py
+```
+xargs = ['-t8', '--gpu', '0', '--gpu', '1']
+```
 
 # License
 
