@@ -1,62 +1,42 @@
 # Webgo
 
 # Introduction
-Using web browser to visit your computer which is running leela zero to analyse sgf.
-So you can analyse all kifu anywhere.
+Using web browser to visit game go AI program in remote computer.
+Remote computer can be personal computer or cloud compute service, now Webgo server part can support leela zero in windows, mac or linux and support Zen6,Zen7 in windows.
+Then you can play game or analyze kifu with AI.
 
 ![screenshot](screenshot/chinese.PNG)
 
 # Dependency and acknowledge
 1. Web page based on WGo.js.
-2. Server side based on Leela Analysis Scripts and using python2.7
-3. Server side also need Python module: bottle, gevent, gevent-websocket
-4. Using some sabaki theme
-
-# Server Installation
-1. Install python 2.7
-2. Install bottle, gevent, gevent-websocket
-```
-pip install bottle
-pip install gevent
-pip install gevent-websocket
-```
-3. If you already have your web server, please skip this step
-
-There is already an internal web server together with Webgo.
-The default listening port is 8000.
-You can change it in svr/webgo.py.
-```
-httpdport = 8000
-```
-
-4. put all zip content to your web site root
-
-If you are under windows platform, please run start.bat and you can change your favorite leela-zero in directory "dist".
-
-In the example , it's ```c:\web```
+2. Server side based on [Leela Analysis Scripts](https://github.com/lightvector/leela-analysis)
+3. Server side depends on Python module: bottle, gevent and gevent-websocket
+4. Also use some sabaki theme, which is my favorite go UI
 
 # Server Configuration
-In ```svr\webgo.py```, change to your own leelazero executable path and set the weight name correctly and make sure the leelaz.exe support lz-analyze gtp command
+Change to your own leelazero executable path and weights in ```svr\webgo.py```
 ```
-executable = "c:/go/leela-zero/leelaz.exe"
-weight = '-wc:/go/weight/62b5417b64c46976795d10a6741801f15f857e5029681a42d02c9852097df4b9.gz'
+executable = "c:/github/Webgo/dist/leelaz.exe"
+weight = '-wc:/github/Webgo/dist/v1.gz'
+```
+Change the command line option in leelaz.py
+```
+xargs = ['-t8', '--gpu', '0', '--gpu', '1']
 ```
 
-# Sgf library
-You can put sgf file under sgf directory
-
-# How to run
+# Start Server and play with it
 server side, under cmd.exe run:
 ```
-c:\python2.7\python webgo.py
+cd Webgo
+c:\python2.7\python svr\webgo.py
 ```
 
-browser side, can use pad/phone with any web browser
+Then on pad/phone open any web browser
 ```
-http://your_ip/webgo.html?sgf=1.sgf&move=50
+http://your_ip：8000/webgo.html?sgf=1.sgf&move=50
 ```
 
-# Using Webgo server in mac
+# Using Webgo in mac
 1. Install brew using ruby
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -83,6 +63,23 @@ pip install --user gevent-websocket
 If failed, maybe need to install pyenv, then using pyenv to install another version python
 pyenv global 2.7.11 to switch version, but wish you lucky
 
+# Using Webgo server in google cloud
+1. Compile and run leelazero
+Please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
+2. Install Webgo
+sudo apt install python-minimal
+sudo apt install python-pip
+pip install bottle gevent gevent-websocket
+mkdir github
+cd github
+git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
+cd Wegbo-next
+mkdir dist
+3. Config engine and weights
+cp leelaz ~/github/Webgo/dist/leelaz
+cp network.gz ~/github/Webgo/dist/network.gz
+4. run server and open firewall's corresponding port
+python svr/webgo.py
 
 # License
 
