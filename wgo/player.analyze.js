@@ -623,9 +623,17 @@ ws.onopen = function() {
     var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
     var black_click = function() {
         console.log("black_click");
+        if (analyze_type=="leelaz"){
+            analyze_type="zen7";
+            elem_white.children[0].innerText="Zen7";
+            elem_black.children[0].innerText="Zen7";
+        }else{
+            analyze_type="leelaz";
+            elem_white.children[0].innerText="LeelaZero";
+            elem_black.children[0].innerText="LeelaZero";
+        }
         //elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
         //elem_white.style.boxShadow = "none"
-
         var stamp=update_sess();
         ws.send("hello " + stamp);
     }
@@ -634,9 +642,17 @@ ws.onopen = function() {
     }
     var white_click = function() {
         console.log("white_click");
+        if (analyze_type=="leelaz"){
+            analyze_type="zen7";
+            elem_white.children[0].innerText="Zen7";
+            elem_black.children[0].innerText="Zen7";
+        }else{
+            analyze_type="leelaz";
+            elem_white.children[0].innerText="LeelaZero";
+            elem_black.children[0].innerText="LeelaZero";
+        }
         //elem_black.style.boxShadow = "none"
         //elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-
         var stamp=update_sess();
         ws.send("time " + stamp);
     }

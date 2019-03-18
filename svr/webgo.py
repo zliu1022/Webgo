@@ -32,8 +32,8 @@ else:
     else:
         komi = 6.5
         executable = "C:/go/9/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz-9.exe"
-        weight = "-wC:/go/9/9-128x20.gz"
-        port = 32009
+        weight = "-wC:/go/9/100s.gz"
+        port = 32019
 
 seconds_per_search = 10
 verbosity = 2
@@ -49,6 +49,7 @@ Strength=15000
 name = 'Zen7'
 dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
 #ZenDLL=sys.path[0]+'/Zen.dll'
+print dirname
 ZenDLL=dirname + '/Zen.dll'
 
 Threads=4
