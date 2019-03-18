@@ -40,10 +40,14 @@ cd Wegbo-next
 mkdir dist
 ```
 3. Config engine and weights
+```
 cp leelaz ~/github/Webgo/dist/leelaz
 cp network.gz ~/github/Webgo/dist/network.gz
+```
 4. run server and open firewall's corresponding port
+```
 python svr/webgo.py
+```
 
 # Using Webgo server in google cloud
 1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
