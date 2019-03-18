@@ -14,22 +14,14 @@ Then you can play game or analyze kifu with AI.
 4. Also use some [Sabaki](https://github.com/SabakiHQ/Sabaki) theme, which is my favorite go UI
 
 # Using Webgo in mac
-1. Install brew using ruby
+1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-2. git clone branch
-```
 git clone -b next https://github.com/gcp/leela-zero.git
-```
-3. install boost
-```
 brew install boost
-```
-4. Compile leelaz with boardsize 9 or 19
-5. using curl -O or ftp to get weight
-6. full-tuner
-7. install pip， bottle, gevent, gevent-websocket
+Compile leelaz
+get weight
+2. install Webgo
 ```
 sudo easy_install pip
 sudo pip install bottle
@@ -39,26 +31,7 @@ pip install --user gevent-websocket
 ```
 If failed, maybe need to install pyenv, then using pyenv to install another version python
 pyenv global 2.7.11 to switch version, but wish you lucky
-8. install Webgo
-mkdir github
-cd github
-git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
-cd Wegbo-next
-mkdir dist
-9. Config engine and weights
-cp leelaz ~/github/Webgo/dist/leelaz
-cp network.gz ~/github/Webgo/dist/network.gz
-10. run server and open firewall's corresponding port
-python svr/webgo.py
-
-# Using Webgo server in google cloud
-1. Compile and run leelazero
-Please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
-2. Install Webgo
 ```
-sudo apt install python-minimal
-sudo apt install python-pip
-pip install bottle gevent gevent-websocket
 mkdir github
 cd github
 git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
@@ -71,12 +44,30 @@ cp network.gz ~/github/Webgo/dist/network.gz
 4. run server and open firewall's corresponding port
 python svr/webgo.py
 
+# Using Webgo server in google cloud
+1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
+2. Install Webgo
+```
+sudo apt install python-minimal
+sudo apt install python-pip
+pip install bottle gevent gevent-websocket
+mkdir github
+cd github
+git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
+cd Wegbo-next
+mkdir dist
+```
+3. Config engine and weights
+```
+cp leelaz ~/github/Webgo/dist/leelaz
+cp network.gz ~/github/Webgo/dist/network.gz
+```
+4. run server and open firewall's corresponding port
+```
+python svr/webgo.py
+```
+
 # Server Configuration
-Change to your own leelazero executable path and weights in ```svr\webgo.py```
-```
-executable = "c:/github/Webgo/dist/leelaz.exe"
-weight = '-wc:/github/Webgo/dist/v1.gz'
-```
 Change the command line option in leelaz.py
 ```
 xargs = ['-t8', '--gpu', '0', '--gpu', '1']
