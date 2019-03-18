@@ -17,10 +17,11 @@ Then you can play game or analyze kifu with AI.
 1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-git clone -b next https://github.com/gcp/leela-zero.git
 brew install boost
+git clone -b next https://github.com/gcp/leela-zero.git
 Compile leelaz
 get weight
+```
 2. install Webgo
 ```
 sudo easy_install pip
@@ -74,5 +75,4 @@ xargs = ['-t8', '--gpu', '0', '--gpu', '1']
 ```
 
 # License
-
 The code is released under the AGPLv3 or later.
