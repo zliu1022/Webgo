@@ -63,6 +63,7 @@ class ZEN(object):
         self.PrintInterval=printinterval
         
         self.analyzeStatus = 0
+        self.analyzeSess=""
 
         self.SabakiFlat = 1 #0:off 1:on
         self.SabakiFlatStatus=False
@@ -530,7 +531,7 @@ class ZEN(object):
 
         list=[]
         thinkcount=0
-        ret={"cmd":"", "para":"", "result":""}
+        ret={"cmd":"", "sess":"", "para":"", "result":""}
         ret["cmd"]="lz-analyze";
         self.ZenStartThinking(C)
         while 1:
@@ -571,6 +572,7 @@ class ZEN(object):
                 print
 
             ret["result"]=re;
+            ret["sess"]=self.analyzeSess;
             #Print('')
 
             if self.ZenIsThinking() == -0x80000000:
@@ -596,7 +598,7 @@ class ZEN(object):
                     break
 
         self.ZenStopThinking()
-        #print "thread %s ended" % threading.current_thread().name
+        print "thread %s ended" % threading.current_thread().name
         return
 
     def loadsgf(self, filename, loadgamelen):
