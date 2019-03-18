@@ -8,10 +8,10 @@ Then you can play game or analyze kifu with AI.
 ![screenshot](screenshot/chinese.PNG)
 
 # Dependency and acknowledge
-1. Web page based on WGo.js.
+1. Web page based on [WGo.js](https://github.com/waltheri/wgo.js).
 2. Server side based on [Leela Analysis Scripts](https://github.com/lightvector/leela-analysis)
 3. Server side depends on Python module: bottle, gevent and gevent-websocket
-4. Also use some sabaki theme, which is my favorite go UI
+4. Also use some [Sabaki](https://github.com/SabakiHQ/Sabaki) theme, which is my favorite go UI
 
 # Server Configuration
 Change to your own leelazero executable path and weights in ```svr\webgo.py```
@@ -67,6 +67,7 @@ pyenv global 2.7.11 to switch version, but wish you lucky
 1. Compile and run leelazero
 Please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
 2. Install Webgo
+```
 sudo apt install python-minimal
 sudo apt install python-pip
 pip install bottle gevent gevent-websocket
@@ -75,6 +76,7 @@ cd github
 git clone https://github.com/zliu1022/Webgo.git -b next Webgo-next
 cd Wegbo-next
 mkdir dist
+```
 3. Config engine and weights
 cp leelaz ~/github/Webgo/dist/leelaz
 cp network.gz ~/github/Webgo/dist/network.gz
