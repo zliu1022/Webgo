@@ -12,6 +12,7 @@ Then you can play game or analyze kifu with AI.
 2. Server side based on [Leela Analysis Scripts](https://github.com/lightvector/leela-analysis)
 3. Server side depends on Python module: bottle, gevent and gevent-websocket
 4. Also use some [Sabaki](https://github.com/SabakiHQ/Sabaki) theme, which is my favorite go UI
+5. Thanks hzy's strongest 4b32f leela-zero weights, I put it together with windows release package
 
 # Using Webgo in mac
 1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
