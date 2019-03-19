@@ -49,7 +49,7 @@ cp network.gz ~/github/Webgo/dist/network.gz
 python svr/webgo.py
 ```
 
-# Using Webgo server in google cloud
+# Using Webgo in google cloud
 1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
 2. Install Webgo
 ```
