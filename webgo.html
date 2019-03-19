@@ -196,7 +196,7 @@
 				if (svr_status==1) {
 					//document.getElementsByClassName("wgo-comments-content")[0].innerText+="\nsvr is busy"
 				} else {
-					document.getElementById("busy").style.diaplay="block"
+					document.getElementById("busy").style.display="block"
 					document.getElementById("info-overlay").style.opacity=1
 					//document.getElementsByClassName("wgo-comments-content")[0].innerText+="\nsvr is thinking..."
 					//player.board.addObject({x: x, y: y, c: WGo.B})
@@ -217,7 +217,7 @@
                             for(i = 0; i < d.length; i++) {
                                 document.getElementsByClassName("wgo-comments-content")[0].innerText+="\n"+"ABCDEFGHJKLMNOPQRST"[d[i].x] + (19-d[i].y) + " " + d[i].count + " " + d[i].winrate + "% " + d[i].seq
                             }
-							document.getElementById("busy").style.diaplay="none"
+							document.getElementById("busy").style.display="none"
 							document.getElementById("info-overlay").style.opacity=0
                             player.kifuReader.node.appendChild(new WGo.KNode({
                                 move: {	x: d[0].x, 	y: d[0].y, c: d[0].color},
@@ -230,7 +230,7 @@
 							//超时，statusText==timeout
 							console.log("error: " + JSON.stringify(er));
 							document.getElementsByClassName("wgo-comments-content")[0].innerText=JSON.stringify(er);
-							document.getElementById("busy").style.diaplay="none"
+							document.getElementById("busy").style.display="none"
 							document.getElementById("info-overlay").style.opacity=0
 							svr_status=0;
 						},
@@ -283,6 +283,23 @@
             window.onload = function () {
                 var el1=document.getElementsByClassName("wgo-comments-wrapper")[0];
                 var el2=document.getElementsByClassName("wgo-player-info-title")[0];
+                var el3=document.getElementsByClassName("wgo-comments-content")[0];
+                el3.innerHTML = "<iframe id=\"chart_winrate\" src=\"chart/index.html\" style=\"display: none;\"></iframe>" + el3.innerHTML;
+                
+                var el4=document.getElementsByClassName("wgo-box-title")[2];
+                console.log(el4);
+                var show_chart = function() {
+                    var el_chart=document.getElementById("chart_winrate");
+                    console.log(el_chart.style.display);
+                    if(el_chart.style.display=="none"){
+                        el_chart.style.display="block";
+                    } else {
+                        el_chart.style.display="none";
+                    }
+                };
+                el4.addEventListener("click", show_chart);
+                //el4.addEventListener("touchstart", show_chart);
+                
                 //console.log('window.onload',el1,el2);
                 
                 //document.getElementsByClassName("wgo-box-title")[2].style.left="-50px"
