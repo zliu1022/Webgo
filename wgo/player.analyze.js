@@ -115,6 +115,11 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
         menu_analyze=1;
 		this.analyze = true;
+
+        var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+        var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+        elem_black.removeEventListener("click", black_click);
+        elem_white.removeEventListener("click", white_click);        
 	}
 	else if(this.analyze && !set) {
         console.log("Analyze set 1->0 send lz-analyze off, leela_start: ", leela_start);
@@ -155,6 +160,13 @@ WGo.Player.Analyze.prototype.set = function(set) {
 
         menu_analyze=0;
 		this.analyze = false;
+
+        var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+        var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+        elem_black.removeEventListener("click", black_click);
+        elem_black.addEventListener("click", black_click);
+        elem_white.removeEventListener("click", white_click);
+        elem_white.addEventListener("click", white_click);
 	}
 }
 
@@ -333,7 +345,7 @@ if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
 				});
 			},
 		}
-	}); 
+	});
 }
 
 var RATE = {
@@ -608,6 +620,53 @@ function send_playlist() {
     ws.send("playlist " + stamp + " " + JSON.stringify(movelist));
 }
 
+var black_click = function() {
+    console.log("black_click");
+    if(menu_analyze == 1){
+        // play pass
+        return;
+    }
+    var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+    var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+    if (analyze_type=="leelaz"){
+        analyze_type="zen7";
+        elem_black.children[0].innerText="Zen7";
+    }else{
+        analyze_type="leelaz";
+        elem_black.children[0].innerText="LeelaZero";
+    }
+    //elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+    //elem_white.style.boxShadow = "none"
+    var stamp=update_sess();
+    ws.send("hello " + stamp);
+}
+var black_touch = function() {
+    console.log("black_touch");
+}
+var white_click = function() {
+    console.log("white_click");
+    if(menu_analyze == 1){
+        // play pass
+        return;
+    }
+    var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+    var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+    if (analyze_type=="leelaz"){
+        analyze_type="zen7";
+        elem_white.children[0].innerText="Zen7";
+    }else{
+        analyze_type="leelaz";
+        elem_white.children[0].innerText="LeelaZero";
+    }
+    //elem_black.style.boxShadow = "none"
+    //elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
+    var stamp=update_sess();
+    ws.send("time " + stamp);
+}
+var white_touch = function() {
+    console.log("white_touch");
+}
+
 function init_ws() {
 ws.onopen = function() {
     //show some hint info
@@ -621,49 +680,12 @@ ws.onopen = function() {
 
     var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
     var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
-    var black_click = function() {
-        console.log("black_click");
-        if (analyze_type=="leelaz"){
-            analyze_type="zen7";
-            elem_white.children[0].innerText="Zen7";
-            elem_black.children[0].innerText="Zen7";
-        }else{
-            analyze_type="leelaz";
-            elem_white.children[0].innerText="LeelaZero";
-            elem_black.children[0].innerText="LeelaZero";
-        }
-        //elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-        //elem_white.style.boxShadow = "none"
-        var stamp=update_sess();
-        ws.send("hello " + stamp);
-    }
-    var black_touch = function() {
-        console.log("black_touch");
-    }
-    var white_click = function() {
-        console.log("white_click");
-        if (analyze_type=="leelaz"){
-            analyze_type="zen7";
-            elem_white.children[0].innerText="Zen7";
-            elem_black.children[0].innerText="Zen7";
-        }else{
-            analyze_type="leelaz";
-            elem_white.children[0].innerText="LeelaZero";
-            elem_black.children[0].innerText="LeelaZero";
-        }
-        //elem_black.style.boxShadow = "none"
-        //elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-        var stamp=update_sess();
-        ws.send("time " + stamp);
-    }
-    var white_touch = function() {
-        console.log("white_touch");
-    }
+    elem_black.removeEventListener("click", black_click);
     elem_black.addEventListener("click", black_click);
-    //elem_black.addEventListener("touchstart", black_touch);
+    elem_white.removeEventListener("click", white_click);
     elem_white.addEventListener("click", white_click);
+    //elem_black.addEventListener("touchstart", black_touch);
     //elem_white.addEventListener("touchstart", white_touch);
-
 };
 
 ws.onerror = function() {
@@ -746,7 +768,7 @@ ws.onmessage = function (evt) {
                 }
             }
 
-            if (ret.result[0].visits>10000){
+            if (ret.result[0].visits>5000){
                 WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
