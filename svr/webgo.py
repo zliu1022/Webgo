@@ -83,6 +83,7 @@ analyze_type=0 # 0:lz(default), 1:zen7
 @app.route('/websocket')
 def handle_websocket():
     global lz
+    global analyze_type
     tmpstr = ''
     
     ret={"cmd":"", "para":"", "result":""}
