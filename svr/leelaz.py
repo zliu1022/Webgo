@@ -113,6 +113,7 @@ class CLI(object):
         tries = 0
         success_count = 0
         ret={"cmd":"", "sess":"", "para":"", "result":""}
+        re = []
 
         #while self.analyzeStatus and tries <= analyze_count and lz.p is not None:
         while self.analyzeStatus and self.p is not None:
@@ -171,9 +172,9 @@ class CLI(object):
                         if (lastsess!=self.analyzeSess):
                             if (lastsess!="") :
                                 print "SESS changed, throw away first analyze"
-                                print "fist: ", ret["result"][0]
+                                print "first: ", ret["result"][0]
                                 lastsess = self.analyzeSess
-                                continue
+                                #continue
                             else :
                                 lastsess = self.analyzeSess
 
