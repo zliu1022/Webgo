@@ -31,8 +31,8 @@ else:
         port = 32019
     else:
         komi = 6.5
-        executable = "C:/go/9/leelaz-0.13-win64-cpu-elf-liz-gz-anlyz-9.exe"
-        weight = "-wC:/go/9/100s.gz"
+        executable = "./dist/leelaz-9.exe"
+        weight = "-w./dist/network-9.gz"
         port = 32019
 
 seconds_per_search = 10

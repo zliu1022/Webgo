@@ -18,6 +18,10 @@ Then you can play game or analyze kifu with AI.
 1. Download [release](https://github.com/zliu1022/Webgo/releases/download/v0.3/Webgo-20190319.7z) package and Unzip
 2. Click start.bat
 3. Visit page according to console message
+Here is an example:
+```
+please enter URL: http://192.168.1.66:8000/webgo.html
+```
 
 # Using Webgo in mac
 1. Compile and run leelazero, please refer to readme of [leela-zero](https://github.com/leela-zero/leela-zero/blob/master/README.md)
