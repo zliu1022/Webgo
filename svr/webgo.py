@@ -24,14 +24,17 @@ if os.name == 'posix': # mac os or linux
         komi = 7.5
         executable = './dist/leelaz'
         weight = '-w./dist/network.gz'
-    else if (board_size == 13):
+    elif (board_size == 13):
         komi = 7.5
         executable = './dist/leelaz-13'
         weight = '-w./dist/network-13.gz'
-    else if (board_size == 9):
+    elif (board_size == 9):
         komi = 6.5
         executable = './dist/leelaz-9'
         weight = '-w./dist/network-9.gz'
+    else:
+        print 'invalid board size'
+        sys.exit()        
 else:
     if (board_size == 19):
         komi = 7.5
