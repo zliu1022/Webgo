@@ -18,22 +18,29 @@ if (len(sys.argv)==2):
 else:
     board_size = 19
 
+port = 32019
 if os.name == 'posix': # mac os or linux
-    komi = 7.5
-    executable = './dist/leelaz'
-    weight = '-w./dist/network.gz'
-    port = 32019
+    if (board_size == 19):
+        komi = 7.5
+        executable = './dist/leelaz'
+        weight = '-w./dist/network.gz'
+    else if (board_size == 13):
+        komi = 7.5
+        executable = './dist/leelaz-13'
+        weight = '-w./dist/network-13.gz'
+    else if (board_size == 9):
+        komi = 6.5
+        executable = './dist/leelaz-9'
+        weight = '-w./dist/network-9.gz'
 else:
     if (board_size == 19):
         komi = 7.5
         executable = "./dist/leelaz.exe"
         weight = '-w./dist/network.gz'
-        port = 32019
     else:
         komi = 6.5
         executable = "./dist/leelaz-9.exe"
-        weight = "-w./dist/network-9.gz"
-        port = 32019
+        weight = '-w./dist/network-9.gz'
 
 seconds_per_search = 10
 verbosity = 2
@@ -77,6 +84,27 @@ def get_time_stamp():
     time_stamp = "%s.%03d" % (data_head, data_secs)
     return time_stamp
 
+sgfstr="(;CA[UTF-8]GM[1]FF[4]AP[Webgo]ST[2]DT[%s]\n"\
+    "PW[LeelaZero]WR[9p]PB[LeelaZero]BR[9p]\n"\
+    "SZ[%d]KM[%.1f]RU[Chinese]OT[3x60 byo-yomi]\n;"
+sgfmove=[]
+def save_latestsgf():
+    global board_size, komi
+    global sgfmove, sgfstr
+
+    datastr = time.strftime("%Y%m%d", time.localtime()) 
+    strhead = sgfstr % (datastr, board_size, komi)
+
+    strmove = '\n;'.join(sgfmove)
+    print strmove
+    filestr = strhead + strmove + "\n)"
+
+    sgfname="./sgf/latest.sgf"
+    with open(sgfname, "w") as fd:
+        fd.write(filestr)
+        fd.close()
+        print "writing to %s ... done" % sgfname
+
 th_lz, th_zen7=0,0
 analyze_type=0 # 0:lz(default), 1:zen7
 
@@ -84,6 +112,8 @@ analyze_type=0 # 0:lz(default), 1:zen7
 def handle_websocket():
     global lz
     global analyze_type
+    global sgfmove, sgfstr
+
     tmpstr = ''
     
     ret={"cmd":"", "para":"", "result":""}
@@ -168,6 +198,8 @@ def handle_websocket():
                     print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                     tmpstr = format('play %s pass' % color)
                     if Z<>None: Z.play(color.lower(), "pass")
+
+                    sgfmove.append("%s[]"%(color))
                 else:
                     x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                     y = board_size - int(move["y"])
@@ -175,6 +207,10 @@ def handle_websocket():
                     print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                     tmpstr = format('play %s %s%d' % (color, x,y))
                     if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
+
+                    sgf_x = 'abcdefghijklmnopqrs'[move["x"]]
+                    sgf_y = 'abcdefghijklmnopqrs'[move["y"]]
+                    sgfmove.append("%s[%s%s]"%(color,sgf_x,sgf_y))
 
                 if analyze_type==0:
                     tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
@@ -188,6 +224,7 @@ def handle_websocket():
                     th_zen7.start()
                 lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)                    
 
+                save_latestsgf()
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue;
@@ -200,6 +237,8 @@ def handle_websocket():
 
                 tmpstr = 'undo'
                 if Z<>None: Z.ZenUndo(1)
+
+                sgfmove.pop()
                 
                 if analyze_type==0:
                     tmpstr = tmpstr + '\n' + format("lz-analyze %d" % lz.analyzeInterval)
@@ -213,6 +252,8 @@ def handle_websocket():
                     th_zen7.start()
                 lz.send_command(tmpstr, sleep_per_try = 0.01, nowait=True)
 
+                save_latestsgf()
+
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -224,6 +265,7 @@ def handle_websocket():
                     lz.stop()
                     lz.start(weight)
                 if Z<>None: Z.clear()
+                sgfmove=[]
                 ret["result"] = "ok"
                 wsock.send(json.dumps(ret))
                 continue
@@ -242,6 +284,8 @@ def handle_websocket():
                         print "%3d (pass %s) -> play %s pass" % (no, move["c"], color)
                         lz.send_command('play %s pass' % color, sleep_per_try = 0.01)
                         if Z<>None: Z.play(color.lower(), "pass")
+
+                        sgfmove.append("%s[]"%(color))
                     else:
                         x = 'ABCDEFGHJKLMNOPQRST'[move["x"]]
                         y = board_size - int(move["y"])
@@ -249,6 +293,12 @@ def handle_websocket():
                         print "%3d (%s %s %s) -> play %s %s%d" % (no, move["x"], move["y"], move["c"], color, x, y)
                         lz.send_command('play %s %s%d' % (color, x,y), sleep_per_try = 0.01)
                         if Z<>None: Z.play(color.lower(), ('%s%d' % (x,y)).lower())
+
+                        sgf_x = 'abcdefghijklmnopqrs'[move["x"]]
+                        sgf_y = 'abcdefghijklmnopqrs'[move["y"]]
+                        sgfmove.append("%s[%s%s]"%(color,sgf_x,sgf_y))
+
+                    save_latestsgf()
                     ret["result"] = "%d" % no
                     wsock.send(json.dumps(ret))
                     no += 1
