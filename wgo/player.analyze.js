@@ -780,7 +780,9 @@ ws.onmessage = function (evt) {
                 if(i < ret.result.length) {
                     var ela = t_elem.children[0];
                     //ela.title = ret.result[i].move;
-                    ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "...";
+                    //ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " + ret.result[i].pv.slice(0,displayWidth/8) + "...";
+                    ela.text = ret.result[i].move + " " + ret.result[i].visits  + " " + Math.round(ret.result[i].winrate/10)/10 +"%" + " " 
+                        + ret.result[i].pv;
                     ela.name = ret.result[i].move;
                     elem_content.children[i].style.display="";
                 }else{
