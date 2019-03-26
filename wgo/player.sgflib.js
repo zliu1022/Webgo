@@ -73,6 +73,8 @@ if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
 				sgfstr += '<a class="wgo-sgflib" + href=\''+link+'\'/>空棋盘13路';
                 link = location.href.split("?")[0]+'?sgf=size9.sgf&move=0';
 				sgfstr += '<a class="wgo-sgflib" + href=\''+link+'\'/>空棋盘9路';
+                link = location.href.split("?")[0]+'?sgf=size7.sgf&move=0';
+				sgfstr += '<a class="wgo-sgflib" + href=\''+link+'\'/>空棋盘7路';
                 sgfstr += '</p>';
 
 				link = location.href.split("?")[0]+'?sgf=1.sgf&move=102';
