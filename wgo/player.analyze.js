@@ -93,49 +93,54 @@ WGo.Player.Analyze.prototype.set = function(set) {
 		/*this.board.addEventListener("mousemove", this._ev_move);
 		this.board.addEventListener("mouseout", this._ev_out);*/
 
-        /*first_bn=player.components.Control.widgets[2].element.childNodes[0]
-        multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
+		/*first_bn=player.components.Control.widgets[2].element.childNodes[0]
+		multiprev_bn=player.components.Control.widgets[2].element.childNodes[1]
 
-        multinext_bn=player.components.Control.widgets[2].element.childNodes[5]
-        last_bn=player.components.Control.widgets[2].element.childNodes[6]*/
+		multinext_bn=player.components.Control.widgets[2].element.childNodes[5]
+		last_bn=player.components.Control.widgets[2].element.childNodes[6]*/
 
-        prev_bn=player.components.Control.widgets[2].element.childNodes[2]
-        next_bn=player.components.Control.widgets[2].element.childNodes[4]
+		prev_bn=player.components.Control.widgets[2].element.childNodes[2]
+		next_bn=player.components.Control.widgets[2].element.childNodes[4]
 
-        next_bn.addEventListener("click",next_fn);
-        next_bn.addEventListener("touchstart",next_fn_touch);
-        //next_bn.addEventListener("touchend",next_fn);
+		next_bn.addEventListener("click",next_fn);
+		next_bn.addEventListener("touchstart",next_fn_touch);
+		//next_bn.addEventListener("touchend",next_fn);
 
-        prev_bn.addEventListener("click",prev_fn);
-        prev_bn.addEventListener("touchstart",prev_fn_touch);
-        //prev_bn.addEventListener("touchend",prev_fn);
+		prev_bn.addEventListener("click",prev_fn);
+		prev_bn.addEventListener("touchstart",prev_fn_touch);
+		//prev_bn.addEventListener("touchend",prev_fn);
 
-        var stamp=update_sess();
-        ws.send("clear_board " + stamp);
+		var stamp=update_sess();
+		ws.send("clear_board " + stamp);
 
-        menu_analyze=1;
+		menu_analyze=1;
 		this.analyze = true;
 
-        var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
-        var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
-        elem_black.removeEventListener("click", black_click);
-        elem_white.removeEventListener("click", white_click);        
+		var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+		var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+		elem_black.removeEventListener("click", black_click);
+		elem_white.removeEventListener("click", white_click);
+
+		elem_black.removeEventListener("click", play_black_pass);
+		elem_white.removeEventListener("click", play_white_pass);
+		elem_black.addEventListener("click", play_black_pass);
+		elem_white.addEventListener("click", play_white_pass);
 	}
 	else if(this.analyze && !set) {
-        console.log("Analyze set 1->0 send lz-analyze off, leela_start: ", leela_start);
-        var stamp=update_sess();
-        ws.send("lz-analyze " + stamp + " off");
-        console.log("close analyze, remove lastObj", lastObj);
-        console.log("close analyze, remove lastvarObj", lastvarObj);
-        console.log("close analyze, add objbeforevar", objbeforevar);
-        player.board.removeObject(lastObj);
-        player.board.removeObject(lastvarObj);
-        player.board.addObject(objbeforevar);
-        showvar="";
-        lastObj=[];
-        lastvarObj=[];
-        lastvarpv="";
-        objbeforevar = [];
+		console.log("Analyze set 1->0 send lz-analyze off, leela_start: ", leela_start);
+		var stamp=update_sess();
+		ws.send("lz-analyze " + stamp + " off");
+		console.log("close analyze, remove lastObj", lastObj);
+		console.log("close analyze, remove lastvarObj", lastvarObj);
+		console.log("close analyze, add objbeforevar", objbeforevar);
+		player.board.removeObject(lastObj);
+		player.board.removeObject(lastvarObj);
+		player.board.addObject(objbeforevar);
+		showvar="";
+		lastObj=[];
+		lastvarObj=[];
+		lastvarpv="";
+		objbeforevar = [];
 
 		// go to the last original position
 		//this.originalReader.goTo(this.player.kifuReader.path);
@@ -152,28 +157,80 @@ WGo.Player.Analyze.prototype.set = function(set) {
 		/*this.board.removeEventListener("mousemove", this._ev_move);
 		this.board.removeEventListener("mouseout", this._ev_out);*/
 
-        next_bn.removeEventListener("click",next_fn);
-        next_bn.removeEventListener("touchstart",next_fn_touch);
+		next_bn.removeEventListener("click",next_fn);
+		next_bn.removeEventListener("touchstart",next_fn_touch);
 
-        prev_bn.removeEventListener("click",prev_fn);
-        prev_bn.removeEventListener("touchstart",prev_fn_touch);
+		prev_bn.removeEventListener("click",prev_fn);
+		prev_bn.removeEventListener("touchstart",prev_fn_touch);
 
-        menu_analyze=0;
+		menu_analyze=0;
 		this.analyze = false;
 
-        var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
-        var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
-        elem_black.removeEventListener("click", black_click);
-        elem_black.addEventListener("click", black_click);
-        elem_white.removeEventListener("click", white_click);
-        elem_white.addEventListener("click", white_click);
+		var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+		var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+
+		elem_black.removeEventListener("click", black_click);
+		elem_black.addEventListener("click", black_click);
+		elem_white.removeEventListener("click", white_click);
+		elem_white.addEventListener("click", white_click);
+
+		elem_black.removeEventListener("click", play_black_pass);
+		elem_white.removeEventListener("click", play_white_pass);
 	}
 }
 
-WGo.Player.Analyze.prototype.play = function(x,y) {
+var play_black_pass = function() {
+	console.log("black_pass, next turn: ", (player.kifuReader.game.turn==WGo.B)?'black':'white');
+	if (player.kifuReader.game.turn==WGo.B) play_pass();
+}
 
-    /*
-    console.log('');
+var play_white_pass = function() {
+	console.log("white_pass, next turn: ", (player.kifuReader.game.turn==WGo.B)?'black':'white');
+	if (player.kifuReader.game.turn==WGo.W) play_pass();
+}
+
+var play_pass = function () {
+	var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
+	if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
+		console.log("normal mode")
+		return;
+	}
+
+	player.board.removeObject(lastObj);
+	player.board.removeObject(lastvarObj);
+	showvar="";
+	lastObj=[];
+	lastvarObj=[];
+	lastvarpv="";
+
+	player.board.addObject(objbeforevar);
+	objbeforevar = [];
+
+	var movelist = [];
+
+	movelist.push({x:player.kifuReader.game.size, y:player.kifuReader.game.size, c:player.kifuReader.game.turn})
+	var stamp=update_sess();
+	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
+
+	//if(player.frozen) return;
+	//console.log("frozen: ", player.frozen);
+	//console.log(player.kifuReader.game.isValid(x, y));
+
+	player.kifuReader.node.appendChild(new WGo.KNode({
+		move: {
+			pass: true, 
+			c: player.kifuReader.game.turn
+		}, 
+		_edited: true
+	}));
+	player.next(player.kifuReader.node.children.length-1);
+}
+WGo.Player.Analyze.prototype.play = function(x,y) {
+	console.log("play:", x, y);
+	console.log(this);
+	console.log(this.player);
+	/*
+	console.log('');
 	console.log(
 		'isValid: ',this.player.kifuReader.game.isValid(x, y),
 		'position: ', 	this.player.kifuReader.game.position.get(x, y),
@@ -181,8 +238,8 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 		'node.turn:',	this.player.kifuReader.node.turn);
 	console.log('node:      ', player.kifuReader.node);
 	console.log('node.move: ', player.kifuReader.node.move);
-    console.log('game:      ', player.kifuReader.game);
-    */
+	console.log('game:      ', player.kifuReader.game);
+	*/
 
 	// coordinate should on board
 	if(!this.player.kifuReader.game.isOnBoard(x, y)){
@@ -199,30 +256,30 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 		return;
 	}
 
-    var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
-    if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
-        console.log("normal mode")
-        return;
-    }
-    
-    player.board.removeObject(lastObj);
-    player.board.removeObject(lastvarObj);
-    showvar="";
-    lastObj=[];
-    lastvarObj=[];
-    lastvarpv="";
-    
-    player.board.addObject(objbeforevar);
-    objbeforevar = [];
-    
-    var movelist = [];
+	var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
+	if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
+		console.log("normal mode")
+		return;
+	}
+
+	player.board.removeObject(lastObj);
+	player.board.removeObject(lastvarObj);
+	showvar="";
+	lastObj=[];
+	lastvarObj=[];
+	lastvarpv="";
+
+	player.board.addObject(objbeforevar);
+	objbeforevar = [];
+
+	var movelist = [];
 
 	if(this.player.kifuReader.game.position.get(x, y)!=0 ){
 		movelist.push({x:x, y:y, c:this.player.kifuReader.node.move.c})
 	}else{
 		movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
-    }
-    var stamp=update_sess();
+	}
+	var stamp=update_sess();
 	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
 
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
@@ -231,25 +288,25 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 			x: x, 
 			y: y, 
 			c: this.player.kifuReader.game.turn
-		}, 
+		},
 		_edited: true
 	}));
 	this.player.next(this.player.kifuReader.node.children.length-1);
-    
 }
 
 WGo.Player.Analyze.manual_play = function(x, y) {
-	console.log("x,y: ", x, y);
-
+	console.log("manual_play:", x, y);
+	console.log(this);
+	console.log(this.player);
 	// coordinate should on board
-    if(!player.kifuReader.game.isOnBoard(x, y) && 
-        !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) ){
+	if(!player.kifuReader.game.isOnBoard(x, y) && 
+	!((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) ){
 		return;
 	}
 
 	// empty or stone&rate
-    if( !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) &&
-        player.board.obj_arr[x][y][0]){
+	if( !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) &&
+		player.board.obj_arr[x][y][0]){
 		console.log(player.board.obj_arr[x][y][0]);
 	}
 
@@ -258,68 +315,68 @@ WGo.Player.Analyze.manual_play = function(x, y) {
 		return;
 	}
 
-    var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
-    if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
-        console.log("normal mode")
-        return;
-    }
-    
-    player.board.removeObject(lastObj);
-    player.board.removeObject(lastvarObj);
-    showvar="";
-    lastObj=[];
-    lastvarObj=[];
-    lastvarpv="";
-    
-    player.board.addObject(objbeforevar);
-    objbeforevar = [];
-    
-    var movelist = [];
+	var analyzemode = document.getElementsByClassName("wgo-menu-item wgo-menu-item-analyze")
+	if ( (analyzemode.length == 0) || (analyzemode[0].classList.length!=3) ){ // no wgo-selected
+		console.log("normal mode")
+		return;
+	}
 
-    /* game.position(x,y) is not empty and this move not pass*/
-    if(player.kifuReader.game.position.get(x, y)!=0 &&
-        !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size))){
+	player.board.removeObject(lastObj);
+	player.board.removeObject(lastvarObj);
+	showvar="";
+	lastObj=[];
+	lastvarObj=[];
+	lastvarpv="";
+
+	player.board.addObject(objbeforevar);
+	objbeforevar = [];
+
+	var movelist = [];
+
+	/* game.position(x,y) is not empty and this move not pass*/
+	if(player.kifuReader.game.position.get(x, y)!=0 &&
+	!((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size))){
 		movelist.push({x:x, y:y, c:player.kifuReader.node.move.c})
 	}else{
 		movelist.push({x:x, y:y, c:player.kifuReader.game.turn})
-    }
-    var stamp=update_sess();
+	}
+	var stamp=update_sess();
 	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
 
-    if(player.frozen || 
-        (!player.kifuReader.game.isValid(x, y) && 
-            !((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)))
-        ) return;
-    if ((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)){
-        player.kifuReader.node.appendChild(new WGo.KNode({
-            move: {
-                pass: true, 
-                c: player.kifuReader.game.turn
-            }, 
-            _edited: true
-        }));
-    } else {
-        player.kifuReader.node.appendChild(new WGo.KNode({
-            move: {
-                x: x, 
-                y: y, 
-                c: player.kifuReader.game.turn
-            }, 
-            _edited: true
-        }));
-    }
+	if(player.frozen || 
+	(!player.kifuReader.game.isValid(x, y) && 
+		!((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)))
+	) return;
+	if ((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)){
+	player.kifuReader.node.appendChild(new WGo.KNode({
+		move: {
+			pass: true, 
+			c: player.kifuReader.game.turn
+		}, 
+		_edited: true
+	}));
+	} else {
+	player.kifuReader.node.appendChild(new WGo.KNode({
+		move: {
+			x: x, 
+			y: y, 
+			c: player.kifuReader.game.turn
+		}, 
+		_edited: true
+	}));
+	}
 	player.next(player.kifuReader.node.children.length-1);
-    
-    /* judge game is end or not, set game_end = true */
-    game_end = false;
-    if (player.kifuReader.node.move.pass == true &&
-        player.kifuReader.node.parent.move.pass == true)
-    {
-        console.log("double pass, game end ", leela_start);
-        var stamp=update_sess();
-        ws.send("lz-analyze " + stamp + " off");
-        game_end = true;
-    }
+
+	/* judge game is end or not, set game_end = true */
+	game_end = false;
+	if (player.kifuReader.node.move.pass == true &&
+		player.kifuReader.node.parent.move.pass == true)
+	{
+		console.log("double pass, game end ", leela_start);
+		var stamp=update_sess();
+		ws.send("lz-analyze " + stamp + " off");
+		game_end = true;
+	}
 }
 
 if(WGo.BasicPlayer && WGo.BasicPlayer.component.Control) {
@@ -637,8 +694,8 @@ var black_click = function() {
     }
     //elem_black.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
     //elem_white.style.boxShadow = "none"
-    var stamp=update_sess();
-    ws.send("hello " + stamp);
+    //var stamp=update_sess();
+    //ws.send("hello " + stamp);
 }
 var black_touch = function() {
     console.log("black_touch");
@@ -660,8 +717,8 @@ var white_click = function() {
     }
     //elem_black.style.boxShadow = "none"
     //elem_white.style.boxShadow = "0px 0px 15px 1.5px #95B8E7"
-    var stamp=update_sess();
-    ws.send("time " + stamp);
+    //var stamp=update_sess();
+    //ws.send("time " + stamp);
 }
 var white_touch = function() {
     console.log("white_touch");
