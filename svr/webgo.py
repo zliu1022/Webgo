@@ -40,10 +40,14 @@ else:
         komi = 7.5
         executable = "./dist/leelaz.exe"
         weight = '-w./dist/network.gz'
-    else:
+    elif (board_size == 9):
         komi = 6.5
         executable = "./dist/leelaz-9.exe"
         weight = '-w./dist/network-9.gz'
+    elif (board_size == 7):
+        komi = 6.5
+        executable = "./dist/leelaz-7.exe"
+        weight = '-w./dist/network-7.gz'
 
 seconds_per_search = 10
 verbosity = 2
