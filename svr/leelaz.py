@@ -121,7 +121,13 @@ class CLI(object):
             tries += 1
             # Readline loop
             while True:
-                s = self.stdout_thread.readline()
+                s = None
+                try:
+                    s = self.stdout_thread.readline()
+                except IOError:
+                    print "IOError: self.stdout_thread.readline"
+                    pass
+
                 #print s
                 if (len(s) > 3): 
                     success_count += 1
@@ -130,9 +136,9 @@ class CLI(object):
                     if (len(s_array) <= 1): continue
                     print "gen_analyze %s %d" % (get_time_stamp(), len(s_array))
                     if (len(s_array) != infolen):
-                        print "SEND & SESS: ", self.analyzeSend, self.analyzeSess
+                        #print "SEND & SESS: ", self.analyzeSend, self.analyzeSess
                         infolen = len(s_array)
-                        print "s_array len: %d " % len(s_array)
+                        #print "s_array len: %d " % len(s_array)
                         if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0], 
                         if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
@@ -175,7 +181,7 @@ class CLI(object):
 
                         if (lastsess!=self.analyzeSess):
                             if (lastsess!="") :
-                                print "SESS changed, throw away first analyze"
+                                #print "SESS changed, throw away first analyze"
                                 print "first: ", ret["result"][0]
                                 lastsess = self.analyzeSess
                                 #continue
