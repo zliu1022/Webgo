@@ -499,7 +499,7 @@ var ws = new WebSocket(ws_str);
 init_ws();
 var str_ws=["CONNECTING","OPEN","CLOSING","CLOSED"];
 
-var analyze_interval = 50;
+var analyze_interval = 100;
 var sess=-1;
 var update_sess = function(){
     var stamp=Date.now();
