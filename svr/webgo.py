@@ -103,14 +103,12 @@ def save_latestsgf():
     strhead = sgfstr % (datastr, board_size, komi)
 
     strmove = '\n;'.join(sgfmove)
-    print strmove
     filestr = strhead + strmove + "\n)"
 
     sgfname="./sgf/latest.sgf"
     with open(sgfname, "w") as fd:
         fd.write(filestr)
         fd.close()
-        print "writing to %s ... done" % sgfname
 
 th_lz, th_zen7=0,0
 analyze_type=0 # 0:lz(default), 1:zen7
@@ -137,9 +135,7 @@ def handle_websocket():
                 cmd = message.split(" ")
             else:
                 continue
-            print
             print "CMD: %s %s" % (get_time_stamp(), cmd)
-            print
             ret["cmd"] = cmd[0]
             ret["sess"] = cmd[1]
             ret["para"] = cmd[2:]
