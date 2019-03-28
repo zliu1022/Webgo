@@ -126,7 +126,7 @@ class CLI(object):
                 if (len(s) > 3): 
                     success_count += 1
 
-                    s_array = s.split("info move ")
+                    s_array = s.split("info ")
                     if (len(s_array) <= 1): continue
                     print "gen_analyze %s %d" % (get_time_stamp(), len(s_array))
                     if (len(s_array) != infolen):
@@ -137,25 +137,29 @@ class CLI(object):
                         if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
                     re = []
                     for analyz_orig in s_array:
-                        #print "analyz_orig: %s " % analyz_orig
                         analyz_response={"x":-1, "y":-1, "move":"", "visits":1, "winrate":1, "order":1, "pv":""}
                         
                         analyz = analyz_orig.split(" ")
-                        #print "analyz: %s " % analyz
                         if (len(analyz)<10) :continue
-                        analyz_response["move"]=analyz[0]
-                        if(analyz[0]=="pass"):
+
+                        for i in range(0, len(analyz)):
+                            el = analyz[i]
+                            if el=='move': analyz_response["move"]=analyz[i+1]
+                            if el=='visits': analyz_response["visits"]=analyz[i+1]
+                            if el=='winrate': analyz_response["winrate"]=analyz[i+1]
+                            if el=='prior': analyz_response["prior"]=analyz[i+1]
+                            if el=='lcb': analyz_response["lcb"]=analyz[i+1]
+                            if el=='order': analyz_response["order"]=analyz[i+1]
+                            if el=='pv': analyz_response["pv"]=" ".join(analyz[i+1:])
+
+                        move = analyz_response["move"]
+                        if(move=="pass"):
                             analyz_response["x"] = self.board_size
                             analyz_response["y"] = self.board_size
                         else:
-                            analyz_response["x"] = 'ABCDEFGHJKLMNOPQRST'.find(analyz[0][0])
-                            analyz_response["y"] = self.board_size - int(analyz[0][1:])
-                        analyz_response["visits"]=analyz[2]
-                        analyz_response["winrate"]=analyz[4]
-                        analyz_response["prior"]=analyz[6]
-                        analyz_response["order"]=analyz[8]
-                        analyz_response["pv"]=" ".join(analyz[10:])
-                        
+                            analyz_response["x"] = 'ABCDEFGHJKLMNOPQRST'.find(move[0])
+                            analyz_response["y"] = self.board_size - int(move[1:])
+                       
                         re.append(analyz_response)
                         if(len(re)>33) : break
 
@@ -286,7 +290,7 @@ class CLI(object):
         except IOError:
             print "CATCH-IOERROR: "
             return -1
-        print "RET-WRITE: ", ret 
+        #print "RET-WRITE: ", ret 
         tries = 0
         success_count = 0
         while tries * sleep_per_try <= timeout and self.p is not None:
@@ -295,7 +299,7 @@ class CLI(object):
             # Readline loop
             while True:
                 s = self.stdout_thread.readline()
-                if (len(s)): print "SDCMD-STDOUT: ", s
+                #if (len(s)): print "SDCMD-STDOUT: ", s
                 if (nowait): s = '='
                 # Leela follows GTP and prints a line starting with "=" upon success.
                 if s.strip()[0:1] == '=':
@@ -303,8 +307,8 @@ class CLI(object):
                     if success_count >= expected_success_count:
                         if drain:
                             so,se = self.drain()
-                            print "SDCMD-DRAIN-STDOUT: ", "".join(so)
-                            print "SDCMD-DRAIN-STDERR: ", "".join(se)
+                            #print "SDCMD-DRAIN-STDOUT: ", "".join(so)
+                            #print "SDCMD-DRAIN-STDERR: ", "".join(se)
                         return 0
                 # No output, so break readline loop and sleep and wait for more
                 if s == "":
