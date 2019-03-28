@@ -384,7 +384,10 @@ class CLI(object):
         #xargs = ['--puct', '0.5', '--softmax_temp', '2.0', '--fpu_reduction', '0.25']
         #xargs = ['-t8', '--gpu', '0', '--gpu', '1']
         #xargs = ['-t8', '--batchsize',  '16',  '--precision', 'half', '--disable-frac-backup', '--gpu', '0', '--gpu', '1', '--gpu', '2', '--gpu', '3']
-        xargs = []
+        if self.board_size == 7:
+            xargs = ['--pacman']
+        else:
+            xargs = []
 
         if self.verbosity > 0:
             print >>sys.stderr, "Starting leela-zero..."
