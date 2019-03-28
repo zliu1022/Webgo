@@ -118,6 +118,7 @@ def handle_websocket():
     global lz
     global analyze_type
     global sgfmove, sgfstr
+    global th_lz, th_zen7
 
     tmpstr = ''
     
