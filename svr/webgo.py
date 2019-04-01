@@ -19,13 +19,12 @@ else:
     board_size = 19
 
 port = 32019
+komi = 7.5
 if os.name == 'posix': # mac os or linux
     if (board_size == 19):
-        komi = 7.5
         executable = './dist/leelaz'
         weight = '-w./dist/network.gz'
     elif (board_size == 13):
-        komi = 7.5
         executable = './dist/leelaz-13'
         weight = '-w./dist/network-13.gz'
     elif (board_size == 9):
@@ -34,20 +33,24 @@ if os.name == 'posix': # mac os or linux
         weight = '-w./dist/network-9.gz'
     else:
         print 'invalid board size'
-        sys.exit()        
+        sys.exit()
 else:
     if (board_size == 19):
-        komi = 7.5
         executable = "./dist/leelaz.exe"
         weight = '-w./dist/network.gz'
+    elif (board_size == 13):
+        executable = "./dist/leelaz-13.exe"
+        weight = '-w./dist/network-13.gz'
     elif (board_size == 9):
         komi = 6.5
         executable = "./dist/leelaz-9.exe"
         weight = '-w./dist/network-9.gz'
     elif (board_size == 7):
-        komi = 6.5
         executable = "./dist/leelaz-7.exe"
         weight = '-w./dist/network-7.gz'
+    else:
+        print 'invalid board size'
+        sys.exit()
 
 seconds_per_search = 10
 verbosity = 2
@@ -136,6 +139,7 @@ def handle_websocket():
                 cmd = message.split(" ")
             else:
                 continue
+            print
             print "CMD: %s %s" % (get_time_stamp(), cmd)
             ret["cmd"] = cmd[0]
             ret["sess"] = cmd[1]
