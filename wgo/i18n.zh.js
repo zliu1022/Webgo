@@ -7,7 +7,7 @@ WGo.i18n[WGo.lang] = {
 				+ "<p>Webgo扩展自WGo.js，手机浏览器就能访问电脑或云主机上的围棋AI。使用Webgo可以和围棋AI对弈，也可用来打谱时的AI分析，Webgo服务器端的围棋AI采用了leelazero，你可以扩展它。</p>"
 				+ "<p>Webgo的开源许可<a href='https://en.wikipedia.org/wiki/GNU_Affero_General_Public_License' target='_blank'>AGPL-3.0 license</a>。</p>"
 				+ "<p>你可以从以下网站获得更多信息 <a href='https://github.com/zliu1022/webgo' target='_blank'>Webgo repository</a></p>"
-				+ "<p>版权 &copy; 2018 Zheng LIU</p>",
+				+ "<p>版权 &copy; 2019 Zheng LIU</p>",
 	"black": "黑方",
 	"white": "白方",
 	"DT": "日期",
