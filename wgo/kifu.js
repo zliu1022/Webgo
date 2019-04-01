@@ -549,7 +549,7 @@ var exec_node = function(game, node, first) {
 		}
 		else {
 			var res = game.play(node.move.x, node.move.y, node.move.c);
-			if(typeof res == "number") throw new InvalidMoveError(res, node);
+			if(typeof res == "number") throw new InvalidMoveError(res, node, game.size);
 			// we must check whether to add move (it can be suicide)
 			for(var i in res) {
 				if(res[i].x == node.move.x && res[i].y == node.move.y) {
@@ -778,7 +778,7 @@ KifuReader.prototype = {
 WGo.KifuReader = KifuReader;
 
 // Class handling invalid moves in kifu
-var InvalidMoveError = function(code, node) {
+var InvalidMoveError = function(code, node, size) {
 	this.name = "InvalidMoveError";
     this.message = "Invalid move in kifu detected. ";
 	
@@ -786,7 +786,9 @@ var InvalidMoveError = function(code, node) {
 		var letter = node.move.x;
 		if(node.move.x > 7) letter++;
 		letter = String.fromCharCode(letter+65);
-		this.message += "Trying to play "+(node.move.c == WGo.WHITE ? "white" : "black")+" move on "+String.fromCharCode(node.move.x+65)+""+(19-node.move.y);
+		//this.message += "Trying to play "+(node.move.c == WGo.W ? "white" : "black")+" move on "+String.fromCharCode(node.move.x+65)+""+(13-node.move.y);
+        this.message += "Trying to play "+(node.move.c == WGo.W ? "white" : "black")+" move on "+letter+""+(size-node.move.y)+
+        	";"+(node.move.c == WGo.W ? "W" : "B")+"["+'abcdefghijklmnopqrs'[node.move.x]+'abcdefghijklmnopqrs'[node.move.y]+"]";
 	}
 	else this.message += "Move object doesn't contain arbitrary attributes.";
 	
