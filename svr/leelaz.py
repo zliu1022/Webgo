@@ -103,7 +103,6 @@ class CLI(object):
         infolen = 0
         lastsess = ""
         print "leelaz thread %s is running" % threading.current_thread().name
-        print wsock
 
         #localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
         analyze_count = 2
@@ -128,19 +127,21 @@ class CLI(object):
                     print "IOError: self.stdout_thread.readline"
                     pass
 
-                #print s
                 if (len(s) > 3): 
                     success_count += 1
 
+                    s=s.replace("\r\n", "")
                     s_array = s.split("info ")
                     if (len(s_array) <= 1): continue
                     print "gen_analyze %s %d" % (get_time_stamp(), len(s_array))
+
                     if (len(s_array) != infolen):
                         #print "SEND & SESS: ", self.analyzeSend, self.analyzeSess
                         infolen = len(s_array)
                         #print "s_array len: %d " % len(s_array)
                         if (len(s_array)>=1) : print "s_array[0]: %s " % s_array[0], 
-                        if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1]
+                        if (len(s_array)>=2) : print "s_array[1]: %s " % s_array[1][0:100]
+
                     re = []
                     for analyz_orig in s_array:
                         analyz_response={"x":-1, "y":-1, "move":"", "visits":1, "winrate":1, "order":1, "pv":""}
@@ -167,7 +168,7 @@ class CLI(object):
                             analyz_response["y"] = self.board_size - int(move[1:])
                        
                         re.append(analyz_response)
-                        if(len(re)>33) : break
+                        if(len(re)>=3) : break
 
                     try:
                         ret["cmd"]="lz-analyze";
@@ -207,7 +208,9 @@ class CLI(object):
             cmd = ""
             if self.p is not None:
                 print "if lz.p is not None"
-                self.p.stdin.write(cmd + "\n")
+                print self.p
+                print self.p.stdin
+                #self.p.stdin.write(cmd + "\n")
                 time.sleep(sleep_per_try)
                 (so,se) = self.drain()
                 print "STDOUT: ", "".join(so)
