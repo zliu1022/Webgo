@@ -296,8 +296,6 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 
 WGo.Player.Analyze.manual_play = function(x, y) {
 	console.log("manual_play:", x, y);
-	console.log(this);
-	console.log(this.player);
 	// coordinate should on board
 	if(!player.kifuReader.game.isOnBoard(x, y) && 
 	!((x==player.kifuReader.game.size) && (y==player.kifuReader.game.size)) ){
@@ -737,7 +735,7 @@ ws.onopen = function() {
 
     var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
     var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
-    elem_black.removeEventListener("click", black_click);
+    elem_black && elem_black.removeEventListener("click", black_click);
     elem_black.addEventListener("click", black_click);
     elem_white.removeEventListener("click", white_click);
     elem_white.addEventListener("click", white_click);
@@ -758,7 +756,7 @@ ws.onclose = function() {
 
 ws.onmessage = function (evt) {
     var elem_content = document.getElementsByClassName("wgo-comment-text")[0];
-    var displayWidth=elem_content.offsetWidth;
+    var displayWidth = elem_content? elem_content.offsetWidth:0;
     var elem_notification = document.getElementsByClassName("wgo-notification")[0];
     var ret = JSON.parse(evt.data);
 
