@@ -12,3 +12,10 @@ dist/
 build/
 
 svr/Zen.dll
+
+# sgf file
+sgf/9/
+sgf/13/
+sgf/13-1/
+
+sgf/latest.sgf
