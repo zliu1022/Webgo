@@ -278,6 +278,14 @@ def handle_websocket():
                 wsock.send(json.dumps(ret))
                 continue
 
+            if (cmd[0]=="komi"):
+                komivalue = cmd[2]
+                r = lz.send_command('komi %f' % float(cmd[2]))
+                if Z<>None: Z.setkomi(float(cmd[2]))
+                ret["result"] = "ok"
+                wsock.send(json.dumps(ret))
+                continue
+
             if (cmd[0]=="playlist"):
                 movelist = json.loads(cmd[2])
                 ret["para"] = len(movelist)

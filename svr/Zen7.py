@@ -231,6 +231,9 @@ class ZEN(object):
         self.blackpass=0
         self.whitepass=0
 
+    def setkomi(value):
+        self.Komi = value
+
     def ZenGetPolicyKnowledge(self):
         k = ((c_int * 19) * 19)()
         #Zen[10](k)

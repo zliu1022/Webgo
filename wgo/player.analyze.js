@@ -773,6 +773,13 @@ ws.onmessage = function (evt) {
         leela_start = 1;
         elem_content.innerText="= "+ret.cmd+" "+ret.result;
         if(ret.result=="ok"){
+		var stamp=update_sess();
+		ws.send("komi " + stamp + " " + player.kifuReader.kifu.info.KM);
+        }
+     }else if(ret.cmd=="komi"){
+        leela_start = 1;
+        elem_content.innerText="= "+ret.cmd+" "+ret.result;
+        if(ret.result=="ok"){
             send_playlist();
         }
     }else if(ret.cmd=="playlist"){
