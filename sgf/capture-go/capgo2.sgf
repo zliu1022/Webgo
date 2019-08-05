@@ -1,0 +1,18 @@
+(;GM[1]FF[4]RU[Chinese]DT[2019-07-30]SZ[7]KM[7.5]PB[Pacman]PW[Human]RE[W+Resign]
+C[Leela Zero options: -g -w /Users/zliu/go/weights/pacman/network-7.gz --pacman --noponder -p1920 --timemanage off -r0 -s9947652298715860789 -t1]
+
+;B[eg];W[ee];B[de];W[ed];B[ce];W[cc];B[db];W[dc];B[eb];W[bd]
+;B[be];W[ae];B[af];W[ad];B[cf];W[ef];B[dg];W[fc];B[cb];W[fb]
+;B[bb];W[ff];B[fa];W[fg];B[df];W[cd];B[ea];W[ec];B[ab];W[dd]
+;B[gb];W[bg];B[bf];W[gc];B[ga];W[bc];B[ac];W[ge];B[ca];W[fe]
+;B[da];W[gg];B[ba]
+
+LB[eg:1][ee:2][de:3][ed:4][ce:5][cc:6][db:7][dc:8][eb:9][bd:10]
+[be:11][ae:12][af:13][ad:14][cf:15][ef:16][dg:17][fc:18][cb:19][fb:20]
+[bb:21][ff:22][fa:23][fg:24][df:25][cd:26][ea:27][ec:28][ab:29][dd:30]
+[gb:31][bg:32][bf:33][gc:34][ga:35][bc:36][ac:37][ge:38][ca:39][fe:40]
+[da:41][gg:42][ba:43]
+CR[ba]
+
+
+;W[aa])
