@@ -63,4 +63,5 @@ WGo.i18n[WGo.lang] = {
 	"b-area-win": "黑胜 $ 点",
 	"w-area-win": "白胜 $ 点",
 	"help_score": "点击棋子或交叉点增减：空+对方死子，活子+空",
+	"MoveNum": "显示手数",
 }
