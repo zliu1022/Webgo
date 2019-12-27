@@ -103,6 +103,15 @@
             var q1 = qs["sgf"];
             var q2 = qs["move"];
             if (q1 === undefined) { q1="latest.sgf"}
+            var q1_begin = q1.indexOf('/');
+            var q1_end = q1.indexOf(".sgf");
+            var tmpstr = q1;
+            while (tmpstr.indexOf('-')!=-1) {
+                var f = tmpstr.indexOf('-');
+                tmpstr = tmpstr.substr(f+1, tmpstr.length-f-1)
+            }
+            var f_end = tmpstr.indexOf(".sgf");
+            document.title = tmpstr.substring(0,f_end);
             if (q2 === undefined) { q2="999"}
             q1="sgf/"+q1;
             //console.log("URL-sgf: ",q1)
