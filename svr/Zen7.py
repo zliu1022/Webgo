@@ -231,7 +231,7 @@ class ZEN(object):
         self.blackpass=0
         self.whitepass=0
 
-    def setkomi(value):
+    def setkomi(self, value):
         self.Komi = value
 
     def ZenGetPolicyKnowledge(self):
@@ -380,16 +380,15 @@ class ZEN(object):
         self.ZenStopThinking()#zliu: maybe useless
         #PrintListDebug(list, list_prv)
         self.Itemall.append([C, list, list_prv])
+        if C==2 : self.blackcount+=1
+        else:     self.whitecount+=1
+
         if len(list)==0:
             Print('%s-%s %s No. %3d %.1fs %s %d %.2f%% %s' % (self.name, self.version, 'B' if C==2 else 'W', self.blackcount+self.whitecount, thinkcount*self.ThinkInterval, 'pass', 0, 0, reason) )
-            if C==2 : self.blackpass+=1
-            else:     self.whitepass+=1
             return list
         else:
             Print('%s-%s %s No. %3d %.1fs %s %d %.2f%% %s' % (self.name, self.version, 'B' if C==2 else 'W', self.blackcount+self.whitecount, thinkcount*self.ThinkInterval, list[0][4].split()[0], list[0][2], list[0][3]*100, reason) )
-        
-        if C==2 : self.blackcount+=1
-        else:     self.whitecount+=1
+
         self.PrintTopMove(list,C)
         return list
 
@@ -898,7 +897,7 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:n:d:", ["help", "threads=", "strength=","size=","komi=","resign=","name=","interval=","thinkinterval=","maxsim=","maxtime=","amaf=","prior=","dcnn=","pnlevel=","pnweight=","vnrate=","dll="])
+    try: opts, args = getopt.getopt(sys.argv[1:], "ht:s:r:n:d:", ["help", "threads=", "strength=","size=","komi=","resign=","name=","interval=","thinkinterval=","maxsim=","maxtime=","amaf=","prior=","dcnn=","pnlevel=","pnweight=","vnrate=","dll=","referee"])
     except getopt.GetoptError: Help()
 
     if args != []: Help()
@@ -926,6 +925,8 @@ def main(argv=None):
     Amaf=1.0
     Prior=1.0
     Dcnn=True
+    
+    Referee = False
 
     for opt, arg in opts:
         if opt in ['-h','--help']: Help()
@@ -1025,6 +1026,10 @@ def main(argv=None):
             if arg[-7:].lower() != 'zen.dll': Help()
             ZenDLL = arg
             continue
+            
+        if opt in ['--referee']:
+            Referee = True
+            continue
         Help()
 
     Z=ZEN(name, ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate, Amaf, Prior, Dcnn)
@@ -1097,7 +1102,8 @@ def main(argv=None):
             continue
 
         if Cmd == ['name']:
-            Reply(Z.name)
+            label_name = Z.name + '-s' + str(Z.Strength)
+            Reply(label_name)
             continue
 
         if Cmd == ['showboard']:
@@ -1125,6 +1131,9 @@ def main(argv=None):
                 Reply('')
                 continue
             Z.play(Cmd[1], Cmd[2])
+            if Referee:
+                r,s=Z.ZenScore()
+                Print('%s-%s-Referee %s No. %3d %s %s' % (Z.name, Z.version, Cmd[1].upper(), Z.blackcount+Z.whitecount, Cmd[2].upper(), s) )
             Reply('')
             continue
 
@@ -1202,20 +1211,20 @@ def main(argv=None):
             Reply(Z.final_score())
 
         if Cmd == ['gogui-analyze_commands']:
-            str = 'gfx/Policy/policy' + '\n' + \
+            reply_str = 'gfx/Policy/policy' + '\n' + \
                 'gfx/Territory/territory' + '\n' + \
                 'gfx/Analysis for Black/test' + '\n' + \
                 'gfx/Analysis for White/test' + '\n' + \
                 'gfx/Analysis one step/analyzeone'
-            Reply(str)
+            Reply(reply_str)
             continue
 
         if Cmd == ['test']:
-            str = '\n' + 'COLOR #BF4040 R16' + '\n' + 'COLOR #FF0000 Q16' + '\n' + 'LABEL Q16 Q16' + '\n' + 'LABEL R16 R16'
-            Reply(str)
+            reply_str = '\n' + 'COLOR #BF4040 R16' + '\n' + 'COLOR #FF0000 Q16' + '\n' + 'LABEL Q16 Q16' + '\n' + 'LABEL R16 R16'
+            Reply(reply_str)
             time.sleep(2)
-            str = '\n' + 'COLOR #BF4040 R4' + '\n' + 'COLOR #FF0000 Q4' + '\n' + 'LABEL Q4 52' + '\n' + 'LABEL R4 46'
-            Reply(str)
+            reply_str = '\n' + 'COLOR #BF4040 R4' + '\n' + 'COLOR #FF0000 Q4' + '\n' + 'LABEL Q4 52' + '\n' + 'LABEL R4 46'
+            Reply(reply_str)
             continue
 
         # http://www.sioe.cn/yingyong/yanse-rgb-16/
@@ -1311,11 +1320,11 @@ def main(argv=None):
               Print(('W' if C == 1 else 'B') +  '[' + 'abcdefghijklmnopqrstuvwxyz'[Top[0][0]] + 'abcdefghijklmnopqrstuvwxyz'[Top[0][1]] + ']N[%.2f]' % (Top[0][3] * 100))
               Print(Top[0][4].split()[0])
             
-            str = ''
+            reply_str = ''
             for i in range(0, len(Top)):
-              str += '\nCOLOR %s %s' % (colorlevel[i], Top[i][4].split()[0])
-              str += '\nLABEL %s %.1f' % (Top[i][4].split()[0], Top[i][3]*100)
-            Reply(str)
+              reply_str += '\nCOLOR %s %s' % (colorlevel[i], Top[i][4].split()[0])
+              reply_str += '\nLABEL %s %.1f' % (Top[i][4].split()[0], Top[i][3]*100)
+            Reply(reply_str)
             continue
 
         if Cmd == ['policy']:
@@ -1429,8 +1438,8 @@ def main(argv=None):
             
             #print(Top[0][0],Top[0][1],Top[0][2],Top[0][3],Top[0][4])
             if len(Top)==0:
-              str = '#sabaki{"variations":"","heatmap":[%s]}' % (','.join(alllist) )
-              Reply(str)
+              reply_str = '#sabaki{"variations":"","heatmap":[%s]}' % (','.join(alllist) )
+              Reply(reply_str)
               continue
             
             #print(len(Top))
@@ -1459,10 +1468,10 @@ def main(argv=None):
             #print(seqstr)
 
             if Z.SabakiFlatStatus:
-                str = '#sabaki{"variations":"%s","heatmap":[%s]}' % (''.join(seqstr), ','.join(alllist) )
+                reply_str = '#sabaki{"variations":"%s","heatmap":[%s]}' % (''.join(seqstr), ','.join(alllist) )
             else:
-                str = '#sabaki{"variations":"%s","heatmap":[]}' % (''.join(seqstr) )
-            Reply(str)
+                reply_str = '#sabaki{"variations":"%s","heatmap":[]}' % (''.join(seqstr) )
+            Reply(reply_str)
 
             continue
 
