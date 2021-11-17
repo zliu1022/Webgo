@@ -277,10 +277,18 @@ WGo.Player.Analyze.prototype.play = function(x,y) {
 	if(this.player.kifuReader.game.position.get(x, y)!=0 ){
 		movelist.push({x:x, y:y, c:this.player.kifuReader.node.move.c})
 	}else{
-		movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
+		if (this.player.kifuReader && this.player.kifuReader.node && this.player.kifuReader.node.move &&
+			this.player.kifuReader.node.move.x == x && this.player.kifuReader.node.move.y == y)
+			movelist.push({x:x, y:y, c:-1*this.player.kifuReader.game.turn})
+		else
+			movelist.push({x:x, y:y, c:this.player.kifuReader.game.turn})
 	}
 	var stamp=update_sess();
 	ws.send("play-and-analyze " + stamp + " " + JSON.stringify(movelist));
+
+	if (this.player.kifuReader && this.player.kifuReader.node && this.player.kifuReader.node.move &&
+		this.player.kifuReader.node.move.x == x && this.player.kifuReader.node.move.y == y)
+		return;
 
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
 	this.player.kifuReader.node.appendChild(new WGo.KNode({
@@ -831,7 +839,7 @@ ws.onmessage = function (evt) {
             }
 
             if (ret.result[0].visits>5000){
-                WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
+                //WGo.Player.Analyze.manual_play(ret.result[0].x, ret.result[0].y)
             }
 
             // modify <a> text
