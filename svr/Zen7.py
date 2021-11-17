@@ -1,5 +1,5 @@
 #coding=utf-8
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #
 #    This file is part of Zen python
 #    Copyright (C) 2017 Zen python
@@ -23,7 +23,7 @@ import sys, time, getopt, os
 #import numpy as np
 import threading
 import json
-from geventwebsocket import WebSocketError
+#from geventwebsocket import WebSocketError
 
 class ZEN(object):
     def __init__(self, name, dll, boardsize, komi, strength, threads, resign, thinkinterval, printinterval, maxsimulations=1000000000, maxtime=1000000000.0, pnlevel=3, pnweight=1.0, vnmixrate=0.75, amaf=1.0, prior=1.0, dcnn=True):
@@ -184,6 +184,7 @@ class ZEN(object):
         self.ZenSetPriorWeightFactor = Zen[30] #PriorWeightFactor = min(1.0, 0.2 + move number/100), can increase the moves to select
         self.ZenStartThinking = Zen[31]
         self.ZenStopThinking = Zen[32]
+        self.ZenUndo = Zen[35] #bool ZenUndo(int)
         
         self.Zen_10 = Zen[10] #void ZenGetPolicyKnowledge(int (* const)[19])
         self.Zen_11 = Zen[11] #void ZenGetTerritoryStatictics(int (* const)[19])
@@ -311,7 +312,7 @@ class ZEN(object):
     def PrintOneTopMove(self, item,C):
         #Print('%s %s[%s] -> %8d [%s],%s%% [%s], %s' % (('W' if C== 1 else 'B'), item[4].split()[0].ljust(4), \
         #    item[5], item[2], item[6], ('%.2f' % (item[3] * 100)).rjust(6), item[7], item[4]))
-        Print('%s %s -> %8d,%s%%, %s' % (('W' if C== 1 else 'B'), item[4].split()[0].ljust(4), \
+        Print('%s -> %8d,%s%%, %s' % ( item[4].split()[0].ljust(4), \
             item[2], ('%.2f' % (item[3] * 100)).rjust(6), item[4]))
 
     def PrintTopMove(self, list,C):
@@ -319,13 +320,13 @@ class ZEN(object):
         for i in range(0, listlen):
             self.PrintOneTopMove(list[i],C)
 
-    def PrintAnalyze(list):
+    def PrintAnalyze(self, list):
         listlen=len(list)
         for i in range(0, listlen):
-            item = list[i]
+            #item = list[i]
             #info move P1 visits 3 winrate 5337 order 0 pv P1 J17
-            #Print('info color %s move %s visits %d winrate %d order %d pv %s' % (('W' if C== 1 else 'B'), item[4].split()[0], item[2], item[3] * 10000, i, item[4]))
-            Print('info move %s visits %d winrate %d order %d pv %s' % (item[4].split()[0], item[2], item[3] * 10000, i, item[4]))
+            Print('info color %s move %s visits %d winrate %d order %d pv %s' % (('W' if C== 1 else 'B'), item[4].split()[0], item[2], item[3] * 10000, i, item[4]))
+            #Print('aabbcc')
 
     def GetTopMoveList(self, num):
         #global X, Y, P, W, S
@@ -520,16 +521,22 @@ class ZEN(object):
         else: str='W+%.1f' % -ra[i]
         return ra[i],str
 
-    def gen_analyze(self, wsock, C=-1, interval=100):
-        global X, Y, P, W, S
-        print "zen7 thread %s is running" % threading.current_thread().name
-        print wsock, C, interval
-        print
+    def wait_analyze(self):	        
+        while 1:		
+            if self.ZenIsThinking() == -0x80000000:
+                break;
+            time.sleep(50)
+	 
 
+    def gen_analyze(self, C=-1, interval=100):
+        global X, Y, P, W, S
+      #  print "zen7 thread %s is running" % threading.current_thread().name
+     #   print C, interval
+      #  interval=interval*5
         if C==-1: C=self.ZenGetNextColor()
         self.analyzeStatus = True
-        self.lastStrength=self.Strength
-        self.Strength=1000000
+      #  self.lastStrength=0
+      #  self.Strength=100000000
 
         list=[]
         thinkcount=0
@@ -544,63 +551,60 @@ class ZEN(object):
                 #Print('P.value==0')
                 continue
 
-            #Print('')
-            #PrintAnalyze(list)
+            #Print('aaa')
+            #self.PrintAnalyze(list)
             listlen=len(list)
             re = []
             #analyz_response={"x":-1, "y":-1, "move":"", "visits":1, "winrate":1, "order":1, "pv":""}
             analyz_response=[dict() for i in range(listlen)]
             info=''
-            for i in range(0, listlen):
+            try:
+				for i in range(0, listlen):				
             #for item in list:
-                item = list[i]
+					item = list[i]
+					 #print i
                 #Print('info move %s visits %d winrate %d order %d pv %s' % (item[4].split()[0], item[2], item[3] * 10000, i, item[4]))
-                analyz_response[i]["x"] = 'ABCDEFGHJKLMNOPQRST'.find(item[4].split()[0][0])
-                analyz_response[i]["y"] = self.BoardSize - int(item[4].split()[0][1:])
-                analyz_response[i]["move"] = item[4].split()[0]
-                analyz_response[i]["visits"] = item[2]
-                analyz_response[i]["winrate"] = int(item[3] * 10000)
-                analyz_response[i]["order"] = i
-                analyz_response[i]["pv"] = item[4]
-                #print analyz_response
-                re.append(analyz_response[i])
-
-                info+='info move %s visits %d winrate %d order %d pv %s ' % (analyz_response[i]["move"],analyz_response[i]["visits"],analyz_response[i]["winrate"],analyz_response[i]["order"], analyz_response[i]["pv"])
+					if item[4] == 'pass':
+						continue
+					analyz_response[i]["x"] = 'ABCDEFGHJKLMNOPQRST'.find(item[4].split()[0][0])
+					analyz_response[i]["y"] = self.BoardSize - int(item[4].split()[0][1:])
+					analyz_response[i]["move"] = item[4].split()[0]
+					analyz_response[i]["visits"] = item[2]
+					analyz_response[i]["winrate"] = int(item[3] * 10000)
+					analyz_response[i]["order"] = i
+					analyz_response[i]["pv"] = item[4]                
+					re.append(analyz_response[i])
+					info+='info move %s visits %d winrate %d order %d pv %s ' % (analyz_response[i]["move"],analyz_response[i]["visits"],analyz_response[i]["winrate"],analyz_response[i]["order"], analyz_response[i]["pv"])
+            except ValueError as e:
+				print(e)
+					#print('unknown error')
+					
                     
             if info!='' and ((self.ThinkInterval*thinkcount*100)%interval)==0:
                 #info move K19 visits 2 winrate 5114 order 0 pv K19 L3
-                #Print(info)
-                print ret
-                print
+                Print(info)
+               # print ret
+               # print
 
             ret["result"]=re;
             ret["sess"]=self.analyzeSess;
             #Print('')
 
             if self.ZenIsThinking() == -0x80000000:
-                Print('ZenIsThinking()==-0x80000000')
-                self.Strength = self.lastStrength
+#                 Print('ZenIsThinking()==-0x80000000')
+ #                self.Strength = self.lastStrength
+                 break
+            if self.analyzeStatus==0:                
+                #Print('analyzeStatus==0')
+#                 self.Strength = self.lastStrength
                 break
-            if self.analyzeStatus==0:
-                Print('analyzeStatus==0')
-                self.Strength = self.lastStrength
-                break
-            if list[0][2]>=self.Strength:
-                Print('Stop gen_analyze >=Strength(%d)' % self.Strength)
-                self.Strength = self.lastStrength
-                self.analyzeStatus=0
-                break
-            
-            if wsock!=0 and ((self.ThinkInterval*thinkcount*100)%interval)==0:
-                try:
-                    wsock.send(json.dumps(ret))
-                except WebSocketError:
-                    print 'web socket error'
-                    self.analyzeStatus=0
-                    break
-
-        self.ZenStopThinking()
-        print "thread %s ended" % threading.current_thread().name
+#            if list[0][2]>=self.Strength:
+#               Print('Stop gen_analyze >=Strength(%d)' % self.Strength)
+#                self.Strength = self.lastStrength
+#                self.analyzeStatus=0
+#                break    
+#        self.ZenStopThinking()
+#        print "thread %s ended" % threading.current_thread().name
         return
 
     def loadsgf(self, filename, loadgamelen):
@@ -958,10 +962,10 @@ def main(argv=None):
             if not arg.isdigit() or int(arg) < 6 or int(arg) > 7: Help()
             if int(arg) == 7:
                 name='Zen7'
-                ZenDLL='d:/go/zen7/Zen.dll'
+#               ZenDLL='d:/go/zen7/Zen.dll'
             if int(arg) == 6: 
                 name='Zen6'
-                ZenDLL='d:/go/zen6/Zen.dll'
+#                ZenDLL='d:/go/zen6/Zen.dll'
             continue
         if opt in ['--interval']:
             try:
@@ -1035,10 +1039,13 @@ def main(argv=None):
     Z=ZEN(name, ZenDLL,BoardSize, Komi, Strength, Threads, ResignRate, ThinkInterval, PrintInterval, MaxSimulations, MaxTime, PnLevel, PnWeight, VnMixRate, Amaf, Prior, Dcnn)
 
     while True:
-        Cmd = raw_input('').lower().split()
-
+        Cmd = raw_input('').lower().split()		
+        Z.analyzeStatus=0
+        Z.ZenStopThinking()
+        Z.wait_analyze()
+		
         if len(Cmd)==0:
-            Z.analyzeStatus = 0
+#            Z.analyzeStatus = 0
             Reply('')
             continue
 
@@ -1102,7 +1109,8 @@ def main(argv=None):
             continue
 
         if Cmd == ['name']:
-            label_name = Z.name + '-s' + str(Z.Strength)
+#            Z.analyzeStatus = 0
+            label_name = Z.name
             Reply(label_name)
             continue
 
@@ -1356,7 +1364,7 @@ def main(argv=None):
 
         if Cmd == ['territory']:
             t1 = Z.ZenGetTerritoryStatictics()
-            #Z.print19(t1)
+            Z.print19(t1)
             #print
             
             #t = np.array(t1)
@@ -1568,19 +1576,16 @@ def main(argv=None):
                 Print('Missing interval')
                 Reply('')
                 continue
-
+            Reply('')
             wsock=0
             C = Z.ZenGetNextColor()
             interval=int(Cmd[1])
-            th = threading.Thread(target=Z.gen_analyze, args=(wsock,C,interval), name='gen-analyze')
-            th.start()
-            Reply('')
+            th = threading.Thread(target=Z.gen_analyze, args=(C,interval), name='gen-analyze')
+            th.start()            
             continue
 
         if Cmd[0] == 'undo':
-            if (len(Cmd)==1) :
-              Reply('')
-              continue
+            Z.ZenUndo(1)
             Reply('')
             continue
 
