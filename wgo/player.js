@@ -653,7 +653,7 @@ Player.default = {
 	update: undefined,
 	frozen: undefined,
 	unfrozen: undefined,
-	allowIllegalMoves: false,
+	allowIllegalMoves: true, // change for capture go
 	markLastMove: true,
 	displayVariations: true
 }
