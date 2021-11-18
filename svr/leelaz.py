@@ -328,6 +328,10 @@ class CLI(object):
     #cpu version
     #def wait_start(self, expected_string="BLAS Core: Haswell", drain=True, timeout=20):
     def wait_start(self, expected_string="Detecting residual layers", drain=True, timeout=20):
+
+    #Katago
+    #def wait_start(self, expected_string="GTP ready, beginning main protocol loop", drain=True, timeout=20):
+
     #gpu version
     #def wait_start(self, expected_string="Max workgroup dimensions", drain=True, timeout=20):
         sleep_per_try = 1
@@ -347,6 +351,8 @@ class CLI(object):
                     print "leela zero started %d seconds" % tries
                     if drain:
                         so,se = self.drain()
+                        print so
+                        print se
                     return
                 if s == "":
                     break
@@ -396,7 +402,13 @@ class CLI(object):
         if self.board_size == 7:
             xargs = ['--pacman']
         else:
-            xargs = []
+            xargs = ['-t2', '--ladder', '1', '--ladder-dep', '9', '-r0']
+            #xargs = ['-t2', '--komi', '90', '-r0']
+            #xargs = ['--cpu-only']
+            #xargs = ['--cpu-only', '--aux', './dist/4b32f.gz', '-t1', '-s0', '--auxp', '10', '-r0']
+
+            #Katago
+            #xargs = ['gtp', '-config', '/Users/zliu/github/KataGo/cpp/configs/gtp_example.cfg', '-model', '/Users/zliu/go/weights/Katago/20b.gz']
 
         if self.verbosity > 0:
             print >>sys.stderr, "Starting leela-zero..."
@@ -404,6 +416,10 @@ class CLI(object):
             print >>sys.stderr, weight
 
         p = Popen([self.executable, '--gtp', weight] + xargs, stdout=PIPE, stdin=PIPE, stderr=PIPE)
+
+        #Katago
+        #p = Popen([self.executable] + xargs, stdout=PIPE, stdin=PIPE, stderr=PIPE)
+
         self.p = p
         self.stdout_thread = start_reader_thread(p.stdout)
         self.stderr_thread = start_reader_thread(p.stderr)
