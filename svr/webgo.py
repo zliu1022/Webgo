@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 #coding=utf-8
 # 2018-07-04 initial version
 # 2018-09-27 zen7 & leelaz
@@ -22,22 +24,35 @@ port = 32019
 komi = 7.5
 if os.name == 'posix': # mac os or linux
     if (board_size == 19):
-        executable = './dist/leelaz'
-        weight = '-w./dist/network.gz'
+        #executable = './dist/leelaz'
+        #executable = './dist/leelaz-dual-se'
+        #weight = '-w./dist/network.gz'
+        #executable = '/Users/zliu/github/KataGo/cpp/main'
+        #weight = '/Users/zliu/go/weights/Katago/6b.gz'
+        #executable = '/Users/zliu/github/leela-zero/build/leelaz'
+        #weight = '-w/Users/zliu/go/weights/OZ/OZ13.gz'
+        executable = '/Users/zliu/go/leela-zero/leelaz-dual'
+        weight = '-w/Users/zliu/go/weights/4x32/3432000'
     elif (board_size == 13):
         executable = './dist/leelaz-13'
         weight = '-w./dist/network-13.gz'
     elif (board_size == 9):
         komi = 6.5
-        executable = './dist/leelaz-9'
-        weight = '-w./dist/network-9.gz'
+        #executable = './dist/leelaz-9'
+        #weight = '-w./dist/network-9.gz'
+        executable = './dist/capgo9'
+        weight = '-w./dist/74000'
     else:
         print 'invalid board size'
         sys.exit()
 else:
     if (board_size == 19):
-        executable = "./dist/leelaz.exe"
-        weight = '-w./dist/network.gz'
+        #executable = "./dist/leelaz.exe"
+        #weight = '-w./dist/network.gz'
+        executable = "./dist/leelaz-dual.exe"
+        #weight = '-wc:/go/weight/15x192/157.gz'
+        #weight = '-wc:/go/weight/40x256/242.gz'
+        weight = '-wc:/go/weight/15x192/15b-238-136k.gz'
     elif (board_size == 13):
         executable = "./dist/leelaz-13.exe"
         weight = '-w./dist/network-13.gz'
