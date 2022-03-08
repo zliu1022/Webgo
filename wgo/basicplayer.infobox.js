@@ -46,10 +46,12 @@ var prepare_dom_info = function(type) {
 	res.box.className = "wgo-player-info-box";
 	res.wrapper.appendChild(res.box);
 	
+	if (type != 'caps') {
 	res.title = document.createElement("div");
 	res.title.className = "wgo-player-info-title";
 	res.title.innerHTML = WGo.t(type);
 	res.box.appendChild(res.title);
+	}
 	
 	res.val = document.createElement("div");
 	res.val.className = "wgo-player-info-value";
