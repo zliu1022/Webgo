@@ -84,6 +84,11 @@ WGo.Player.Editable.prototype.set = function(set) {
 		this.board.addEventListener("mouseout", this._ev_out);
 		
 		this.editMode = true;
+
+		var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+		var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+		elem_black.addEventListener("click", play_black_pass);
+		elem_white.addEventListener("click", play_white_pass);
 	}
 	else if(this.editMode && !set) {
 		// go to the last original position
@@ -102,8 +107,39 @@ WGo.Player.Editable.prototype.set = function(set) {
 		this.board.removeEventListener("mouseout", this._ev_out);
 		
 		this.editMode = false;
+
+		var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
+		var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
+		elem_black.removeEventListener("click", play_black_pass);
+		elem_white.removeEventListener("click", play_white_pass);
 	}
 }
+
+var play_black_pass = function() {
+	console.log("black_pass, next turn: ", (player.kifuReader.game.turn==WGo.B)?'black':'white');
+	if (player.kifuReader.game.turn==WGo.B) play_pass();
+}
+
+var play_white_pass = function() {
+	console.log("white_pass, next turn: ", (player.kifuReader.game.turn==WGo.B)?'black':'white');
+	if (player.kifuReader.game.turn==WGo.W) play_pass();
+}
+
+var play_pass = function () {
+	//if(player.frozen) return;
+	//console.log("frozen: ", player.frozen);
+	//console.log(player.kifuReader.game.isValid(x, y));
+
+	player.kifuReader.node.appendChild(new WGo.KNode({
+		move: {
+			pass: true, 
+			c: player.kifuReader.game.turn
+		}, 
+		_edited: true
+	}));
+	player.next(player.kifuReader.node.children.length-1);
+}
+
 
 WGo.Player.Editable.prototype.play = function(x,y) {
 	if(this.player.frozen || !this.player.kifuReader.game.isValid(x, y)) return;
