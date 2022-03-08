@@ -154,10 +154,11 @@ var key_lis = function(e) {
 	if(this.config.lockScroll && e.preventDefault) e.preventDefault()
 	return !this.config.lockScroll;
 };
-
+var audio = new Audio('audio/stone3.wav');
 // function handling board clicks in normal mode
 var board_click_default = function(x,y) {
 	if(!this.kifuReader || !this.kifuReader.node) return false;
+	audio.play();
 	for(var i in this.kifuReader.node.children) {
 		if(this.kifuReader.node.children[i].move && this.kifuReader.node.children[i].move.x == x && this.kifuReader.node.children[i].move.y == y) {
 			this.next(i);
