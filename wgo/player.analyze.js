@@ -741,12 +741,14 @@ ws.onopen = function() {
         ws.send("clear_board " + stamp);
     }
 
+    /*
     var elem_white=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-white")[0];
     var elem_black=document.getElementsByClassName("wgo-box-wrapper wgo-player-wrapper wgo-black")[0];
     elem_black && elem_black.removeEventListener("click", black_click);
     elem_black.addEventListener("click", black_click);
     elem_white.removeEventListener("click", white_click);
     elem_white.addEventListener("click", white_click);
+    */
     //elem_black.addEventListener("touchstart", black_touch);
     //elem_white.addEventListener("touchstart", white_touch);
 };
